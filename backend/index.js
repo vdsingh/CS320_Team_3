@@ -104,14 +104,13 @@ function validateGoal(goal) {
 }
 
 async function main(){
-    const uri = mongoURI;
-    const client = new MongoClient(uri);
+    const client = new MongoClient(mongoURI);
  
     try {
         // Connect to the MongoDB cluster
         await client.connect();
         // Make the appropriate DB calls: for now it only lists the databases
-        await  listDatabases(client);
+        await listDatabases(client);
     } catch (e) {
         console.error(e);
     } finally {
@@ -120,7 +119,7 @@ async function main(){
 }
 
 async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
+    const databasesList = await client.db().admin().listDatabases();
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
