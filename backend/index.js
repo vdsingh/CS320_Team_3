@@ -1,6 +1,7 @@
-const Joi = require('joi');
-const express = require('express');
-const {MongoClient} = require('mongodb');
+import { mongoURI } from './secret.js';
+import Joi from "joi";
+import express from "express";
+import { MongoClient } from 'mongodb';
 const app = express();
 
 app.use(express.json());
@@ -103,7 +104,7 @@ function validateGoal(goal) {
 }
 
 async function main(){
-    const uri = "mongodb+srv://cattri:do2002lly@cluster0.kinamzs.mongodb.net/?retryWrites=true&w=majority";
+    const uri = mongoURI;
     const client = new MongoClient(uri);
  
     try {
