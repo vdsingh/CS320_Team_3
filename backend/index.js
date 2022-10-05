@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const express = require('express');
+const {MongoClient} = require('mongodb');
 const app = express();
 
 app.use(express.json());
@@ -101,6 +102,30 @@ function validateGoal(goal) {
     return schema.validate(goal);
 }
 
+async function main(){
+    const uri = "mongodb+srv://cattri:do2002lly@cluster0.kinamzs.mongodb.net/?retryWrites=true&w=majority";
+    const client = new MongoClient(uri);
+ 
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        // Make the appropriate DB calls: for now it only lists the databases
+        await  listDatabases(client);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+async function listDatabases(client){
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+ 
+
 // PORT setup
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Application is listening on port ${port}...`));
+main().catch(console.error);
