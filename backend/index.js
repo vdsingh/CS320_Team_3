@@ -1,12 +1,16 @@
 import { mongoURI } from './secret.js';
 import Joi from "joi";
 import express from "express";
-import { MongoClient } from 'mongodb';
-const app = express();
+import MongoClient from 'mongodb';
+import mongoose from 'mongoose';
 
+// Model Imports
+import User from './Models/User.js';
+
+const app = express();
 app.use(express.json());
 
-// The database
+// Mock database
 const goals = [
     { id: 1, name: 'goal 1' },
     { id: 2, name: 'goal 2' },
@@ -102,30 +106,30 @@ function validateGoal(goal) {
 
     return schema.validate(goal);
 }
-
-async function main(){
-    const client = new MongoClient(mongoURI);
  
+const start = async() => {
     try {
-        // Connect to the MongoDB cluster
-        await client.connect();
-        // Make the appropriate DB calls: for now it only lists the databases
-        await listDatabases(client);
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
+
+        // Mongoose Setup (Connection to MongoDB)
+        await mongoose.connect(mongoURI).then((arg) => {
+            console.log("Connection to MongoDB successful.");
+        }).catch((error) => {
+            console.log("Error connecting to MongoDB", error);
+        });
+
+        // PORT setup
+        const port = process.env.PORT || 3000;
+        app.listen(port, () => console.log(`Application is listening on port ${port}...`));
+
+
+        // Test Code: save a new user to the DB.
+        const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
+        await user.save().then((user) => console.log(user));
+
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
     }
-}
-
-async function listDatabases(client){
-    const databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
- 
 
-// PORT setup
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Application is listening on port ${port}...`));
-main().catch(console.error);
+start();
