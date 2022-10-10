@@ -1,12 +1,16 @@
 import { mongoURI } from './secret.js';
 import Joi from "joi";
 import express from "express";
-import { MongoClient } from 'mongodb';
-const app = express();
+import MongoClient from 'mongodb';
+import mongoose from 'mongoose';
 
+// Model Imports
+import User from './Models/User.js';
+
+const app = express();
 app.use(express.json());
 
-// The database
+// Mock database
 const goals = [
     { id: 1, name: 'goal 1' },
     { id: 2, name: 'goal 2' },
