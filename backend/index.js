@@ -1,5 +1,7 @@
-const Joi = require('joi');
-const express = require('express');
+import { mongoURI } from './secret.js';
+import Joi from "joi";
+import express from "express";
+import { MongoClient } from 'mongodb';
 const app = express();
 
 app.use(express.json());
@@ -101,6 +103,29 @@ function validateGoal(goal) {
     return schema.validate(goal);
 }
 
+async function main(){
+    const client = new MongoClient(mongoURI);
+ 
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        // Make the appropriate DB calls: for now it only lists the databases
+        await listDatabases(client);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+async function listDatabases(client){
+    const databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
+ 
+
 // PORT setup
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Application is listening on port ${port}...`));
+main().catch(console.error);
