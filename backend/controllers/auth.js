@@ -12,34 +12,23 @@ import bcrypt from 'bcrypt';
 // for the JWT, including expiration time
 import { createJWT } from '../utils/auth';
 
-// Sign up method
-export function signup(req, res, next) {
-    let { 
-        firstName,
-        lastName, 
-        email,
-        password,
-        password_confirmation,
-        isManager
-    } = req.body
-    // Check if user already exists
-    User.findOne({email: email})
-        .then(user => {
-            if (user) {
-                return res.status(422).json({ errors: [{ user: "email already exists"}]});
-            }
-            // If user doesn't exist, make a new user
-            else {
-                const user = new User({
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: password,
-                    isManager: isManager
-                });
-            }
-            // We don't need to hash passwords right???
-        });
-}
-
 // Sign in method TODO
+exports.signin = (req, res) => {
+    let { email, password } = req.body
+    
+    User.findone({email: email}).then(user => {
+        if (!user) {
+            return res.status(404).json({
+                errors: [{ user: "not found"}]
+            });
+        }
+        else {
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (!isMatch) {
+                    return res.satus(400).json({ errors: [{ password: "incorrect" }]});
+                }
+            });
+        }
+        let accessToken = createJWT(user.email, user._id, 3600);
+    })
+}
