@@ -12,7 +12,8 @@ export default mongoose.model('Goals', new mongoose.Schema({
     },
     goalType: {
         type: String,
-        required: true
+        required: true,
+        default: () => "Performance"
     },
     status: {
         type: String,
