@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 // Model Imports
 import User from './Models/User.js';
+import Goal from './Models/Goal.js';
 
 const app = express();
 app.use(express.json());
@@ -123,9 +124,12 @@ const start = async() => {
 
 
         // Test Code: save a new user to the DB.
-        const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
-        await user.save().then((user) => console.log(user));
+        // const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
+        // await user.save().then((user) => console.log(user));
 
+        // Test Code: save new goal to the DB.
+        const goal = new Goal({title: "Test Goal", description: "Test description", goalType: "Career", status: "Incomplete", priorityValue: 2, startDate: Date.now(), endDate: Date.now()})
+        await goal.save().then((goal) => console.log(goal))
     } catch (error) {
         console.error(error);
         process.exit(1);
