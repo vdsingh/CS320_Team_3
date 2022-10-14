@@ -22,7 +22,6 @@ export default function loginPage(){
         >
             <Layout navbarType={1}>
             <h1>
-                <Link href = "/">Home</Link>
                 <LoginForm />
             </h1>
             </Layout> 
