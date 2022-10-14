@@ -25,7 +25,7 @@ export default function Home() {
         >
             <Layout navbarType={1}>
             <header className={styles.header}> Employee Goals Tool </header>
-            <body className={styles.body}>Helping managers and employees achieve their goals and elevate their work experience.</body>
+            <h1 className={styles.body}>Helping managers and employees achieve their goals and elevate their work experience.</h1>
             <button className={styles.button}><Link href = 'pages/login-page'> Sign In</Link></button>
             </Layout> 
         </main>
