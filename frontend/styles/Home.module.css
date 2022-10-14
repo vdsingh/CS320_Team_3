@@ -1,45 +1,30 @@
-.container {
-  padding: 0 2rem;
-}
-
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color:  #005151;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
+.header{
+  color: #fafafa;
   font-size: 4rem;
+  font-family: 'NTR', sans-serif;
+  margin-top: 2%;
+  margin-left: 5%;
+  padding-top: 5%;
 }
 
-.title,
-.description {
-  text-align: center;
+.body{
+  color: #fafafa;
+  font-size: x-large;
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 40%;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.button{
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 10%;
+  align-self: center;
+  padding: 5px ;
+  color: #275947;
+  font-size: 15px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  background: #FFC600;
 }

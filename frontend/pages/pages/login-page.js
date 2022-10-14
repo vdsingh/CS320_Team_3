@@ -9,6 +9,7 @@ export default function loginPage(){
     <div>
         <Head>
             <title>Login Page</title>
+            <link rel="icon" href="\UKG_(Ultimate_Kronos_Group)_logo.svg.png" />
         </Head>
 
         <div
