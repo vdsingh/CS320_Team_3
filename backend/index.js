@@ -8,6 +8,9 @@ import mongoose from 'mongoose';
 import User from './Models/User.js';
 import Goal from './Models/Goal.js';
 
+// Route Imports
+import signin from './routes/login.js';
+
 const app = express();
 app.use(express.json());
 
@@ -95,6 +98,11 @@ app.delete('/api/goals/:id', (req, res) => {
     // Send back the goal that was deleted
     res.send(goal);
 });
+
+/**
+ * Log in, uses the imported signin function from the routes folder.
+*/
+app.post('/login', signin);
 
 /**
  * Validates that a goal adheres to the goal schema.
