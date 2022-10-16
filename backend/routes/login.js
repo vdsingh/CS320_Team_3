@@ -1,10 +1,13 @@
 import User from '../Models/User.js'
 
 // Creating the signin function for the post route
-export const signin = (req, res) => {
+export default function login(req, res) {
     const { email, password} = req.body;
     // Find user by email
-    User.findone({ email: email }, (err, user) => {
+    User.findOne({ email: email }, (err, user) => {
+        if (err) {
+            res.send({error: err});
+        }
         if (user) {
             if (password === user.password) {
                 res.send({ message: "Login Success", user: user});
@@ -14,7 +17,7 @@ export const signin = (req, res) => {
             }
         }
         else {
-            res.send("Couldn't find user");
+            res.send(`${email} isnt a registered email.`);
         }
     });
 };
