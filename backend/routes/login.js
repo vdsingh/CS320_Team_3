@@ -6,7 +6,7 @@ export default function login(req, res) {
     // Find user by email
     User.findOne({ email: email }, (err, user) => {
         if (err) {
-            res.send({error: err});
+            res.status(200).send(user);
         }
         if (user) {
             if (password === user.password) {
