@@ -17,3 +17,7 @@ export const mongoURI = "[link]"
 To add yourself as a user in the database, go to Database Access under the security tab, where you will create a user and password. Give yourself the atlasAdmin role.
 
 The link can be retrieved from MongoDB. In the Database window, select Connect -> Connect your application. This link has user and password fields you need to fill out with your created user and password.
+
+User API Routes: mongoose
+URL: mongodb+srv://<username>:<password>@cluster0.kinamzs.mongodb.net/?retryWrites=true&w=majority
+Usage: connect schematics
