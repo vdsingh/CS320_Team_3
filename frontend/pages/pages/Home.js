@@ -27,7 +27,7 @@ export default function HomePage() {
                     height: '100vh'
                 }}
             >
-                <Layout navbarType={1}>
+                <Layout navbarType={2}>
                     <header className={styles.header}> Employee Goals Tool </header>
                     <h1 className={styles.body}>Helping managers and employees achieve their goals and elevate their work experience.</h1>
                     <button className={styles.button} onClick={() => router.push('/pages/login-page')}>Sign In</button>
