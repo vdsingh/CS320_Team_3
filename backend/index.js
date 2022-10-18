@@ -105,7 +105,7 @@ app.delete("/api/goals/:id", (req, res) => {
 /**
  * Log in, uses the imported signin function from the routes folder.
  */
-app.post("/login", login);
+app.get("/login", login);
 
 /**
  * Validates that a goal adheres to the goal schema.
