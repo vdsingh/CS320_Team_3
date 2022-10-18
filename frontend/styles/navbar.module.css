@@ -21,7 +21,20 @@
     overflow: visible;
     background-color: rgb(255, 255, 255);
     padding-left: 24px;
-    padding-top: 26px;
-    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
 
+.button{
+    width: 7%;
+    padding: 10px ;
+    margin-right: 2%;
+    color: #275947;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #FFC600;
+    float:right;
 }
