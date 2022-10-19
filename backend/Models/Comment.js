@@ -6,10 +6,6 @@ export default mongoose.model('Comments', new mongoose.Schema({
         type: String,
         required: true
     },
-    status: {
-        type: String,
-        required: true
-    },
     timeStamp: {
         type: Date,
         immutable: true,
@@ -17,6 +13,7 @@ export default mongoose.model('Comments', new mongoose.Schema({
     },
 
     // Relations:
-    creatorId: mongoose.SchemaTypes.ObjectId,
+    uniqueID: mongoose.SchemaTypes.ObjectId,
+    creatorID: mongoose.SchemaTypes.ObjectId,
     goalIDs: [mongoose.SchemaTypes.ObjectId] 
 }), 'Comments');
