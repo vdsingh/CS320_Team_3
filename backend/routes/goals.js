@@ -53,7 +53,39 @@ export function readGoalById(req, res) {
 };
 
 export function updateGoalById(req, res) {
-    const { goalId,  } = req.body;
+    const { goalId } = req.params;
+    const { 
+        title, 
+        description, 
+        goalType, 
+        status,
+        priorityValue,
+        startDate,
+        endDate,
+        creatorId,
+        commentIds 
+    } = req.body
+
+    // Create Date objects if a new date is specified.
+    const sDate = startDate ? new Date(startDate) : undefined;
+    const eDate = endDate ? new Date(endDate) : undefined;
+
+    Goal.findByIdAndUpdate(
+        goalId,  
+        { "title": title, "description": description, "goalType": goalType, 
+        "status": status, "priorityValue": priorityValue, "startDate": sDate, "endDate": eDate, 
+        "creatorId": creatorId, "commentIds": commentIds}, 
+        {new: true},
+        (err, goal) => {
+        if(err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else if (goal){
+            res.status(200).send({message: "Successfully updated goal.", goal: goal});
+        } else {
+            res.status(404).send("That goal does not exist.");
+        }
+     });
 };
 
 // TODO: Delete a goal by its ID
