@@ -30,9 +30,9 @@ export function createGoal(req, res) {
     // Saving the Goal object in the database.
     newGoal.save((err, goal) => {
         if(err) {
-            res.send(err);
+            res.status(500).send(err);
         } else {
-            res.send({message: "Goal saved successfully", goal: goal});
+            res.status(200).send({ message: "Successfully created goal.", goal: goal });
         }
     })
 };
@@ -43,11 +43,9 @@ export function readGoalById(req, res) {
     // Finding the Goal object in the DB by ID
     Goal.findById(goalId, (err, goal) => {
         if (err) {
-            res.status.send(err);
-        }
-
-        if (goal) {
-            res.send({ message: "Successfully Retrieved Goal", goal: goal});
+            res.status(500).send(err);
+        } else if (goal) {
+            res.status(200).send({ message: "Successfully retrieved goal", goal: goal });
         } else {
             res.status(404).send("That goal does not exist.");
         }
