@@ -88,9 +88,17 @@ export function updateGoalById(req, res) {
      });
 };
 
-// TODO: Delete a goal by its ID
 export function deleteGoalById(req, res) {
-    const { goalId } = req.body;
+    const { goalId } = req.params;
+    Goal.findByIdAndDelete(goalId, (err, goal) => {
+        if(err) {
+            res.status(500).send(err);
+        } else if (goal) {
+            res.status(200).send({message: "Successfully deleted goal.", goal: goal})
+        } else {
+            res.status(404).send("That goal does not exist.");
+        }
+    });
 };
 
 
