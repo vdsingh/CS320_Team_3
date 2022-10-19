@@ -13,7 +13,6 @@ export default mongoose.model('Comments', new mongoose.Schema({
     },
 
     // Relations:
-    uniqueID: mongoose.SchemaTypes.ObjectId,
     creatorID: mongoose.SchemaTypes.ObjectId,
     goalIDs: [mongoose.SchemaTypes.ObjectId] 
 }), 'Comments');
