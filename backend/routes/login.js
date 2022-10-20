@@ -17,7 +17,7 @@ export default function login(req, res) {
             }
         }
         else {
-            res.send(`${email} isnt a registered email.`);
+            res.send({ message: `${email} isnt a registered email.` });
         }
     });
 };
