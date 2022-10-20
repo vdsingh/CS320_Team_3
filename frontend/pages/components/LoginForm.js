@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/login.module.css'
-import Link from 'next/link'
+import Router from 'next/router'
 
 const login = async (event) => {
     event.preventDefault()
@@ -16,8 +16,8 @@ const login = async (event) => {
         alert("Insert email")
     }
     else (
-        alert('Email: ' + email + '\nPassword: ' + password)
-    )
+        (Router.push('/pages/employee-page'))
+    )   
 }
 
 export default function LoginForm() {
