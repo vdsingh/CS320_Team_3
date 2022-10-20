@@ -24,3 +24,21 @@
     background: #FFC600;
     float:right;
 }
+
+.nav_button{
+    width: 7%;
+    padding: 10px ;
+    margin-left: 2%;
+    color: #275947;
+    font-size: 18px;
+    /* font-weight: bold; */
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: rgb(255, 255, 255);
+    float:center;
+}
+.nav_button:hover {
+    color: rgb(255, 255, 255);
+    background-color: #275947;
+  }
