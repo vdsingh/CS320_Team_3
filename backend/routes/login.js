@@ -6,7 +6,7 @@ export default function login(req, res) {
     // Find user by email
     User.findOne({ email: email }, (err, user) => {
         if (err) {
-            res.status(200).send(user);
+            res.status(200).send(err);
         }
         if (user) {
             if (password === user.password) {
@@ -17,7 +17,7 @@ export default function login(req, res) {
             }
         }
         else {
-            res.send(`${email} isnt a registered email.`);
+            res.send({ message: `${email} isnt a registered email.` });
         }
     });
 };
