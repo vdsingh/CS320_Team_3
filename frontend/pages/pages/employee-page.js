@@ -3,6 +3,8 @@ import Head from 'next/head'
 import React from "react";
 import Layout from '../components/Layout'
 import GoalForm from '../components/GoalForm'
+import ManagerInfo from '../components/ManagerInfo'
+import EmployeeName from '../components/EmployeeName'
 
 export default function employeePage(){
     return(
@@ -17,7 +19,16 @@ export default function employeePage(){
                     <GoalForm />
                 </h1>
             </div>
-            
+            <div>
+                <h2> 
+                    <EmployeeName />
+                </h2>
+            </div>
+            <div>
+                <h1>
+                    <ManagerInfo />
+                </h1>
+            </div>
         </div>
         </Layout>
     )
