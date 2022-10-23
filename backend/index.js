@@ -3,6 +3,7 @@ import Joi from "joi";
 import express from "express";
 import MongoClient from "mongodb";
 import mongoose from "mongoose";
+import cors from 'cors';
 
 // Model Imports
 import User from "./Models/User.js";
@@ -14,6 +15,7 @@ import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 
 /**
