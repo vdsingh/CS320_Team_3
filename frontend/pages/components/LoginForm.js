@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/login.module.css'
 import Router from 'next/router'
+import { setCookie } from 'cookies-next'
 
 const login = async (event) => {
     event.preventDefault()
@@ -45,6 +46,7 @@ const login = async (event) => {
             // TODO: WHERE WILL THIS USER BE STORED?
             else {
                 Router.push('/pages/employee-page');
+                setCookie('login', JSON.stringify(data))
             }
         })
         .catch(error => {
