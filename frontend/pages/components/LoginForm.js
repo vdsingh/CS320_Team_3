@@ -6,6 +6,8 @@ const login = async (event) => {
     event.preventDefault()
     const email = event.target.email.value
     const password = event.target.password.value
+
+    // Client-side check of password and email validity
     if (password == '' & email == '') {
         alert('Input password and email')
     }
@@ -15,9 +17,41 @@ const login = async (event) => {
     else if (email == '') {
         alert("Insert email")
     }
-    else (
-        (Router.push('/pages/employee-page'))
-    )   
+    /*
+    If the input email and password are correct, we will
+    do a POST request to the login API on the backend.
+    If the user does exist on the database, then the result
+    will contain the user object.
+    */
+    else {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+        }
+        // API request to the login API
+        fetch('http://localhost:3000/api/login', requestOptions)
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson && await response.json();
+            console.log(data);
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            // If there is no error, proceed to the next page
+            // TODO: WHERE WILL THIS USER BE STORED?
+            else {
+                Router.push('/pages/employee-page');
+            }
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+            alert(error);
+        });
+    }
 }
 
 export default function LoginForm() {
