@@ -16,7 +16,7 @@ export default function readUserById(req, res){
 
 export default function updateUser(req, res){
     const {userId} = req.params;
-    const = {
+    const {
         firstName, 
         lastName, 
         email, 
