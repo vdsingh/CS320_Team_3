@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import mongoose from 'mongoose';
 
 export default mongoose.model('Comments', new mongoose.Schema({
@@ -17,8 +16,3 @@ export default mongoose.model('Comments', new mongoose.Schema({
     creatorID: mongoose.SchemaTypes.ObjectId,
     goalIDs: [mongoose.SchemaTypes.ObjectId] 
 }), 'Comments');
-=======
-// TODO: Implement the Comment Model.
-
-//
->>>>>>> Stashed changes
