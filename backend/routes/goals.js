@@ -105,7 +105,7 @@ export function deleteGoalById(req, res) {
 
 //TODO: Get all goals of a specific user
 export function readUserGoals(req, res) {
-
+    
 }
 
 //TODO: delete all goals of a specific user
