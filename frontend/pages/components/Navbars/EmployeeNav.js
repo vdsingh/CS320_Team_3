@@ -1,22 +1,26 @@
 import Image from 'next/image'
 import styles from '../../../styles/navbar.module.css'
 import { useRouter } from 'next/router'
+import { deleteCookie } from 'cookies-next'
 
 const Navbar = () => {
     const router = useRouter()
-    const handleClick = () => {
+    const signOut = () => {
+        deleteCookie('login')
         router.push('/pages/Home')
     }
-
     return (
-        <div className={styles.topnav}>
+        <div>
             <div className = {styles.image} >
-                <a onClick= {handleClick}><Image 
+                <Image 
                     src = {'/images/UKG_Logo.png'}
                     alt = "Company Logo"
                     width = {96}
                     height = {33}
-                /></a>      
+                />     
+                <button className={styles.nav_button} onClick={() => router.push('/pages/profile')}>Profile</button>
+                <button className={styles.nav_button} onClick={() => router.push('/pages/goals')}>Goals</button>
+                <button className={styles.button} onClick={() => signOut()}>Sign Out</button>
             </div>
         </div>        
     )

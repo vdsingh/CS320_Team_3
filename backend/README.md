@@ -6,7 +6,10 @@
 
 3.- In your terminal you can run npm --version if it tells you something like "command not found: npm" you'll need to download node from [here](https://nodejs.org/en/download/). Once you've done that you can run npm --version again and you should see a version number.
 
-4.- Now you can install the dependencies by running npm i express && sudo npm i -g nodemon
+4.- Now you can install the dependencies by running both of the commands:
+npm i express
+npm i -g nodemon
+npm i cors
 
 5.- You should now be able to run nodemon index.js and see a message like "Application is listening on port 3000..."
 
@@ -17,3 +20,7 @@ export const mongoURI = "[link]"
 To add yourself as a user in the database, go to Database Access under the security tab, where you will create a user and password. Give yourself the atlasAdmin role.
 
 The link can be retrieved from MongoDB. In the Database window, select Connect -> Connect your application. This link has user and password fields you need to fill out with your created user and password.
+
+User API Routes: mongoose
+URL: mongodb+srv://<username>:<password>@cluster0.kinamzs.mongodb.net/?retryWrites=true&w=majority
+Usage: connect schematics

@@ -1,7 +1,7 @@
 .heading {
     color:  #005151;
+    font-size: 40px;
     text-align: center;
-    font-family: 'Nunito', sans-serif;
     padding-top:10%
 
 }
@@ -9,7 +9,6 @@
 .heading2 {
     color:  #000000;
     text-align: left;
-    font-family: 'NTR', sans-serif;
     font-size: 70%;
     padding-left:10%;
     padding-top: 10%;
@@ -63,4 +62,26 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.LoginButton {
+    margin-top: 20px;
+    margin-left: 15px;
+    width: 80%;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;   
+}
+
+.text{
+    color:  #000000;
+    margin-left: 15px;
+    font-size: 20px;
+    text-align: left;
 }

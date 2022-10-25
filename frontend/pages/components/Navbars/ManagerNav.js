@@ -4,19 +4,18 @@ import { useRouter } from 'next/router'
 
 const Navbar = () => {
     const router = useRouter()
-    const handleClick = () => {
-        router.push('/pages/Home')
-    }
-
     return (
-        <div className={styles.topnav}>
+        <div>
             <div className = {styles.image} >
-                <a onClick= {handleClick}><Image 
+                <Image 
                     src = {'/images/UKG_Logo.png'}
                     alt = "Company Logo"
                     width = {96}
                     height = {33}
-                /></a>      
+                />     
+                <button className={styles.nav_button} onClick={() => router.push('/pages/profile')}>Profile</button>
+                <button className={styles.nav_button} onClick={() => router.push('/pages/goals')}>Goals</button>
+                <button className={styles.nav_button} onClick={() => router.push('/pages/reports')}>Reports</button>
             </div>
         </div>        
     )

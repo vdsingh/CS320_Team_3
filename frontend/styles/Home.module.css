@@ -1,7 +1,6 @@
 .header{
   color: #fafafa;
   font-size: 4rem;
-  font-family: 'NTR', sans-serif;
   margin-top: 2%;
   margin-left: 5%;
   padding-top: 5%;
@@ -22,8 +21,9 @@
   align-self: center;
   padding: 5px ;
   color: #275947;
-  font-size: 15px;
+  font-size: 18px;
   border: none;
+  font-weight: bold;
   border-radius: 15px;
   cursor: pointer;
   background: #FFC600;
