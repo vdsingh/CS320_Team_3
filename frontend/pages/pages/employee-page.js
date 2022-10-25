@@ -6,6 +6,7 @@ import GoalForm from '../components/GoalForm'
 import ManagerInfo from '../components/ManagerInfo'
 import EmployeeName from '../components/EmployeeName'
 import loginValidator from './login-validator'
+import loginValidator from './login-validator'
 
 export default function employeePage(){
     if (loginValidator()){

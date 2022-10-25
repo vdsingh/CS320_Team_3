@@ -6,7 +6,10 @@
 
 3.- In your terminal you can run npm --version if it tells you something like "command not found: npm" you'll need to download node from [here](https://nodejs.org/en/download/). Once you've done that you can run npm --version again and you should see a version number.
 
-4.- Now you can install the dependencies by running npm i express && sudo npm i -g nodemon
+4.- Now you can install the dependencies by running both of the commands:
+npm i express
+npm i -g nodemon
+npm i cors
 
 5.- You should now be able to run nodemon index.js and see a message like "Application is listening on port 3000..."
 
