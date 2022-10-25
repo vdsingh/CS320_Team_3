@@ -2,7 +2,6 @@ import User from '../Models/User.js'
 
 export function readUserById(req, res){
     const { userId } = req.params;
-   
     User.findById(userId, (err, user) => {
         if (err) {
             res.status(500).send(err);
@@ -38,6 +37,3 @@ export function updateUserById(req, res){
         }
      });
 }
-
-
-
