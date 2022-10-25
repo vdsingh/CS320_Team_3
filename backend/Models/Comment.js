@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export default mongoose.model('Comments', new mongoose.Schema({
     // Required Fields
-    body: {
+    description: {
         type: String,
         required: true
     },
@@ -14,5 +14,5 @@ export default mongoose.model('Comments', new mongoose.Schema({
 
     // Relations:
     creatorID: mongoose.SchemaTypes.ObjectId,
-    goalIDs: [mongoose.SchemaTypes.ObjectId] 
+    goalID: mongoose.SchemaTypes.ObjectId 
 }), 'Comments');
