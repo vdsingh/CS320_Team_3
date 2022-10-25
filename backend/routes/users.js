@@ -1,6 +1,6 @@
 import User from '../Models/User.js'
 
-export default function readUserById(req, res){
+export function readUserById(req, res){
     const { userId } = req.params;
    
     User.findById(userId, (err, user) => {
@@ -14,7 +14,7 @@ export default function readUserById(req, res){
     })
 }
 
-export default function updateUser(req, res){
+export function updateUserById(req, res){
     const {userId} = req.params;
     const {
         firstName, 
@@ -26,6 +26,7 @@ export default function updateUser(req, res){
     User.findByIdAndUpdate(
         userId,  
         { "firstName": firstName, "lastName": lastName, "email": email, "password": password}, 
+        {new: true},
         (err, user) => {
         if(err) {
             console.log(err);
