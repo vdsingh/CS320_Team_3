@@ -1,3 +1,10 @@
+/* Link to full Page */
+.link {
+    width: 20%;
+    margin-top: 43%;
+    color: #275947;
+}
+/* goalBox */
 .title{
     color: #005151;
     font-size: 30px;
@@ -22,7 +29,7 @@
     transform: translate(-50%, -50%);
 }
  .box h{
-    color:#005151;
+    color:#080f0f;
     padding-top: 475px;
     font-size: 20px;
     padding-left:15px;
@@ -106,7 +113,7 @@
 
   .input{
     float: right;
-    margin-right: 10px;
+    margin-right: 11px;
     padding-left:20px;
     height: 40px;
     width: 20%;
@@ -119,3 +126,34 @@
 .IL{
     display:inline;
 }
+
+/* employee title */
+.emp_box{
+    width: 20%;
+    margin-left: 50px;
+    padding-top: 20px;
+}
+
+.emp_name{
+    /* top: 48%; */
+    font-size: 25px;
+}
+
+.job_title{
+    margin-top: 0%;
+    font-size: 20px;
+}
+
+/* Manager */
+#manager_title{
+    margin-left: 50px;
+    margin-top: 32%;
+}
+.manager_box{
+    margin-left: 50px;
+    width: 50%;
+    background-color: #CEDFE2;
+    padding: 10px;
+    border-radius: 25px;
+}
+/* Reports */

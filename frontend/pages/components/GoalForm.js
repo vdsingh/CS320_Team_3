@@ -99,32 +99,32 @@ export default function GoalForm(){
                     <cd>{g1CD}</cd>
                     <ed>{g1ED}</ed>
                 </div>
-                <div className={styles.goalBox} style = {{opacity: "70%"}}>
+                <div className={styles.goalBox} style = {{opacity: "80%"}}>
                     <l>{goal2.title}</l>
                     <stat>{goal2.status}</stat>
                     <cd>{g2CD}</cd>
                     <ed>{g2ED}</ed>
                 </div>
-                <div className={styles.goalBox} style = {{opacity: "80%"}}>
+                <div className={styles.goalBox} style = {{opacity: "60%"}}>
                     <l>{goal3.title}</l>
                     <stat>{goal3.status}</stat>
                     <cd>{g3CD}</cd>
                     <ed>{g3ED}</ed>
                 </div>
-                <div className={styles.goalBox} style = {{opacity: "60%"}}>
+                <div className={styles.goalBox} style = {{opacity: "80%"}}>
                     <l>{goal4.title}</l>
                     <stat>{goal4.status}</stat>
                     <cd>{g4CD}</cd>
                     <ed>{g4ED}</ed>
                 </div>
-                <div className={styles.goalBox} style = {{opacity: "70%"}}>
+                <div className={styles.goalBox} style = {{opacity: "60%"}}>
                     <l>{goal5.title}</l>
                     <stat>{goal5.status}</stat>
                     <cd>{g5CD}</cd>
                     <ed>{g5ED}</ed>
                 </div>
             </div>
-            <h><Link href = ''>Click Here to See All...</Link></h>
+            <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
         </div>
         
     )
