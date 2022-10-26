@@ -104,12 +104,10 @@ export function deleteGoalById(req, res) {
 
 export function readUserGoals(req, res) {
     const { userId } = req.params;
-    console.log("USER ID: " + userId);
     const userGoals = Goal.find({ creatorId: userId }, (err, goals) => {
         if(err) {
             res.status(500).send(err);
         } else if (goals) {
-            console.log("GOALS: " + goals);
             res.status(200).send({message: "Successfully retrieved goals.", goals: goals});
         } else {
             res.status(404).send("That user does not exist.");
