@@ -11,7 +11,7 @@ import Goal from "./Models/Goal.js";
 
 // Route Imports
 import login from "./routes/login.js";
-import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals, deleteUserGoals } from "./routes/goals.js"
+import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
 
 const app = express();
 app.use(express.json());
@@ -22,9 +22,11 @@ app.use(cors());
  * CRUD for goals
  */
 app.post("/api/goals", createGoal);
-app.get("/api/goals/:goalId", readGoalById);
-app.put("/api/goals/:goalId", updateGoalById);
-app.delete("/api/goals/:goalId", deleteGoalById);
+app.get("/api/goals/byGoalId/:goalId", readGoalById);
+app.put("/api/goals/byGoalId/:goalId", updateGoalById);
+app.delete("/api/goals/byGoalId/:goalId", deleteGoalById);
+
+app.get("/api/goals/byUserId/:userId", readUserGoals);
 
 /**
  * Log in, uses the imported signin function from the routes folder.
