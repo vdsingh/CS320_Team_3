@@ -2,35 +2,51 @@ import mongoose from 'mongoose';
 
 export default mongoose.model('Goals', new mongoose.Schema({
     // Required Fields
+
+    //not updatable
     title: {
         type: String,
-        required: true
+        required: true,
+        immutable: true
     },
+    //updatable
     description: {
         type: String,
         required: true
     },
+
+    //not updatable
     goalType: {
+        //Goal Types: Performance, Development, Personal
         type: String,
         required: true,
-        default: () => "Performance"
+        immutable: true
     },
+
+    //updatable
     status: {
         type: String,
         required: true
     },
+
+    //updatable
     priorityValue: {
         type: Number,
         required: true
     },
+
+    //not updatable
     startDate: {
         type: Date,
         required: true,
-        default: () => Date.now()
+        immutable: true
     },
+
+    //not updatable
     endDate: {
         type: Date,
         required: true,
+        immutable: true
     },
 
     // Optional Fields
