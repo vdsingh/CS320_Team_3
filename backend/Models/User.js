@@ -55,7 +55,6 @@ export default mongoose.model('Users', new mongoose.Schema({
 
     // Relations:
     managerId: mongoose.SchemaTypes.ObjectId,
-
     subordinateIDs: [mongoose.SchemaTypes.ObjectId],
     goalIDs: [mongoose.SchemaTypes.ObjectId],
 }), 'Users');

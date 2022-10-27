@@ -1,9 +1,9 @@
 import { mongoURI } from "./secret.js";
 import Joi from "joi";
 import express from "express";
-import MongoClient from "mongodb";
+import MongoClient, { ObjectId } from "mongodb";
 import mongoose from "mongoose";
-import cors from 'cors';
+import cors from "cors";
 
 // Model Imports
 import User from "./Models/User.js";
@@ -11,12 +11,17 @@ import Goal from "./Models/Goal.js";
 
 // Route Imports
 import login from "./routes/login.js";
-import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
+import {
+  createGoal,
+  readGoalById,
+  updateGoalById,
+  deleteGoalById,
+  readUserGoals,
+} from "./routes/goals.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-
 
 /**
  * CRUD for goals
@@ -62,7 +67,7 @@ const start = async () => {
     app.listen(port, () =>
       console.log(`Application is listening on port ${port}...`)
     );
-    
+
     // Test Code: save a new user to the DB.
     // const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
     // await user.save().then((user) => console.log(user));
@@ -78,6 +83,29 @@ const start = async () => {
     //   endDate: Date.now(),
     // });
     // await goal.save().then((goal) => console.log(goal));
+    User.find({}, (err, user) => {
+      if (!err) {
+        const creatorId = user._id.toString();
+        console.log(creatorId);
+        const goal = new Goal({
+          title: "Test Goal",
+          description: "Test description",
+          creatorId: new ObjectId(creatorId),
+          goalType: "Career",
+          status: "Incomplete",
+          priorityValue: 2,
+          startDate: Date.now(),
+          endDate: Date.now(),
+        });
+        goal.save((err, goal) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(goal);
+          }
+        });
+      }
+    });
   } catch (error) {
     console.error(error);
     process.exit(1);
