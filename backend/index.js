@@ -83,8 +83,8 @@ const start = async () => {
     //   endDate: Date.now(),
     // });
     // await goal.save().then((goal) => console.log(goal));
-    User.find({}, (err, user) => {
-      if (!err) {
+    (await User.find({})).forEach((user) => {
+      if (user) {
         const creatorId = user._id.toString();
         console.log(creatorId);
         const goal = new Goal({
