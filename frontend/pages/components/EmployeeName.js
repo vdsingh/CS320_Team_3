@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { getCookie } from 'cookies-next'
 
 const getEmployeeInfo = () =>{
-    var loginInfo = JSON.parse(getCookie("login"))
+    //placeholder
+    var loginInfo = {user: {firstName: "", lastnName: "", position_title: ''}}
+    if (getCookie("login") != undefined){
+        var loginInfo = JSON.parse(getCookie("login"))
+    }
     var emp = {
         firstname: loginInfo.user.firstName,
         lastname: loginInfo.user.lastName,
@@ -14,6 +17,7 @@ const getEmployeeInfo = () =>{
     }
     return emp
 }
+
 export default function EmployeeName(){
     const router = useRouter()
 
