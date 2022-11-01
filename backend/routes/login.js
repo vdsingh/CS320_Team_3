@@ -4,6 +4,8 @@ import User from '../Models/User.js'
 export default function login(req, res) {
     const { email, password } = req.body;
     // Find user by email
+    console.log(email)
+    console.log(password)
     User.findOne({ email: email }, (err, user) => {
         if (err) {
             res.status(400).send(err);

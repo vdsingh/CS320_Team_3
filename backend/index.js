@@ -83,29 +83,31 @@ const start = async () => {
     //   endDate: Date.now(),
     // });
     // await goal.save().then((goal) => console.log(goal));
-    (await User.find({})).forEach((user) => {
-      if (user) {
-        const creatorId = user._id.toString();
-        console.log(creatorId);
-        const goal = new Goal({
-          title: "Test Goal",
-          description: "Test description",
-          creatorId: new ObjectId(creatorId),
-          goalType: "Career",
-          status: "Incomplete",
-          priorityValue: 2,
-          startDate: Date.now(),
-          endDate: Date.now(),
-        });
-        goal.save((err, goal) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(goal);
-          }
-        });
-      }
-    });
+
+    // Create a bunch of goals
+    // (await User.find({})).forEach((user) => {
+    //   if (user) {
+    //     const creatorId = user._id.toString();
+    //     console.log(creatorId);
+    //     const goal = new Goal({
+    //       title: "Test Goal",
+    //       description: "Test description",
+    //       creatorId: new ObjectId(creatorId),
+    //       goalType: "Career",
+    //       status: "Incomplete",
+    //       priorityValue: 2,
+    //       startDate: Date.now(),
+    //       endDate: Date.now(),
+    //     });
+    //     goal.save((err, goal) => {
+    //       if (err) {
+    //         console.log(err);
+    //       } else {
+    //         console.log(goal);
+    //       }
+    //     });
+    //   }
+    // });
   } catch (error) {
     console.error(error);
     process.exit(1);
