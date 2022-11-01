@@ -47,7 +47,7 @@ export function readCommentById(req, res) {
     const { commentId } = req.params;
 
     // Finding the Comment object in the DB by ID
-    Comment.findById(commentId, (err, goal) => {
+    Comment.findById(commentId, (err, comment) => {
         if (err) {
             res.status(500).send(err);
         } else if (comment) {

@@ -12,11 +12,20 @@ import Goal from "./Models/Goal.js";
 // Route Imports
 import login from "./routes/login.js";
 import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals, deleteUserGoals } from "./routes/goals.js"
+import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById} from "./routes/comments.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+/**
+ * CRUD for comments
+ */
+ app.post("/api/comments", createComment);
+ app.get("/api/comments/byGoalId/:goalId", readGoalComments);
+ app.get("/api/comments/byCommentId/:commentId", readCommentById);
+ app.put("/api/comments/byCommentId/:commentId", updateCommentById);
+ app.delete("/api/comments/:commentId", deleteCommentById);
 
 /**
  * CRUD for goals
