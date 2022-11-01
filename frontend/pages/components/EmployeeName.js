@@ -2,12 +2,14 @@ import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import { getCookie } from 'cookies-next'
+import { useEffect, useState } from 'react'
 
 const getEmployeeInfo = () =>{
     //placeholder
-    var loginInfo = {user: {firstName: "", lastnName: "", position_title: ''}}
+    var [loginInfo, setLoginInfo] = useState({user: {firstName: "", lastnName: "", position_title: ''}})
     if (getCookie("login") != undefined){
-        var loginInfo = JSON.parse(getCookie("login"))
+        useEffect(() => setLoginInfo(JSON.parse(getCookie("login"))), [])
+        //var loginInfo = JSON.parse(getCookie("login"))
     }
     var emp = {
         firstname: loginInfo.user.firstName,
