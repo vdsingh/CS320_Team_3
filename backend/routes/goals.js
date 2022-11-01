@@ -1,4 +1,5 @@
 import Goal from '../Models/Goal.js'
+import mongoose from 'mongoose';
 
 export function createGoal(req, res) {
     // Getting the values from the request
@@ -12,7 +13,7 @@ export function createGoal(req, res) {
         endDate,
         creatorId,
         commentIds 
-    } = req.body
+    } = req.body;
     
     // Initializing the Goal object with the data provided
     const newGoal = new Goal({
@@ -64,7 +65,7 @@ export function updateGoalById(req, res) {
         endDate,
         creatorId,
         commentIds 
-    } = req.body
+    } = req.body;
 
     // Create Date objects if a new date is specified.
     const sDate = startDate ? new Date(startDate) : undefined;
@@ -94,21 +95,22 @@ export function deleteGoalById(req, res) {
         if(err) {
             res.status(500).send(err);
         } else if (goal) {
-            res.status(200).send({message: "Successfully deleted goal.", goal: goal})
+            res.status(200).send({message: "Successfully deleted goal.", goal: goal});
         } else {
             res.status(404).send("That goal does not exist.");
         }
     });
 };
 
-
-
-//TODO: Get all goals of a specific user
 export function readUserGoals(req, res) {
-
-}
-
-//TODO: delete all goals of a specific user
-export function deleteUserGoals(req, res) {
-
+    const { userId } = req.params;
+    const userGoals = Goal.find({ creatorId: userId }, (err, goals) => {
+        if(err) {
+            res.status(500).send(err);
+        } else if (goals) {
+            res.status(200).send({message: "Successfully retrieved goals.", goals: goals});
+        } else {
+            res.status(404).send("That user does not exist.");
+        }
+    });
 }
