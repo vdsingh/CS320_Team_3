@@ -58,6 +58,34 @@ export function readCommentById(req, res) {
     })
 };
 
+export function updateCommentById(req, res) {
+    const { commentId } = req.params;
+    const { 
+        body,
+        timeStamp,
+        creatorId,
+        goalId 
+    } = req.body
+
+    // Create Date objects if a new date is specified.
+    const tStamp = timeStamp ? new Date(timeStamp) : undefined;
+
+    Comment.findByIdAndUpdate(
+        commentId,  
+        { "body": body, "timestamp": tStamp, "creatorId": creatorId, "goalId": goalId}, 
+        {new: true},
+        (err, comment) => {
+        if(err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else if (comment){
+            res.status(200).send({message: "Successfully updated Comment.", comment: comment});
+        } else {
+            res.status(404).send("That Comment does not exist.");
+        }
+     });
+};
+
 export function deleteCommentById(req, res) {
     const { commentId } = req.params;
     Comment.findByIdAndDelete(commentId, (err, comment) => {
