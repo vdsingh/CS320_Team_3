@@ -26,3 +26,16 @@ export function createComment(req, res) {
         }
     })
 };
+
+export function deleteCommentById(req, res) {
+    const { commentId } = req.params;
+    Comment.findByIdAndDelete(commentId, (err, comment) => {
+        if(err) {
+            res.status(500).send(err);
+        } else if (comment) {
+            res.status(200).send({message: "Successfully deleted Comment.", comment: comment})
+        } else {
+            res.status(404).send("That comment does not exist.");
+        }
+    });
+};
