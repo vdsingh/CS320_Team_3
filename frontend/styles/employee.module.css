@@ -1,7 +1,8 @@
 /* Link to full Page */
 .link {
     width: 20%;
-    margin-top: 43%;
+    margin-top: 20%;
+    margin-left: 22%;
     color: #275947;
 }
 /* goalBox */
@@ -11,7 +12,8 @@
     text-align: left;
     font-family: 'Nunito', sans-serif;
     display: inline-block;
-
+    margin-top: 2%;
+    /* margin-bottom: 1%; */
 }
 
 .box{
@@ -19,7 +21,7 @@
     height: 72%;
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     position: relative;
     overflow: hidden;
     position: absolute;
@@ -37,8 +39,10 @@
 
  }
 .innerBox{
+    margin-top: 5%;
     width: 100%;
     height: 85%;
+    margin-top: 4%;
     display: flex;
     flex-direction: column;
     background-color: #005151;
@@ -130,12 +134,11 @@
 /* employee title */
 .emp_box{
     width: 20%;
-    margin-left: 50px;
-    padding-top: 20px;
+    margin-left: 2%;
+    padding-top: 1%;
 }
 
 .emp_name{
-    /* top: 48%; */
     font-size: 25px;
 }
 
@@ -146,14 +149,14 @@
 
 /* Manager */
 #manager_title{
-    margin-left: 50px;
-    margin-top: 32%;
+    margin-left: 2%;
+    margin-top: 0%;
 }
 .manager_box{
-    margin-left: 50px;
+    margin-left: 2%;
     width: 50%;
     background-color: #CEDFE2;
-    padding: 10px;
+    padding: 5px;
     border-radius: 25px;
 }
 /* Reports */

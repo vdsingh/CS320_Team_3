@@ -6,7 +6,7 @@ import GoalForm from '../components/GoalForm'
 import ManagerInfo from '../components/ManagerInfo'
 import EmployeeName from '../components/EmployeeName'
 import loginValidator from './login-validator'
-
+import styles from '../../styles/employee.module.css'
 export default function employeePage(){
     if (loginValidator()){
         return(
@@ -27,6 +27,7 @@ export default function employeePage(){
                     </h2>
                 </div>
                 <div>
+                    <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
                     <h1>
                         <ManagerInfo />
                     </h1>
