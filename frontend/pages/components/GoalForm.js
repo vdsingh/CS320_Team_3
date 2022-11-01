@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { Container } from './CreateGoalPopup/PopupContainer';
 //Test Goals
 var d1 = new Date('2022-10-18')
 var d2 = new Date('2022-10-20')
@@ -48,6 +49,11 @@ function getDateString(d){
 export default function GoalForm(){
     const router = useRouter()
 
+    const triggerText = 'New Goal';
+    const onSubmit = (event) => {
+    event.preventDefault(event);
+    };
+
     var goal1, goal2, goal3, goal4, goal5
     goal1 = goal2 = goal3 = goal4 = goal5 = ''
 
@@ -83,8 +89,8 @@ export default function GoalForm(){
         <div className={styles.box}>
             <div className={styles.title}>
                 Your Progress
-                <button className={styles.button} onClick={() => router.push('')}>New Goal</button>
                 <input className={styles.input} id='searchTerm' type='text' placeholder='Search for a Goal'></input>
+                <Container triggerText={triggerText} onSubmit={onSubmit} />
             </div>
             <div className={styles.innerBox}>
                 <div className={styles.IL}>
