@@ -26,7 +26,6 @@ export function createComment(req, res) {
             res.status(200).send({ message: "Successfully created Comment.", comment: comment });
         }
     })
-    //TODO Update goal with commentId
 };
 
 
