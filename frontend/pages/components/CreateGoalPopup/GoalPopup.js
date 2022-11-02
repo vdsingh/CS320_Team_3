@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Form } from './CreateGoalForm';
+import Form from './CreateGoalForm';
 import FocusTrap from 'focus-trap-react';
-import styles from '../../../styles/goal-popup.module.css'
-
 
 export const Modal = ({
   onClickOutside,

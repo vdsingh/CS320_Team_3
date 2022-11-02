@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Modal } from './CreateGoalForm';
+import Modal from './CreateGoalForm';
 import TriggerButton from './TriggerButton';
-import styles from '../../../styles/goal-popup.module.css'
 
 export class Container extends Component {
   state = { isShown: false };
