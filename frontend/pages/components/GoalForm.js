@@ -124,7 +124,7 @@ export default function GoalForm(){
                     <ed>{g5ED}</ed>
                 </div>
             </div>
-            <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
+            {/* <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button> */}
         </div>
         
     )
