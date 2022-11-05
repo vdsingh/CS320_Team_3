@@ -19,6 +19,9 @@ import {
   readUserGoals,
 } from "./routes/goals.js";
 
+// DATA TO UPLOAD USERS USING SCHEMA
+const data = require('./Fluffy_Bunny_Consulting-employees.json')
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -69,8 +72,8 @@ const start = async () => {
     );
 
     // Test Code: save a new user to the DB.
-    // const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
-    // await user.save().then((user) => console.log(user));
+    const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
+    await user.save().then((user) => console.log(user));
 
     // Test Code: save new goal to the DB.
     // const goal = new Goal({
@@ -83,6 +86,11 @@ const start = async () => {
     //   endDate: Date.now(),
     // });
     // await goal.save().then((goal) => console.log(goal));
+
+    // Upload users from data import
+    // data.forEach((user) => 
+      
+    // );
 
     // Create a bunch of goals
     // (await User.find({})).forEach((user) => {
@@ -108,6 +116,7 @@ const start = async () => {
     //     });
     //   }
     // });
+
   } catch (error) {
     console.error(error);
     process.exit(1);
