@@ -11,20 +11,29 @@ import Goal from "./Models/Goal.js";
 
 // Route Imports
 import login from "./routes/login.js";
-import {
-  createGoal,
-  readGoalById,
-  updateGoalById,
-  deleteGoalById,
-  readUserGoals,
-} from "./routes/goals.js";
-
-// DATA TO UPLOAD USERS USING SCHEMA
-const data = require('./Fluffy_Bunny_Consulting-employees.json')
+import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById} from "./routes/comments.js";
+import { readUserById, updateUserById } from "./routes/users.js"
+import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+/**
+ * CRUD for comments
+ */
+ app.post("/api/comments", createComment);
+ app.get("/api/comments/byGoalId/:goalId", readGoalComments);
+ app.get("/api/comments/byCommentId/:commentId", readCommentById);
+ app.put("/api/comments/byCommentId/:commentId", updateCommentById);
+ app.delete("/api/comments/:commentId", deleteCommentById);
+
+/**
+ * CRUD for users
+ */
+app.get("/api/users/:userId", readUserById);
+app.put("/api/users/:userId", updateUserById);
+
 
 /**
  * CRUD for goals
