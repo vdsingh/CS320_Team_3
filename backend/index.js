@@ -15,6 +15,9 @@ import { createComment, readGoalComments, readCommentById, updateCommentById, de
 import { readUserById, updateUserById } from "./routes/users.js"
 import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
 
+// DATA TO UPLOAD USERS USING SCHEMA
+const data = require('./Fluffy_Bunny_Consulting-employees.json')
+
 const app = express();
 app.use(express.json());
 app.use(cors());
