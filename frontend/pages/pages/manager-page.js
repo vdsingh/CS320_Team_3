@@ -11,7 +11,7 @@ import styles from '../../styles/employee.module.css'
 export default function employeePage(){
     if (loginValidator()){
         return(
-            <Layout navbarType={3}>
+            <Layout navbarType={4}>
             <div>
                 <Head>
                     <title>Employee Page</title>

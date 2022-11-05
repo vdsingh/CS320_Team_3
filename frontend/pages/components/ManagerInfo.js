@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 var testMan1 = {
-    name: 'Kazuya Mishima',
+    name: 'Hai Nguyen',
     position_title: 'Principal Engineering Manager'
 }
 
