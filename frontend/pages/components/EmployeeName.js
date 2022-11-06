@@ -1,11 +1,23 @@
 import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { getCookie } from 'cookies-next'
+import { useEffect, useState } from 'react'
 
-var testEmp1 = {
-    name: 'Arthur Read',
-    position_title: 'Principal Engineering Manager'
+const getEmployeeInfo = () =>{
+    //placeholder
+    var [loginInfo, setLoginInfo] = useState({user: {firstName: "", lastnName: "", position_title: ''}})
+    if (getCookie("login") != undefined){
+        useEffect(() => setLoginInfo(JSON.parse(getCookie("login"))), [])
+        //var loginInfo = JSON.parse(getCookie("login"))
+    }
+    var emp = {
+        firstname: loginInfo.user.firstName,
+        lastname: loginInfo.user.lastName,
+        fullname: loginInfo.user.firstName +" "+ loginInfo.user.lastName,
+        position_title: 'Principal Engineering Manager'
+    }
+    return emp
 }
 
 export default function EmployeeName(){
@@ -13,8 +25,8 @@ export default function EmployeeName(){
 
     return(
         <div className={styles.emp_box}>
-        <h1 className={styles.emp_name}>{testEmp1.name}</h1>
-        <h2 className={styles.job_title}>{testEmp1.position_title}</h2>
+        <h1 className={styles.emp_name}>{getEmployeeInfo().fullname}</h1>
+        <h2 className={styles.job_title}>{getEmployeeInfo().position_title}</h2>
         </div>
     )
 }
