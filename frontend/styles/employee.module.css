@@ -105,6 +105,7 @@
     padding: 5px ;
     color: #275947;
     font-size: 15px;
+    align-self: center;
     border: none;
     border-radius: 15px;
     cursor: pointer;

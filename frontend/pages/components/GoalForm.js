@@ -3,7 +3,7 @@ import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Container from './CreateGoalPopup/PopupContainer';
-
+import App from './CreateGoalPopup'
 //Test Goals
 var d1 = new Date('2022-10-18')
 var d2 = new Date('2022-10-20')
@@ -90,8 +90,8 @@ export default function GoalForm(){
         <div className={styles.box}>
             <div className={styles.title}>
                 Your Progress
+                <App></App>
                 <input className={styles.input} id='searchTerm' type='text' placeholder='Search for a Goal'></input>
-                <Container triggerText={triggerText} onSubmit={onSubmit} />
             </div>
             <div className={styles.innerBox}>
                 <div className={styles.IL}>
@@ -131,7 +131,7 @@ export default function GoalForm(){
                     <ed>{g5ED}</ed>
                 </div>
             </div>
-            <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
+            <button className={styles.link} onClick={() => router.push('/pages/goal')}>Click Here to See All...</button>
         </div>
         
     )
