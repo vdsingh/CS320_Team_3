@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/GoalTable.module.css'
+import s from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import {DataGrid} from '@material-ui/data-grid'
 
@@ -111,9 +112,14 @@ export default function GoalForm(){
     ]
 
     return(
-        <div>
+        <div className = {styles.box}>
+            <div className={styles.title}>
+                Your Progress
+                <button className = {s.button} onClick = {()=> router.push('')}>New Goal</button>
+                <input className = {s.input} id = 'searchTerm' type = 'text' placeholder='Search for a Goal'></input>
+            </div>
             <DataGrid
-            style = {{height:400, width: '280%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
+            style = {{height:400, width: '100%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3', }}
             rows = {goalArray}
             columns = {columns}
             />

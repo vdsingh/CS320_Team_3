@@ -22,3 +22,45 @@
     text-align: left;
     font-family: 'Nunito', sans-serif;
 }
+.button{
+    width: 10%;
+    height: 40px;
+    float: right;
+    padding: 5px ;
+    color: #275947;
+    font-size: 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #FFC600;
+    margin-right: 5%;
+}
+
+.input{
+    float: right;
+    margin-right: 11px;
+    padding-left:20px;
+    height: 40px;
+    width: 40%;
+    align-self: center;
+    outline: none;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 30px;
+}
+.title{
+    color: #005151;
+    font-size: 30px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    margin-top: 2%;
+    flex: auto;
+    margin-left: 5%
+    /* margin-bottom: 1%; */
+}
+.box{
+    width: 75%;
+    height: 72%;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+}

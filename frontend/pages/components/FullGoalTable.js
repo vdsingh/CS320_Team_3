@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import {DataGrid} from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
 
+
 function getDateString(d){
     var month = (d.getMonth() + 1).toString()
     var day = (d.getDate()).toString()
@@ -58,12 +59,13 @@ const columns = [
 
 export default function GoalForm(){
     return(
-        <DataGrid
-        style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
-        rows = {goalArray}
-        columns = {columns}
-        />
-
+        <div >
+            <DataGrid
+            style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
+            rows = {goalArray}
+            columns = {columns}
+            />
+        </div>
     )
         
 }
