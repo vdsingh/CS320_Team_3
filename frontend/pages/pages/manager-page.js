@@ -4,15 +4,14 @@ import React from "react";
 import Layout from '../components/Layout'
 import GoalForm from '../components/GoalForm'
 import ManagerInfo from '../components/ManagerInfo'
+import ReportInfo from '../components/ReportInfo'
 import EmployeeName from '../components/EmployeeName'
 import loginValidator from './login-validator'
 import styles from '../../styles/employee.module.css'
-// import Popup from '../components/CreateGoalPopup/GoalPopup';
-
 export default function employeePage(){
     if (loginValidator()){
         return(
-            <Layout navbarType={3}>
+            <Layout navbarType={4}>
             <div>
                 <Head>
                     <title>Employee Page</title>
@@ -32,6 +31,11 @@ export default function employeePage(){
                     <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
                     <h1>
                         <ManagerInfo />
+                    </h1>
+                </div>
+                <div>
+                    <h1>
+                        <ReportInfo />
                     </h1>
                 </div>
             </div>
