@@ -1,0 +1,24 @@
+.header{
+    background-color: #005151;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    
+}
+.headerLeft{
+    border-top-left-radius: 20px;
+    background-color: #005151;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+}
+.headerRight{
+    border-top-right-radius: 20px;
+    background-color: #005151;
+    color: white;
+    font-size: 20px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+}
