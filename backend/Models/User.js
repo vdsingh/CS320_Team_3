@@ -1,60 +1,50 @@
-import mongoose from 'mongoose';
+import mongoose, { trusted } from "mongoose";
 
-export default mongoose.model('Users', new mongoose.Schema({
-    // Required Fields: 
-
+export default mongoose.model("Users", new mongoose.Schema({
+    // Required Fields:
     //updatable
     firstName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     //updatable
     lastName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     //updatable
     email: {
-        type: String,
-        required: true,
-        lowercase: true,
+      type: String,
+      required: true,
+      lowercase: true,
     },
     //updatable
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
+    },
+    employeeId: {
+      type: Number,
+      required: true,
     },
     //not updatable
     isManager: {
-        type: Boolean,
-        required: true,
-        immutable: true,
+      type: Boolean,
+      required: true,
+      immutable: true,
     },
     //not updatable
-    creationDate: {
-        type: Date,
-        immutable: true,
-        default: () => Date.now(),
-    },
-    //updatable - but not in update request
-    lastUpdatedDate: {
-        type: Date,
-        default: () => Date.now(),
-    },
-    //updatable - but not in update request
-    lastLoginDate: {
-        type: Date,
-        default: () => Date.now(),
+    companyId: {
+      type: Number,
+      required: true,
     },
 
     // Non-required Fields:
-    companyId: Number,
     companyName: String,
     positionTitle: String,
     startDate: String,
-
+    managerId: Number,
     // Relations:
-    managerId: mongoose.SchemaTypes.ObjectId,
-    subordinateIDs: [mongoose.SchemaTypes.ObjectId],
-    goalIDs: [mongoose.SchemaTypes.ObjectId],
-}), 'Users');
+    managerUId: mongoose.SchemaTypes.ObjectId
+  }
+));

@@ -1,7 +1,7 @@
 import { mongoURI } from "./secret.js";
 import Joi from "joi";
 import express from "express";
-import MongoClient, { ObjectId } from "mongodb";
+import MongoClient, { Db, ObjectId } from "mongodb";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -11,12 +11,26 @@ import Goal from "./Models/Goal.js";
 
 // Route Imports
 import login from "./routes/login.js";
-import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById} from "./routes/comments.js";
-import { readUserById, updateUserById } from "./routes/users.js"
-import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
+import {
+  createComment,
+  readGoalComments,
+  readCommentById,
+  updateCommentById,
+  deleteCommentById,
+} from "./routes/comments.js";
+import { readUserById, updateUserById } from "./routes/users.js";
+import {
+  createGoal,
+  readGoalById,
+  updateGoalById,
+  deleteGoalById,
+  readUserGoals,
+} from "./routes/goals.js";
 
-// DATA TO UPLOAD USERS USING SCHEMA
-const data = require('./Fluffy_Bunny_Consulting-employees.json')
+// MongoDB Upload Helper Functions
+import data from "./Outback_Technology-employees.json" assert { type: "json" };
+import { upload_user } from "./uploads/upload_user.js";
+import { upload_goal } from "./uploads/upload_goal.js";
 
 const app = express();
 app.use(express.json());
@@ -25,18 +39,17 @@ app.use(cors());
 /**
  * CRUD for comments
  */
- app.post("/api/comments", createComment);
- app.get("/api/comments/byGoalId/:goalId", readGoalComments);
- app.get("/api/comments/byCommentId/:commentId", readCommentById);
- app.put("/api/comments/byCommentId/:commentId", updateCommentById);
- app.delete("/api/comments/:commentId", deleteCommentById);
+app.post("/api/comments", createComment);
+app.get("/api/comments/byGoalId/:goalId", readGoalComments);
+app.get("/api/comments/byCommentId/:commentId", readCommentById);
+app.put("/api/comments/byCommentId/:commentId", updateCommentById);
+app.delete("/api/comments/:commentId", deleteCommentById);
 
 /**
  * CRUD for users
  */
 app.get("/api/users/:userId", readUserById);
 app.put("/api/users/:userId", updateUserById);
-
 
 /**
  * CRUD for goals
@@ -84,9 +97,8 @@ const start = async () => {
     );
 
     // Test Code: save a new user to the DB.
-    const user = new User({firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
-    await user.save().then((user) => console.log(user));
-
+    // const user = new User({employeeId: 1, companyId: 1, firstName: "Vik", lastName: "Singh", email: "vdsingh@umass.edu", password: "password", isManager: true});
+    // await user.save().then((user) => console.log(user));
     // Test Code: save new goal to the DB.
     // const goal = new Goal({
     //   title: "Test Goal",
@@ -99,35 +111,57 @@ const start = async () => {
     // });
     // await goal.save().then((goal) => console.log(goal));
 
-    // Upload users from data import
-    // data.forEach((user) => 
-      
-    // );
-
-    // Create a bunch of goals
-    // (await User.find({})).forEach((user) => {
-    //   if (user) {
-    //     const creatorId = user._id.toString();
-    //     console.log(creatorId);
-    //     const goal = new Goal({
-    //       title: "Test Goal",
-    //       description: "Test description",
-    //       creatorId: new ObjectId(creatorId),
-    //       goalType: "Career",
-    //       status: "Incomplete",
-    //       priorityValue: 2,
-    //       startDate: Date.now(),
-    //       endDate: Date.now(),
-    //     });
-    //     goal.save((err, goal) => {
-    //       if (err) {
-    //         console.log(err);
+    // Upload Users from data import
+    // for (let i = 0; i < data.length; ++i) {
+    //   const user = data[i];
+    //   await User.find({ employeeId: user.managerId, comanyId: user.companyId }).then(
+    //     (foundUser) => {
+    //       let obj = {};
+    //       if (foundUser.length == 0) {
+    //         const schema_user = new User ({
+    //           firstName: user.firstName,
+    //           lastName: user.lastName,
+    //           employeeId: user.employeeId,
+    //           email: user.email,
+    //           companyId: user.companyId,
+    //           companyName: user.companyName,
+    //           positionTitle: user.positionTitle,
+    //           startDate: user.startDate,
+    //           isManager: user.isManager,
+    //           password: user.password,
+    //         });
+    //         schema_user.save().then((user) => console.log(user));
     //       } else {
-    //         console.log(goal);
+    //         const schema_user = new User({
+    //           firstName: user.firstName,
+    //           lastName: user.lastName,
+    //           employeeId: user.employeeId,
+    //           email: user.email,
+    //           companyId: user.companyId,
+    //           companyName: user.companyName,
+    //           positionTitle: user.positionTitle,
+    //           startDate: user.startDate,
+    //           isManager: user.isManager,
+    //           password: user.password,
+    //           managerId: user.managerId,
+    //           managerUId: foundUser[0]._id,
+    //         });
+    //         schema_user.save().then((user) => console.log(user));
     //       }
-    //     });
-    //   }
-    // });
+    //     }
+    //   );
+    // }
+    const goal = {
+      title: "test goal",
+      description: "test description",
+      goalType: "Performance",
+      status: "Incomplete",
+      priorityValue: 1,
+      startDate: "01-01-2001",
+      endDate: "01-01-2001"
+    };
+
+    (await User.find({})).forEach((user) => upload_goal(user, goal));
 
   } catch (error) {
     console.error(error);
