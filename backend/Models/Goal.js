@@ -37,26 +37,28 @@ export default mongoose.model('Goals', new mongoose.Schema({
 
     //not updatable
     startDate: {
-        type: Date,
+        type: String,
         required: true,
         immutable: true
     },
 
     //not updatable
     endDate: {
-        type: Date,
+        type: String,
         required: true,
         immutable: true
     },
 
     // Optional Fields
     creationDate: {
-        type: Date,
+        type: String,
         immutable: true,
-        default: () => Date.now()
+        default: () => Date.now().toString()
     },
 
     // Relations:
-    creatorId: mongoose.SchemaTypes.ObjectId,
-    commentIDs: [mongoose.SchemaTypes.ObjectId]
+    creatorId: {
+        type: mongoose.SchemaTypes.ObjectId
+    }
+    
 }), 'Goals');
