@@ -2,7 +2,6 @@ import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Container from './CreateGoalPopup/PopupContainer';
 import App from './CreateGoalPopup'
 //Test Goals
 var d1 = new Date('2022-10-18')

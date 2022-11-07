@@ -104,8 +104,8 @@ function App() {
                 style={customStyles}
                 contentLabel="Modal"
             >
-                <button onClick={closeModal}>close</button>
-                <div>Greate your goal</div>
+                <button onClick={closeModal} className={styles.CloseButton}>close</button>
+                <div className={styles.heading}>Create your goal</div>
                 <form onSubmit={submit}>
                     <div className={styles.text}>Name of Goal:</div>
                     <input id='goalName' type='text' placeholder='Come up with a concise label for what you are hoping to achieve this upcoming business period. 

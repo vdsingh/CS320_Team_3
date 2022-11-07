@@ -85,3 +85,19 @@
     font-size: 20px;
     text-align: left;
 }
+
+.CloseButton {
+    margin-top: 20px;
+    margin-left: 15px;
+    width: 10%;
+    float: right;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;   
+}
