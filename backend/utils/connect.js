@@ -12,12 +12,6 @@ export default async function connect() {
         .catch((error) => {
             console.log("Error connecting to MongoDB", error);
         });
-
-        // PORT setup
-        // const port = process.env.PORT || 3000;
-        // app.listen(port, () =>
-        //     console.log(`Application is listening on port ${port}...`)
-        // );
     } catch (error) {
         console.error(error);
         process.exit(1);
