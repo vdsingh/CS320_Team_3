@@ -18,7 +18,7 @@ const comment_schema = new mongoose.Schema({
 })
 
 comment_schema.index({
-    goalId: 1,
+    goalUId: 1,
     creatorUId: 1
 })
 
