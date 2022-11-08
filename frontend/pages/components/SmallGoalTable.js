@@ -3,6 +3,7 @@ import styles from '../../styles/GoalTable.module.css'
 import s from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
 import {DataGrid} from '@material-ui/data-grid'
+import CreateGoalPopup from './CreateGoalPopup';
 
 function getDateString(d){
     var month = (d.getMonth() + 1).toString()
@@ -115,7 +116,7 @@ export default function GoalForm(){
         <div className = {styles.box}>
             <div className={styles.title}>
                 Your Progress
-                <button className = {s.button} onClick = {()=> router.push('')}>New Goal</button>
+                <CreateGoalPopup></CreateGoalPopup>
                 <input className = {s.input} id = 'searchTerm' type = 'text' placeholder='Search for a Goal'></input>
             </div>
             <DataGrid
