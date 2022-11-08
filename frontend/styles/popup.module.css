@@ -1,0 +1,101 @@
+.heading {
+    color:  #005151;
+    font-size: 40px;
+    text-align: center;
+
+}
+
+.heading2 {
+    color:  #000000;
+    text-align: left;
+    font-size: 70%;
+    padding-left:10%;
+    padding-top: 10%;
+    
+}
+
+.input{
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 15px;
+    height: 50px;
+    width: 97%;
+    align-self: center;
+    outline: none;
+    border: 3px solid rgba(200, 200, 200, .4);
+    padding: 0px 10px;
+    border-radius: 8px;
+
+}
+.input::placeholder{
+    color: rgba(170, 170, 170, 1);
+}
+
+.button{
+    margin-top: 20px;
+    margin-left: 15px;
+    width: 80%;
+    align-self: center;
+    padding: 15px ;
+    color: #275947;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #FFC600;
+}
+
+.box{
+    width: 30%;
+    min-height: 75%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #fff;
+    opacity: 0.85;
+    box-shadow: 0 0 2px rgba(15, 15, 15, 0.25);
+    position: relative;
+    overflow: hidden;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.LoginButton {
+    margin-top: 20px;
+    margin-left: 400px;
+    width: 20%;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;   
+}
+
+.text{
+    color:  #000000;
+    margin-left: 15px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.CloseButton {
+    margin-left: 15px;
+    width: 10%;
+    float: right;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;  
+}
