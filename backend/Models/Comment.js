@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default mongoose.model('Comments', new mongoose.Schema({
+const comment_schema = new mongoose.Schema({
     // Required Fields
     description: {
         type: String,
@@ -13,6 +13,13 @@ export default mongoose.model('Comments', new mongoose.Schema({
     },
 
     // Relations:
-    creatorID: mongoose.SchemaTypes.ObjectId,
-    goalID: mongoose.SchemaTypes.ObjectId 
-}), 'Comments');
+    creatorUId: mongoose.SchemaTypes.ObjectId,
+    goalUId: mongoose.SchemaTypes.ObjectId 
+})
+
+comment_schema.index({
+    goalId: 1,
+    creatorUId: 1
+})
+
+export default mongoose.model('Comments', comment_schema, 'Comments');
