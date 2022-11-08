@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import React from "react";
 import Layout from '../components/Layout'
-import GoalForm from '../components/GoalForm'
+import GoalTable from '../components/SmallGoalTable'
 import ManagerInfo from '../components/ManagerInfo'
 import ReportInfo from '../components/ReportInfo'
 import EmployeeName from '../components/EmployeeName'
@@ -18,15 +18,16 @@ export default function employeePage(){
                     <link rel="icon" href="\UKG_(Ultimate_Kronos_Group)_logo.svg.png" />
                 </Head>
                 <div>
-                    <h1>
-                        <GoalForm />
+                    <h1 style = {{display: 'flex'}}>
+                        <EmployeeName />
+                        <GoalTable />
                     </h1>
                 </div>
-                <div>
+                {/* <div>
                     <h2> 
                         <EmployeeName />
                     </h2>
-                </div>
+                </div> */}
                 <div>
                     <button className={styles.link} onClick={() => router.push('/pages/goals')}>Click Here to See All...</button>
                     <h1>
