@@ -18,35 +18,31 @@ function getDateString(d){
 }
 
 //Test Goals
-var d1 = new Date('2022-10-18')
-var d2 = new Date('2022-10-20')
 var testGoal1 = {
     title: 'Complete Mock up ',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: Date(2022, 10, 18),
-    endDate: d2,
-    creationDate: d1,
+    startDate: '10-18-2022',
+    endDate: '10-20-2022',
+    creationDate: '10-18-2022',
     creatorId: 1,
     commentIDs: 1,
-    id: 0
+    _id: 0
 }
-var d3 = new Date('2022-10-05')
-var d4 = new Date('2022-11-02')
 var testGoal2 = {
     title: 'Complete Data Analysis',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: Date(2022, 10, 18),
-    endDate: d4,
-    creationDate: d3,
+    startDate: '10-18-2022',
+    endDate: '10-20-2022',
+    creationDate: '10-18-2022',
     creatorId: 1,
     commentIDs: 1,
-    id: 1
+    _id: 1
 }
 const goalArray = [testGoal1, testGoal2]
 
@@ -62,6 +58,7 @@ export default function GoalForm(){
         <div >
             <DataGrid
             style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
+            getRowId={(row) => row._id}
             rows = {goalArray}
             columns = {columns}
             />

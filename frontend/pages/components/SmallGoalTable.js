@@ -32,7 +32,7 @@ var testGoal1 = {
     creationDate: d1,
     creatorId: 1,
     commentIDs: 1,
-    id: 0
+    _id: 0
 }
 var d3 = new Date('2022-10-05')
 var d4 = new Date('2022-11-02')
@@ -47,7 +47,7 @@ var testGoal2 = {
     creationDate: d3,
     creatorId: 1,
     commentIDs: 1,
-    id: 1
+    _id: 1
 }
 var emptyGoal = {
     title: '',
@@ -70,9 +70,9 @@ export default function GoalForm(){
 
     if (typeof goalArray[0] != 'undefined'){
         fiveGoals.push(goalArray[0])
-        i = goalArray[0].id
+        i = goalArray[0]._id
     }else{
-        emptyGoal.id = i
+        emptyGoal._id = i
         fiveGoals.push(emptyGoal)
         i += 1
     }
@@ -80,28 +80,28 @@ export default function GoalForm(){
     if (typeof goalArray[1] != 'undefined'){
         fiveGoals.push(goalArray[1])
     }else{
-        emptyGoal.id = i
+        emptyGoal._id = i
         fiveGoals.push(emptyGoal)    
     }
     i += 1
     if (typeof goalArray[2] != 'undefined'){
         fiveGoals.push(goalArray[2])
     }else{
-        emptyGoal.id = i
+        emptyGoal._id = i
         fiveGoals.push(emptyGoal)    
     }
     i += 1
     if (typeof goalArray[3] != 'undefined'){
         fiveGoals.push(goalArray[3])
     }else{
-        emptyGoal.id = i
+        emptyGoal._id = i
         fiveGoals.push(emptyGoal)
     }
     i += 1
     if (typeof goalArray[4] != 'undefined'){
         fiveGoals.push(goalArray[4])
     }else{
-        emptyGoal.id = i
+        emptyGoal._id = i
         fiveGoals.push(emptyGoal)
     }
     const columns = [
@@ -120,6 +120,7 @@ export default function GoalForm(){
             </div>
             <DataGrid
             style = {{height:400, width: '100%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3', }}
+            getRowId={(row) => row._id}
             rows = {goalArray}
             columns = {columns}
             />
