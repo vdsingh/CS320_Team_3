@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
-import { mongoURI } from "../secret.js";
 
 export default async function connect() {
     try {
         // Mongoose Setup (Connection to MongoDB)
         await mongoose
-        .connect(mongoURI)
+        .connect(process.env.MONGO_URI)
         .then((arg) => {
             console.log("Connection to MongoDB successful.");
         })
