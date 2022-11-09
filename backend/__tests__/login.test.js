@@ -1,6 +1,6 @@
 import request from 'supertest';
 import createServer from '../utils/server';
-import { mongoURI } from '../secret.js'
+import dotenv from 'dotenv';
 // import login from '../routes/login';
 
 import mongoose from "mongoose";
@@ -10,7 +10,8 @@ import mongoose from "mongoose";
 const app = createServer();
 /* Connecting to the database before each test. */
 beforeEach(async () => {
-    await mongoose.connect(mongoURI);
+    dotenv.config();
+    await mongoose.connect(process.env.MONGO_URI);
 });
 
 /* Closing database connection after each test. */
