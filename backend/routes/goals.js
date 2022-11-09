@@ -1,5 +1,4 @@
 import Goal from '../Models/Goal.js'
-import mongoose from 'mongoose';
 
 export function createGoal(req, res) {
     // Getting the values from the request
