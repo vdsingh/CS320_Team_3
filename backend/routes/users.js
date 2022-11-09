@@ -37,3 +37,13 @@ export function updateUserById(req, res){
         }
      });
 }
+
+export function findUserByManagerAndCompanyID(req, res){
+    const {managerUId, companyID} = req.params;
+    const user = User.find({managerUId: managerUId, companyId: companyID}) 
+    if (user) {
+        res.status(200).send({ message: "Successfully retrieved user", user: user });
+    } else {
+        res.status(404).send("The user does not exist.");
+    }
+}
