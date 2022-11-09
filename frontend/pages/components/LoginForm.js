@@ -45,7 +45,8 @@ const login = async (event) => {
             // If there is no error, proceed to the next page
             // TODO: WHERE WILL THIS USER BE STORED?
             else {
-                Router.push('/pages/employee-page');
+                // Router.push('/pages/employee-page');
+                Router.push('/pages/manager-page');
                 setCookie('login', JSON.stringify(data))
             }
         })

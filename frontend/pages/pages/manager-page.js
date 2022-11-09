@@ -4,6 +4,7 @@ import React from "react";
 import Layout from '../components/Layout'
 import GoalTable from '../components/SmallGoalTable'
 import ManagerInfo from '../components/ManagerInfo'
+import ReportInfo from '../components/ReportInfo'
 import EmployeeName from '../components/EmployeeName'
 import loginValidator from './login-validator'
 import styles from '../../styles/employee.module.css'
@@ -13,7 +14,7 @@ export default function employeePage(){
     const router = useRouter()
     if (loginValidator()){
         return(
-            <Layout navbarType={3}>
+            <Layout navbarType={4}>
             <div>
                 <Head>
                     <title>Employee Page</title>
@@ -24,9 +25,21 @@ export default function employeePage(){
                         <EmployeeName />
                         <GoalTable />
                     </h1>
+                </div>
+                {/* <div>
+                    <h2> 
+                        <EmployeeName />
+                    </h2>
+                </div> */}
+                <div>
                     <button className={styles.link} onClick={() => router.push('/pages/goal-page')}>Click Here to See All...</button>
                     <h1>
                         <ManagerInfo />
+                    </h1>
+                </div>
+                <div>
+                    <h1>
+                        <ReportInfo />
                     </h1>
                 </div>
             </div>
