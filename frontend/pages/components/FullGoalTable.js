@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 import { useRouter } from 'next/router'
 import {DataGrid} from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
+import { getCookie } from 'cookies-next'
 
 
 function getDateString(d){
@@ -53,13 +54,20 @@ const columns = [
     {field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight}
 ]
 
-export default function GoalForm(){
+export const getStaticProps = async () => {
+    const goals = await fetch("").then(res => res.json())
+    return {
+        props: { goals }
+    }
+}
+
+export default function GoalForm({ goals }) {
     return(
         <div >
             <DataGrid
             style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
             getRowId={(row) => row._id}
-            rows = {goalArray}
+            rows = {goals}
             columns = {columns}
             />
         </div>
