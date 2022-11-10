@@ -18,35 +18,6 @@ function getDateString(d){
     return (month + '/' + day + '/' + year)
 }
 
-//Test Goals
-var testGoal1 = {
-    title: 'Complete Mock up ',
-    description: 'Testing Goal Description',
-    goalType: 'Performance',
-    status: 'In Progress',
-    priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
-    creationDate: '10-18-2022',
-    creatorId: 1,
-    commentIDs: 1,
-    _id: 0
-}
-var testGoal2 = {
-    title: 'Complete Data Analysis',
-    description: 'Testing Goal Description',
-    goalType: 'Performance',
-    status: 'In Progress',
-    priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
-    creationDate: '10-18-2022',
-    creatorId: 1,
-    commentIDs: 1,
-    _id: 1
-}
-const goalArray = [testGoal1, testGoal2]
-
 const columns = [
     {field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.headerLeft},
     {field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header},
@@ -55,21 +26,24 @@ const columns = [
 ]
 
 export default function GoalForm() {
+    // Get user from cookies
+    const userCookie = getCookie('login')
+    if (userCookie == undefined) {
+        alert("Try signing in again")
+    } 
+    const loginCookie = JSON.parse(userCookie)
+
     const [tableData, setTableData] = useState([])
 
-    // TODO: getting user ID from cookies
-
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byUserId/633e058b0ac635fe4d8300ee")
+        fetch("http://localhost:3000/api/goals/byUserId/"+loginCookie.user._id)
         .then(response => response.json())
         .then(data => setTableData(data.goals))
         .catch(error => {
-            console.error('There was an error!', error);
-            alert(error);
+            console.error("There was an error!", error)
+            alert(error)
         })
     }, [])
-    
-    console.log(tableData)
 
     return(
         <div >
