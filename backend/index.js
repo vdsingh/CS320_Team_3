@@ -153,16 +153,16 @@ const start = async () => {
     // }
 
     // Upload a bunch of goals
-    const goal = {
-      title: "test goal",
-      description: "test description",
-      goalType: "Performance",
-      status: "Incomplete",
-      priorityValue: 1,
-      startDate: "01-01-2001",
-      endDate: "01-01-2001"
-    };
-    (await User.find({})).forEach((user) => upload_goal(user, goal));
+    // const goal = {
+    //   title: "test goal",
+    //   description: "test description",
+    //   goalType: "Performance",
+    //   status: "Incomplete",
+    //   priorityValue: 1,
+    //   startDate: "01-01-2001",
+    //   endDate: "01-01-2001"
+    // };
+    // (await User.find({})).forEach((user) => upload_goal(user, goal));
 
   } catch (error) {
     console.error(error);
