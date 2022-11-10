@@ -54,9 +54,6 @@ user_schema.index(
     managerId: 1,
     companyId: 1,
   },
-  {
-    unique: true,
-  }
 );
 
 export default mongoose.model("Users", user_schema, "Users");
