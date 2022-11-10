@@ -55,19 +55,32 @@ const columns = [
 ]
 
 export const getStaticProps = async () => {
-    const goals = await fetch("").then(res => res.json())
-    return {
-        props: { goals }
-    }
+    // const loginCookie = getCookie('login')
+    // console.log(loginCookie)
+    // // Cookie not found?
+    // if (loginCookie == undefined) {
+    //     alert('Error while retrieving login cookie')
+    // }
+    // else {
+    //     const userID = loginCookie.user._id
+
+    //     const goals = await fetch('http://localhost:3000/api/goals/byUserId/'+userID)
+    //     .then(res => res.json())
+        
+    //     return {
+    //         props: { goals }
+    //     }
+    // }
+
 }
 
-export default function GoalForm({ goals }) {
+export default function GoalForm() {
     return(
         <div >
             <DataGrid
             style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
             getRowId={(row) => row._id}
-            rows = {goals}
+            rows = {rows}
             columns = {columns}
             />
         </div>
