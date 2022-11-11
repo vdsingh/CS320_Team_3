@@ -27,16 +27,19 @@ const columns = [
 
 export default function GoalForm() {
     // Get user from cookies
-    const userCookie = getCookie('login')
-    if (userCookie == undefined) {
-        alert("Try signing in again")
-    } 
-    const loginCookie = JSON.parse(userCookie)
+    let userCookie = getCookie('login')
+    try {
+        if (userCookie == undefined) throw "Try signing in again"
+        userCookie = JSON.parse(userCookie)
+    }
+    catch (err) {
+        console.log(err)
+    }
 
-    const [tableData, setTableData] = useState([])
+    const [goalsData, setTableData] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byUserId/"+loginCookie.user._id)
+        fetch("http://localhost:3000/api/goals/byUserId/"+userCookie.user._id)
         .then(response => response.json())
         .then(data => setTableData(data.goals))
         .catch(error => {
@@ -50,7 +53,7 @@ export default function GoalForm() {
             <DataGrid
             style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
             getRowId={(row) => row._id}
-            rows = {tableData}
+            rows = {goalsData}
             columns = {columns}
             />
         </div>
