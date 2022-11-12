@@ -1,61 +1,59 @@
-import mongoose from 'mongoose';
+import mongoose, { trusted } from "mongoose";
 
-export default mongoose.model('Users', new mongoose.Schema({
-    // Required Fields: 
+const user_schema = new mongoose.Schema({
+  // Required Fields:
+  //updatable
+  firstName: {
+    type: String,
+    required: true,
+  },
+  //updatable
+  lastName: {
+    type: String,
+    required: true,
+  },
+  //updatable
+  email: {
+    type: String,
+    required: true,
+    lowercase: true,
+  },
+  //updatable
+  password: {
+    type: String,
+    required: true,
+  },
+  employeeId: {
+    type: Number,
+    required: true,
+  },
+  //not updatable
+  isManager: {
+    type: Boolean,
+    required: true,
+    immutable: true,
+  },
+  //not updatable
+  companyId: {
+    type: Number,
+    required: true,
+  },
 
-    //updatable
-    firstName: {
-        type: String,
-        required: true,
-    },
-    //updatable
-    lastName: {
-        type: String,
-        required: true,
-    },
-    //updatable
-    email: {
-        type: String,
-        required: true,
-        lowercase: true,
-    },
-    //updatable
-    password: {
-        type: String,
-        required: true,
-    },
-    //not updatable
-    isManager: {
-        type: Boolean,
-        required: true,
-        immutable: true,
-    },
-    //not updatable
-    creationDate: {
-        type: Date,
-        immutable: true,
-        default: () => Date.now(),
-    },
-    //updatable - but not in update request
-    lastUpdatedDate: {
-        type: Date,
-        default: () => Date.now(),
-    },
-    //updatable - but not in update request
-    lastLoginDate: {
-        type: Date,
-        default: () => Date.now(),
-    },
+  // Non-required Fields:
+  companyName: String,
+  positionTitle: String,
+  startDate: String,
+  managerId: Number,
+  // Relations:
+  managerUId: mongoose.SchemaTypes.ObjectId,
+});
 
-    // Non-required Fields:
-    companyId: Number,
-    companyName: String,
-    positionTitle: String,
-    startDate: String,
+// Composite index by managerId and companyId for fast reportee querying 
+user_schema.index(
+  {
+    managerId: 1,
+    companyId: 1,
+  },
+);
 
-    // Relations:
-    managerId: mongoose.SchemaTypes.ObjectId,
-
-    subordinateIDs: [mongoose.SchemaTypes.ObjectId],
-    goalIDs: [mongoose.SchemaTypes.ObjectId],
-}), 'Users');
+export default mongoose.model("Users", user_schema, "Users");
