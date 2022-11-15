@@ -40,10 +40,11 @@ export function updateUserById(req, res){
 
 export async function findUserByManagerIDandCompanyID(req, res){
     const {managerId, companyId} = req.body;
-    const user = await User.find({"managerId": managerId, "companyId": companyId});
-    if (user) {
-        res.status(200).send({ message: "Successfully retrieved user", user: user });
-    } else {
-        res.status(404).send("The user does not exist.");
+    const users = await User.find({"managerId": managerId, "companyId": companyId});
+    if (users.length != 0) {
+        res.status(200).send({ message: "Successfully retrieved users", user: users });
+    } 
+    else {
+        res.status(404).send("No such user exists");
     }
 }
