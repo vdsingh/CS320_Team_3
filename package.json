@@ -1,5 +1,5 @@
 {
     "scripts": {
-        "test": "cd backend && NODE_OPTIONS=--experimental-vm-modules npx jest"
+        "test": "cd backend && node --experimental-vm-modules node_modules/jest/bin/jest.js"
     }
 }
