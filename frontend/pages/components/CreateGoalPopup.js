@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import styles from '../../styles/popup.module.css'
 import Router from 'next/router'
 import styles2 from '../../styles/employee.module.css'
+import { getCookie } from 'cookies-next'
+
 const customStyles = {
     content: {
         top: '50%',
@@ -29,6 +31,16 @@ const submit = async (event) => {
     const goalDescription = event.target.goalDescription.value
     const goalType = event.target.goalType.value
 
+    // Get user from cookies
+    let userCookie = getCookie('login')
+    try {
+        if (userCookie == undefined) throw "Try signing in again"
+        userCookie = JSON.parse(userCookie)
+    }
+    catch (err) {
+        console.log(err)
+    }
+
     // Client-side check of password and email validity
     if (goalName == '' || dueDate == '' || goalDescription == '' || goalType == '') {
         alert('Please fill all the boxes')
@@ -46,7 +58,7 @@ const submit = async (event) => {
                 priorityValue: 1,
                 startDate: 1666135806339,
                 endDate: dueDate,
-                creatorId: "633e058b0ac635fe4d8300ee",
+                creatorId: userCookie.user._id,
                 commentIds: []
              })
         }
