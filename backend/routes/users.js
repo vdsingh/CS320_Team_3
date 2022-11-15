@@ -38,9 +38,9 @@ export function updateUserById(req, res){
      });
 }
 
-export function findUserByManagerAndCompanyID(req, res){
-    const {managerUId, companyID} = req.params;
-    const user = User.find({"managerUId": managerUId, "companyId": companyID}) 
+export async function findUserByManagerIDandCompanyID(req, res){
+    const {managerId, companyId} = req.body;
+    const user = await User.find({"managerId": managerId, "companyId": companyId});
     if (user) {
         res.status(200).send({ message: "Successfully retrieved user", user: user });
     } else {
