@@ -60,6 +60,12 @@ export default function goalPage(){
                     </div>
                     <div className={styles.box}>
                         <h3 className={styles.box_labels}>
+                            Goal Type: 
+                                <div className={styles.box_text}> {testGoal.goal_type}</div>
+                        </h3>
+                    </div>
+                    <div className={styles.box}>
+                        <h3 className={styles.box_labels}>
                             Description: 
                             <div className={styles.box_text}> {testGoal.description}</div>
                         </h3>
