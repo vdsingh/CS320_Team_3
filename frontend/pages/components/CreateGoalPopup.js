@@ -5,7 +5,6 @@ import styles from '../../styles/popup.module.css'
 import Router from 'next/router'
 import styles2 from '../../styles/employee.module.css'
 import { getCookie } from 'cookies-next'
-
 const customStyles = {
     content: {
         top: '50%',
@@ -27,26 +26,36 @@ if (typeof document !== 'undefined') {
 const submit = async (event) => {
     event.preventDefault()
     const goalName = event.target.goalName.value
-    const dueDate = new Date(event.target.dueDate.value)
+    //const currentTime =  new Date()
+    const startDate = new Date(event.target.startDate.value.concat("T00:00:00"))
+    //const status = event.target.status.value
+    const dueDate = new Date(event.target.dueDate.value.concat("T23:59:59"))
     const goalDescription = event.target.goalDescription.value
     const goalType = event.target.goalType.value
-
-    // Get user from cookies
-    let userCookie = getCookie('login')
-    try {
-        if (userCookie == undefined) throw "Try signing in again"
-        userCookie = JSON.parse(userCookie)
-    }
-    catch (err) {
-        console.log(err)
-    }
 
     // Client-side check of password and email validity
     if (goalName == '' || dueDate == '' || goalDescription == '' || goalType == '') {
         alert('Please fill all the boxes')
     }
+    else if(startDate > dueDate){
+        alert('Due Date cannot be earlier than the start Date')
+    }
 
     else {
+        var creatorIdForTest = "633e058b0ac635fe4d8300ee"
+
+        const getCreatorIdFromCookies = async () => {
+            if (getCookie('login') != undefined) {
+                if (process.browser) {
+                    var cookiesData = JSON.parse(getCookie('login'))
+                    return cookiesData.user._id
+                }
+            }
+            else {
+                return creatorIdForTest
+            }
+        }
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -56,34 +65,35 @@ const submit = async (event) => {
                 goalType: goalType,
                 status: "In Progress",
                 priorityValue: 1,
-                startDate: 1666135806339,
+                startDate: startDate,
                 endDate: dueDate,
-                creatorId: userCookie.user._id,
+                creatorId: await getCreatorIdFromCookies(),
                 commentIds: []
-             })
+            })
         }
         // API request to the login API
         fetch('http://localhost:3000/api/goals', requestOptions)
-        .then(async response => {
-            const isJson = response.headers.get('content-type')?.includes('application/json');
-            const data = isJson && await response.json();
-            console.log(data);
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = (data && data.message) || response.status;
-                return Promise.reject(error);
-            }
-            // If there is no error, proceed to the next page
-            else {
-                alert(data.message);
-                Router.reload(window.location.pathname)
-            }
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-            alert(error);
-        });
+            .then(async response => {
+                const isJson = response.headers.get('content-type')?.includes('application/json');
+                const data = isJson && await response.json();
+                console.log(data);
+                // check for error response
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+                // If there is no error, proceed to the next page
+                else {
+                    alert(data.message);
+                    console.log(data)
+                    Router.reload(window.location.pathname)
+                }
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+                alert(error);
+            });
     }
 }
 
@@ -108,7 +118,7 @@ function CreateGoalPopup() {
 
     return (
         <a>
-            <button className ={styles2.button} onClick={openModal}>Create Goal</button>
+            <button className={styles2.button} onClick={openModal}>Create Goal</button>
             <Modal
                 isOpen={modalIsOpen}
                 onAfterOpen={afterOpenModal}
@@ -122,14 +132,20 @@ function CreateGoalPopup() {
                     <div className={styles.text}>Name of Goal:</div>
                     <input id='goalName' type='text' placeholder='Come up with a concise label for what you are hoping to achieve this upcoming business period. 
 Ex. Obtain a Certification
-Go to networking events' className={styles.input}></input>
+Go to networking events' className={styles.input} required></input>
+                    <div className={styles.text}>Start Date:</div>
+                    <input id='startDate' type='date' placeholder='MM-DD-YYYY' className={styles.input} required></input>
                     <div className={styles.text}>Due Date:</div>
-                    <input id='dueDate' type='text' placeholder='MM-DD-YYYY' className={styles.input}></input>
+                    <input id='dueDate' type='date' placeholder='MM-DD-YYYY' className={styles.input} required></input>
                     <div className={styles.text}>Goal Description:</div>
                     <input id='goalDescription' type='text' placeholder='Here you can be more detailed with tasks associated with this goal.
-Ex. How do you plan to achieve your goal?' className={styles.input}></input>
+Ex. How do you plan to achieve your goal?' className={styles.input} required></input>
                     <div className={styles.text}>Type of Goal:</div>
-                    <input id='goalType' type='text' placeholder='Ex: Performance, Developmental, Personal' className={styles.input}></input>
+                    <select name="goalTypes" id="goalType" className={styles.input} required>
+                        <option value="Performance">Performance</option>
+                        <option value="Developmental">Developmental</option>
+                        <option value="Personal">Personal</option>
+                    </select>
                     <button type='submit' className={styles.LoginButton}>Create goal</button>
                 </form>
             </Modal>
