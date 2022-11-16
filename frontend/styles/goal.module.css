@@ -1,3 +1,4 @@
+/* Title */
 .title{
     color: #005151;
     font-size: 30px;
@@ -7,12 +8,33 @@
     flex: auto;
     margin-left: 4%;
     font-weight:bold;
-    /* margin-bottom: 1%; */
+    margin-bottom: 1%;
+}
+
+/* Top Grid */
+.grid{
+    margin-left: 4%;
+    width:92%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+.goal_grid{
+    background-color: #CEDFE2;
+    border-radius: 10px;
+    margin-bottom: 3%;
+    margin-right: 1%;
+    padding: 5px;
+}
+.grid_labels{
+    color: #005151;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-left: 4%;
 }
 
 .box{
     margin-left: 4%;
-    width: 90%;
+    width: 92%;
     background-color: #CEDFE2;
     padding: 5px;
     border-radius: 10px;
@@ -28,16 +50,19 @@
 .box_text{
     color: black;
 }
-.grid{
-    margin-left: 4%;
-    width:90%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-.emp_grid{
-    background-color: #CEDFE2;
-    border-radius: 10px;
-    margin-bottom: 3%;
-    margin-right: 1%;
-    padding: 5px;
+
+/* button */
+.button{
+    width: 12%;
+    height: 40px;
+    float: right;
+    font-weight: bold;
+    padding: 5px ;
+    color: #275947;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #FFC600;
+    margin-right: 5%;
 }
