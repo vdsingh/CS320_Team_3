@@ -11,7 +11,7 @@ export default function goalPage(){
     const router = useRouter()
     if (loginValidator()){
         return(
-            <Layout navbarType={3}>
+            <Layout navbarType={4}>
                 <div>
                     <Head>
                         <title>Employee Page</title>

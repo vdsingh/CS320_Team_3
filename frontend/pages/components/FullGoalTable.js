@@ -55,6 +55,7 @@ export default function GoalForm() {
             getRowId={(row) => row._id}
             rows = {goalsData}
             columns = {columns}
+            disableColumnSelector
             />
         </div>
     )

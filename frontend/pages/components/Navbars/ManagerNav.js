@@ -19,7 +19,7 @@ const Navbar = () => {
                 />     
                 <button className={styles.nav_button} onClick={() => router.push('/pages/manager-page')}>Profile</button>
                 <button className={styles.nav_button} onClick={() => router.push('/pages/goal-page')}>Goals</button>
-                <button className={styles.nav_button} onClick={() => router.push('/pages/reports')}>Reports</button>
+                <button className={styles.nav_button} onClick={() => router.push('/pages/reports-page')}>Reports</button>
                 <button className={styles.button} onClick={() => signOut()}>Sign Out</button>
             </div>
         </div>        
