@@ -54,7 +54,8 @@
     font-family: 'Nunito', sans-serif;
     margin-top: 2%;
     flex: auto;
-    margin-left: 5%
+    margin-left: 5%;
+    font-weight:bold;
     /* margin-bottom: 1%; */
 }
 .box{
