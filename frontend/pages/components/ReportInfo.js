@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
-import s from '../../styles/employee.module.css'
 import { getCookie } from 'cookies-next'
 
 
