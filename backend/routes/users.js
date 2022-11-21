@@ -39,7 +39,7 @@ export function updateUserById(req, res){
 }
 
 export async function findUserByManagerIDandCompanyID(req, res){
-    const {managerId, companyId} = req.body;
+    const {managerId, companyId} = req.params;
     const users = await User.find({"managerId": managerId, "companyId": companyId});
     if (users.length != 0) {
         res.status(200).send({ message: "Successfully retrieved users", user: users });
