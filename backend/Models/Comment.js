@@ -18,8 +18,7 @@ const comment_schema = new mongoose.Schema({
 })
 
 comment_schema.index({
-    goalUId: 1,
-    creatorUId: 1
+    goalUId: 1
 })
 
 export default mongoose.model('Comments', comment_schema, 'Comments');
