@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import {DataGrid} from '@material-ui/data-grid'
+import { DataGrid } from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
+import { getCookie } from 'cookies-next'
 
 
 function getDateString(d){
@@ -17,35 +18,6 @@ function getDateString(d){
     return (month + '/' + day + '/' + year)
 }
 
-//Test Goals
-var testGoal1 = {
-    title: 'Complete Mock up ',
-    description: 'Testing Goal Description',
-    goalType: 'Performance',
-    status: 'In Progress',
-    priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
-    creationDate: '10-18-2022',
-    creatorId: 1,
-    commentIDs: 1,
-    _id: 0
-}
-var testGoal2 = {
-    title: 'Complete Data Analysis',
-    description: 'Testing Goal Description',
-    goalType: 'Performance',
-    status: 'In Progress',
-    priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
-    creationDate: '10-18-2022',
-    creatorId: 1,
-    commentIDs: 1,
-    _id: 1
-}
-const goalArray = [testGoal1, testGoal2]
-
 const columns = [
     {field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.headerLeft},
     {field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header},
@@ -53,13 +25,35 @@ const columns = [
     {field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight}
 ]
 
-export default function GoalForm(){
+export default function GoalForm() {
+    // Get user from cookies
+    let userCookie = getCookie('login')
+    try {
+        if (userCookie == undefined) throw "Try signing in again"
+        userCookie = JSON.parse(userCookie)
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+    const [goalsData, setTableData] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/goals/byUserId/"+userCookie.user._id)
+        .then(response => response.json())
+        .then(data => setTableData(data.goals))
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+        })
+    }, [])
+
     return(
         <div >
             <DataGrid
             style = {{height:600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3'}}
             getRowId={(row) => row._id}
-            rows = {goalArray}
+            rows = {goalsData}
             columns = {columns}
             disableColumnSelector
             />

@@ -15,7 +15,7 @@ const getEmployeeInfo = () =>{
         firstname: loginInfo.user.firstName,
         lastname: loginInfo.user.lastName,
         fullname: loginInfo.user.firstName +" "+ loginInfo.user.lastName,
-        position_title: 'Principal Engineering Manager'
+        position_title: loginInfo.user.positionTitle
     }
     return emp
 }
