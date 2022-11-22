@@ -25,7 +25,7 @@ export default function GoalForm(){
     return(
         <div>
             <div className={styles.title} id={styles.manager_title}> Your Reports </div>
-            <div className={styles.app}>
+            <div className={styles.grid}>
                 {empArray.map((emp) => 
                     <div className={styles.emp_grid}>
                         <h1 className={styles.emp_name}>{emp.name}</h1>
