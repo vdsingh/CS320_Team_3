@@ -6,26 +6,26 @@ import { getCookie } from 'cookies-next'
 
 //Fake Data//
 const JohnGoal1 = {
-    title: 'John Goal 1',
+    title: 'Complete Finance Report',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
+    startDate: '11-14-2022',
+    endDate: '11-18-2022',
     creationDate: '10-18-2022',
     creatorId: 1,
     commentIDs: 1,
     _id: 0
 }
 const JohnGoal2 = {
-    title: 'John Goal 2',
+    title: 'Set Up Meeting With Stacy',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
+    startDate: '11-10-2022',
+    endDate: '11-20-2022',
     creationDate: '10-18-2022',
     creatorId: 1,
     commentIDs: 1,
@@ -33,26 +33,26 @@ const JohnGoal2 = {
 }
 
 const StacyGoal1 = {
-    title: 'Stacy Goal 1',
+    title: 'Send Manager Work Evaluation',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
+    startDate: '11-1-2022',
+    endDate: '12-1-2022',
     creationDate: '10-18-2022',
     creatorId: 2,
     commentIDs: 1,
     _id: 2
 }
 const StacyGoal2 = {
-    title: 'Stacy Goal 2',
+    title: 'Review Internship Applications',
     description: 'Testing Goal Description',
     goalType: 'Performance',
     status: 'In Progress',
     priorityValue: 1,
-    startDate: '10-18-2022',
-    endDate: '10-20-2022',
+    startDate: '11-1-2022',
+    endDate: '11-20-2022',
     creationDate: '10-18-2022',
     creatorId: 2,
     commentIDs: 1,
