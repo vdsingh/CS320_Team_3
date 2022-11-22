@@ -28,7 +28,7 @@ const submit = async (event) => {
     const goalName = event.target.goalName.value
     //const currentTime =  new Date()
     const startDate = new Date(event.target.startDate.value.concat("T00:00:00"))
-    //const status = event.target.status.value
+    const status = event.target.status.value
     const dueDate = new Date(event.target.dueDate.value.concat("T23:59:59"))
     const goalDescription = event.target.goalDescription.value
     const goalType = event.target.goalType.value
@@ -37,13 +37,13 @@ const submit = async (event) => {
     if (goalName == '' || dueDate == '' || goalDescription == '' || goalType == '') {
         alert('Please fill all the boxes')
     }
-    else if(startDate > dueDate){
+    else if (startDate > dueDate) {
         alert('Due Date cannot be earlier than the start Date')
     }
 
     else {
-        var creatorIdForTest = "633e058b0ac635fe4d8300ee"
-
+        //var creatorIdForTest = "633e058b0ac635fe4d8300ee"
+        var creatorIdForTest = ""
         const getCreatorIdFromCookies = async () => {
             if (getCookie('login') != undefined) {
                 if (process.browser) {
@@ -63,7 +63,7 @@ const submit = async (event) => {
                 title: goalName,
                 description: goalDescription,
                 goalType: goalType,
-                status: "In Progress",
+                status: status,
                 priorityValue: 1,
                 startDate: startDate,
                 endDate: dueDate,
@@ -133,19 +133,33 @@ function CreateGoalPopup() {
                     <input id='goalName' type='text' placeholder='Come up with a concise label for what you are hoping to achieve this upcoming business period. 
 Ex. Obtain a Certification
 Go to networking events' className={styles.input} required></input>
-                    <div className={styles.text}>Start Date:</div>
-                    <input id='startDate' type='date' placeholder='MM-DD-YYYY' className={styles.input} required></input>
-                    <div className={styles.text}>Due Date:</div>
-                    <input id='dueDate' type='date' placeholder='MM-DD-YYYY' className={styles.input} required></input>
+                    <span>
+                        <div>
+                            <a className={styles.text}>Start Date:</a>
+                            <a className={styles.text2}>Due Date:</a>
+                        </div>
+                        <input id='startDate' type='date' placeholder='MM-DD-YYYY' className={styles.inputDate} required></input>
+                        <input id='dueDate' type='date' placeholder='MM-DD-YYYY' className={styles.inputDate} required></input>
+                    </span>
                     <div className={styles.text}>Goal Description:</div>
                     <input id='goalDescription' type='text' placeholder='Here you can be more detailed with tasks associated with this goal.
 Ex. How do you plan to achieve your goal?' className={styles.input} required></input>
-                    <div className={styles.text}>Type of Goal:</div>
-                    <select name="goalTypes" id="goalType" className={styles.input} required>
-                        <option value="Performance">Performance</option>
-                        <option value="Developmental">Developmental</option>
-                        <option value="Personal">Personal</option>
-                    </select>
+                    <span>
+                        <div>
+                            <a className={styles.text}>Type of Goal:</a>
+                            <a className={styles.text3}>Status:</a>
+                        </div>
+                        <select name="goalTypes" id="goalType" className={styles.inputDate} required>
+                            <option value="Performance">Performance</option>
+                            <option value="Developmental">Developmental</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                        <select name="status" id="status" className={styles.inputDate} required>
+                            <option value="In progress">In progress</option>
+                            <option value="Incomplete">Incomplete</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </span>
                     <button type='submit' className={styles.LoginButton}>Create goal</button>
                 </form>
             </Modal>
