@@ -97,25 +97,37 @@ const john = {
 // }
 
 //The employees you manage:
-const reports = [stacy, john]
+// const reports = [stacy, john]
+
+// const empArray = useState([])
+// useEffect(() => {
+//     fetch("http://localhost:3000/api/users/"+userCookie.user.employeeId+"/"+userCookie.user.companyId)
+//     .then(response => response.json())
+//     .then(data => getFullName(data.user))
+//     .catch(error => {
+//         console.error("There was an error!", error)
+//         alert(error)
+//     })
+// }, [])
+
 //List of all there goals
 const goals = [JohnGoal1, JohnGoal2, StacyGoal1, StacyGoal2]
 
-function getFullName(params) {
-    const empID = params.getValue(params.id, 'creatorId')
-    for (const emp of reports) {
-        if (empID == emp['employeeId']) {
-            return (emp['firstName'] + ' ' + emp['lastName']).toString();
-        }
-    }
-}
-const columns = [
-    { field: 'fullName', headerName: 'Name', flex: 1, headerClassName: styles.headerLeft, valueGetter: getFullName, filterable: true, sortable: false },
-    { field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.header, filterable: false, sortable: false },
-    { field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
-    { field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
-    { field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight, filterable: false, sortable: false },
-]
+// function getFullName(params) {
+//     const empID = params.getValue(params.id, 'creatorId')
+//     for (const emp of empArray) {
+//         if (empID == emp['employeeId']) {
+//             return (emp['firstName'] + ' ' + emp['lastName']).toString();
+//         }
+//     }
+// }
+// const columns = [
+//     { field: 'fullName', headerName: 'Name', flex: 1, headerClassName: styles.headerLeft, valueGetter: getFullName, filterable: true, sortable: false },
+//     { field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.header, filterable: false, sortable: false },
+//     { field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
+//     { field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
+//     { field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight, filterable: false, sortable: false },
+// ]
 
 export default function MegaTable() {
 
@@ -131,7 +143,36 @@ export default function MegaTable() {
     }
 
     const [goalsData, setTableData] = useState([])
-    const [nameData, setNameData] = useState("")
+    // const [nameData, setNameData] = useState("")
+    const empArray = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/users/"+userCookie.user.employeeId+"/"+userCookie.user.companyId)
+        .then(response => response.json())
+        .then(data => data.user)
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+    })
+    }, [])
+    console.log("HELLO")
+    console.log(empArray)
+    function getFullName(params) {
+        const empID = params.getValue(params.id, 'creatorId')
+        for (const emp of empArray) {
+            if (empID == emp['employeeId']) {
+                return (emp['firstName'] + ' ' + emp['lastName']).toString();
+            }
+        }
+    }
+
+    const columns = [
+        { field: 'fullName', headerName: 'Name', flex: 1, headerClassName: styles.headerLeft, valueGetter: getFullName, filterable: true, sortable: false },
+        { field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.header, filterable: false, sortable: false },
+        { field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
+        { field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header, filterable: false, sortable: false },
+        { field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight, filterable: false, sortable: false },
+    ]
 
     useEffect(() => {
         fetch("http://localhost:3000/api/goals/byUserId/" + userCookie.user._id)
@@ -142,14 +183,16 @@ export default function MegaTable() {
                 alert(error)
             })
 
-        fetch("http://localhost:3000/api/users/" + userCookie.user._id)
-            .then(response => response.json())
-            .then(data => setNameData(data.user.firstName + " " + data.user.lastName))
-            // .then(data => console.log(data.user.firstName + " " + data.user.lastName))
-            .catch(error => {
-                console.error("There was an error!", error)
-                alert(error)
-            })
+            // we need to get goals of his reports and not who is logged in 
+
+        // fetch("http://localhost:3000/api/users/" + userCookie.user._id)
+        //     .then(response => response.json())
+        //     .then(data => setNameData(data.user.firstName + " " + data.user.lastName))
+        //     // .then(data => console.log(data.user.firstName + " " + data.user.lastName))
+        //     .catch(error => {
+        //         console.error("There was an error!", error)
+        //         alert(error)
+        //     })
 
     }, [])
     return (
