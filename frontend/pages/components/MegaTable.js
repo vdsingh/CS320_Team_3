@@ -146,25 +146,6 @@ export default function MegaTable() {
     // const [nameData, setNameData] = useState("")
     const empArray = useState([])
 
-    useEffect(() => {
-        fetch("http://localhost:3000/api/users/"+userCookie.user.employeeId+"/"+userCookie.user.companyId)
-        .then(response => response.json())
-        .then(data => data.user)
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-    })
-    }, [])
-    console.log("HELLO")
-    console.log(empArray)
-    function getFullName(params) {
-        const empID = params.getValue(params.id, 'creatorId')
-        for (const emp of empArray) {
-            if (empID == emp['employeeId']) {
-                return (emp['firstName'] + ' ' + emp['lastName']).toString();
-            }
-        }
-    }
 
     const columns = [
         { field: 'fullName', headerName: 'Name', flex: 1, headerClassName: styles.headerLeft, valueGetter: getFullName, filterable: true, sortable: false },
@@ -194,7 +175,24 @@ export default function MegaTable() {
         //         alert(error)
         //     })
 
+        fetch("http://localhost:3000/api/users/"+userCookie.user.employeeId+"/"+userCookie.user.companyId)
+        .then(response => response.json())
+        .then(data => data.user)
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+    })
+
     }, [])
+
+    function getFullName(params) {
+        const empID = params.getValue(params.id, 'creatorId')
+        for (const emp of empArray) {
+            if (empID == emp['employeeId']) {
+                return (emp['firstName'] + ' ' + emp['lastName']).toString();
+            }
+        }
+    }
     return (
         <div>
             {console.log(goalsData)}
