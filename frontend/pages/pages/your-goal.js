@@ -1,21 +1,25 @@
 import Head from 'next/head'
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from '../components/Layout'
 import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
 
-var testGoal = {
-    name: 'Obtain AWS certification',
-    start_date: '09/01/2022',
-    due_date: '11/20/2022',
-    goal_type: 'Personal',
-    status: 'In Progress',
-    description: 'Study 30 min every day. Schedule an exam on https://aws.amazon.com/certification/'
-}
 export default function goalPage(){
     const router = useRouter()
+
+    const [testGoal, setTableData] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/api/goals/byGoalId/6375425ff13a2776df8fc6c7")
+        .then(response => response.json())
+        .then(data => setTableData(data.goal))
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+        })
+    }, [])
+
     if (loginValidator()){
         return(
             <Layout navbarType={3}>
@@ -34,19 +38,19 @@ export default function goalPage(){
                     <div className={styles.goal_grid}>
                         <h3 className={styles.grid_labels}>
                             Name: 
-                            <div className={styles.box_text}> {testGoal.name}</div>
+                            <div className={styles.box_text}> {testGoal.title}</div>
                         </h3>
                     </div>
                     <div className={styles.goal_grid}>
                         <h3 className={styles.grid_labels}>
                             Start Date: 
-                            <div className={styles.box_text}> {testGoal.start_date}</div>
+                            <div className={styles.box_text}> {testGoal.startDate}</div>
                         </h3>
                     </div>
                     <div className={styles.goal_grid}>
                         <h3 className={styles.grid_labels}>
                             End Date: 
-                            <div className={styles.box_text}> {testGoal.due_date}</div>
+                            <div className={styles.box_text}> {testGoal.endDate}</div>
                         </h3>
                     </div>
                 </div>
@@ -61,7 +65,7 @@ export default function goalPage(){
                     <div className={styles.box}>
                         <h3 className={styles.box_labels}>
                             Goal Type: 
-                                <div className={styles.box_text}> {testGoal.goal_type}</div>
+                                <div className={styles.box_text}> {testGoal.goalType}</div>
                         </h3>
                     </div>
                     <div className={styles.box}>
