@@ -5,7 +5,7 @@ import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
-
+import CommentForm from '../components/Comments';
 var testGoal = {
     name: 'Obtain AWS certification',
     start_date: '09/01/2022',
@@ -72,8 +72,9 @@ export default function goalPage(){
                     </div>
                 </div>
                 {/* Comments go below */}
+                <CommentForm/>
             </Layout>
-            
+
         )
     }
 }
