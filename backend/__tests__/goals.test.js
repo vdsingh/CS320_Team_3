@@ -82,19 +82,18 @@ describe("PUT /api/goals/byGoalId", () => {
     describe("Given a correct goal ID and a valid request body", () => {
         test("should respond with a 200 status code and json header", async () => {
             const response = await request(app).put("/api/goals/byGoalId/634ee6f8ff4584ed5282decd").send({
-                title: "New Test Title"
+                description: "New Goal Description"
             });
             expect(response.statusCode).toBe(200);
             expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
-
-            const getResponse = await request(app).get("/api/goals/byGoalId/634ee6f8ff4584ed5282decd").send({ });
-            expect(getResponse).toMatchObject({text: {goal: {title: "New Test Title"}}});
-            // expect(response.headers['content-type']).toEqual(expect.stringContaining("json"))
         });
 
-        // test("title should be updated", async () => {
-        //     ;
-        // });
+        test("title should be updated", async () => {
+            const response = await request(app).get("/api/goals/byGoalId/634ee6f8ff4584ed5282decd").send({ });
+            const description = JSON.parse(response.text).goal.description;
+            expect(description).toBe("New Goal Description");
+            expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
+        });
     });
 
     describe("given an incorrect goal id", () => {
