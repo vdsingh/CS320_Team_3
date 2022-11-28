@@ -11,7 +11,7 @@ export default function routes(app) {
      */
     app.get("/api/users/:userId", readUserById);
     app.put("/api/users/:userId", updateUserById);
-    app.get("/api/users", findUserByManagerIDandCompanyID);
+    app.get("/api/users/:managerId/:companyId", findUserByManagerIDandCompanyID);
     
     /**
      * CRUD for goals
