@@ -5,7 +5,6 @@ import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
-import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
 
 var testGoal = {
