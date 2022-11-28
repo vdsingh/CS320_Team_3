@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { DataGrid } from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
 import { getCookie } from 'cookies-next'
@@ -55,6 +55,7 @@ export default function GoalForm() {
             getRowId={(row) => row._id}
             rows = {goalsData}
             columns = {columns}
+            onRowClick = {(row) => Router.push({pathname: '/pages/your-goal', query: {id: row.row._id}})}
             disableColumnSelector
             />
         </div>

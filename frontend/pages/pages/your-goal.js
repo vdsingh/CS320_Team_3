@@ -11,7 +11,7 @@ export default function goalPage(){
 
     const [testGoal, setTableData] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byGoalId/6375425ff13a2776df8fc6c7")
+        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
         .then(response => response.json())
         .then(data => setTableData(data.goal))
         .catch(error => {
