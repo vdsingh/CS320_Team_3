@@ -5,6 +5,7 @@ import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
+import EditGoalPopup from '../components/EditGoalPopup'
 
 var testGoal = {
     name: 'Obtain AWS certification',
@@ -27,7 +28,7 @@ export default function goalPage(){
                 </div>
                 <div className={styles.title}>
                     Your Goal
-                    <button className ={styles.button}>Edit Goal</button>
+                    <EditGoalPopup/>
                 </div>
                 {/* Grid of 3 Sections for Name, start_date, and due_date */}
                 <div className={styles.grid}>
