@@ -142,9 +142,9 @@ export default function MegaTable() {
         console.log(err)
     }
 
-    const [goalsData, setTableData] = useState([])
+    const [tableData, setTableData] = useState([])
     // const [nameData, setNameData] = useState("")
-    const empArray = useState([])
+    const [empArray, setEmpArray] = useState([])
 
 
     const columns = [
@@ -156,15 +156,6 @@ export default function MegaTable() {
     ]
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byUserId/" + userCookie.user._id)
-            .then(response => response.json())
-            .then(data => setTableData(data.goals))
-            .catch(error => {
-                console.error("There was an error!", error)
-                alert(error)
-            })
-
-            // we need to get goals of his reports and not who is logged in 
 
         // fetch("http://localhost:3000/api/users/" + userCookie.user._id)
         //     .then(response => response.json())
@@ -177,13 +168,34 @@ export default function MegaTable() {
 
         fetch("http://localhost:3000/api/users/"+userCookie.user.employeeId+"/"+userCookie.user.companyId)
         .then(response => response.json())
-        .then(data => data.user)
+        .then(data => setEmpArray(data.user))
         .catch(error => {
             console.error("There was an error!", error)
             alert(error)
+        })
+
+        empArray.forEach(emp => {
+            fetch("http://localhost:3000/api/goals/byUserId/" + emp._id)
+            .then(response => response.json())
+            .then(data => setTableData(data.goals))
+            .catch(error => {
+                console.error("There was an error!", error)
+                alert(error)
+            })
+        })
+
     })
 
-    }, [])
+    // function getFullName(goal) {
+    //     // console.log(params) 
+    //     const empID = goal['creatorUId']
+        
+    //     for (const emp of empArray) {
+    //         if (empID == emp['employeeId']) {
+    //             return (emp['firstName'] + ' ' + emp['lastName']).toString();
+    //         }
+    //     }
+    // }
 
     function getFullName(params) {
         const empID = params.getValue(params.id, 'creatorId')
@@ -193,13 +205,13 @@ export default function MegaTable() {
             }
         }
     }
+    
     return (
         <div>
-            {console.log(goalsData)}
             <DataGrid
                 style={{ height: 600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3' }}
                 getRowId={(row) => row._id}
-                rows={goalsData}
+                rows={tableData}
                 columns={columns}
                 disableColumnSelector
             />
