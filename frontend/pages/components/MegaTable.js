@@ -200,7 +200,7 @@ export default function MegaTable() {
     function getFullName(params) {
         const empID = params.getValue(params.id, 'creatorId')
         for (const emp of empArray) {
-            if (empID == emp['employeeId']) {
+            if (empID == emp['_Id']) {
                 return (emp['firstName'] + ' ' + emp['lastName']).toString();
             }
         }
