@@ -177,7 +177,7 @@ export default function MegaTable() {
         empArray.forEach(emp => {
             fetch("http://localhost:3000/api/goals/byUserId/" + emp._id)
             .then(response => response.json())
-            .then(data => setTableData(data.goals))
+            .then(data => setTableData([...tableData, ...data.goals]))
             .catch(error => {
                 console.error("There was an error!", error)
                 alert(error)
@@ -205,16 +205,16 @@ export default function MegaTable() {
             }
         }
     }
-    
-    return (
-        <div>
-            <DataGrid
-                style={{ height: 600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3' }}
-                getRowId={(row) => row._id}
-                rows={tableData}
-                columns={columns}
-                disableColumnSelector
-            />
-        </div>
-    )
+    console.log(tableData)
+     return (
+         <div>
+             <DataGrid
+                 style={{ height: 600, width: '90%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3' }}
+                 getRowId={(row) => row._id}
+                 rows={tableData}
+                 columns={columns}
+                 disableColumnSelector
+             />
+         </div>
+     )
 }
