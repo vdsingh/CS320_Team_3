@@ -18,7 +18,7 @@ const app = createServer();
 /* Connecting to the database and creating test user/goal */
 beforeEach(async () => {
   dotenv.config();
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_TEST_URI);
   // Making test user
   const testUser = new User({
     firstName: "JestUser",
