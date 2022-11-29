@@ -6,11 +6,9 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 const getManagerInfo = () =>{
-    //placeholder
     var [loginInfo, setLoginInfo] = useState({user: {firstName: "", lastnName: "", position_title: ''}})
     if (getCookie("login") != undefined){
         useEffect(() => setLoginInfo(JSON.parse(getCookie("login"))), [])
-        //var loginInfo = JSON.parse(getCookie("login"))
     }
 
     var man = {
