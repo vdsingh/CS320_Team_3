@@ -1,6 +1,6 @@
 // Route Imports
 import login from "./routes/login.js";
-import { findUserByManagerIDandCompanyID    , readUserById, updateUserById } from "./routes/users.js"
+import { findUserByManagerIDandCompanyID, readUserById, updateUserById, findUserbyUserIdAndCompanyId } from "./routes/users.js"
 import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
 import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById} from "./routes/comments.js";
 
@@ -13,6 +13,7 @@ export default function routes(app) {
     app.get("/api/users/:userId", readUserById);
     app.put("/api/users/:userId", updateUserById);
     app.get("/api/users/:managerId/:companyId", findUserByManagerIDandCompanyID);
+    app.get("/api/users/getUser/:userId/:companyId", findUserbyUserIdAndCompanyId);
     
     /**
      * CRUD for goals
