@@ -6,12 +6,14 @@ import FullGoalTable from '../components/FullGoalTable'
 import styles from '../../styles/GoalTable.module.css'
 import { useRouter } from 'next/router'
 import CreateGoalPopup from '../components/CreateGoalPopup';
+import { getCookie } from 'cookies-next';
 
 export default function goalPage(){
     const router = useRouter()
+    const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
     if (loginValidator()){
         return(
-            <Layout navbarType={4}>
+            <Layout navbarType={navbar}>
                 <div>
                     <Head>
                         <title>Employee Page</title>

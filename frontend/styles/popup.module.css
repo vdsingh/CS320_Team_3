@@ -27,6 +27,21 @@
     border-radius: 8px;
 
 }
+
+.inputDate{
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 15px;
+    height: 50px;
+    width: 48%;
+    align-self: center;
+    outline: none;
+    border: 3px solid rgba(200, 200, 200, .4);
+    padding: 0px 10px;
+    border-radius: 8px;
+
+}
+
 .input::placeholder{
     color: rgba(170, 170, 170, 1);
 }
@@ -78,11 +93,68 @@
     background: #FFC600;   
 }
 
+.createButton {
+    width: 12%;
+    height: 40px;
+    float: right;
+    padding: 5px ;
+    color: #275947;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #FFC600;
+    margin-right: 5%;
+    font-weight: bold;    
+}
+
+.modalButton {
+    margin-top: 20px;
+    margin-left: 350px;
+    width: 20%;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;     
+}
+.modalButton2 {
+    margin-top: 20px;
+    margin-left: 160px;
+    width: 20%;
+    align-self: center;
+    padding: 8px ;
+    color: #275947;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 35px;
+    cursor: pointer;
+    background: #FFC600;     
+}
 .text{
     color:  #000000;
     margin-left: 15px;
     font-size: 20px;
     text-align: left;
+}
+
+.text2{
+    color:  #000000;
+    margin-left: 40%;
+    font-size: 20px;
+    text-align: right;
+}
+
+.text3{
+    color:  #000000;
+    margin-left: 38%;
+    font-size: 20px;
+    text-align: right;
 }
 
 .CloseButton {
