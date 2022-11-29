@@ -10,7 +10,7 @@ export function createGoal(req, res) {
         priorityValue,
         startDate,
         endDate,
-        creatorId,
+        creatorUId,
         commentIds 
     } = req.body;
     
@@ -23,7 +23,7 @@ export function createGoal(req, res) {
         priorityValue: priorityValue,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
-        creatorId: creatorId,
+        creatorUId: creatorUId,
         commentIds: commentIds 
     });
 
@@ -54,6 +54,7 @@ export function readGoalById(req, res) {
 
 export function updateGoalById(req, res) {
     const { goalId } = req.params;
+    //TODO: Get rid of immutable fields here.
     const { 
         title, 
         description, 
@@ -62,7 +63,7 @@ export function updateGoalById(req, res) {
         priorityValue,
         startDate,
         endDate,
-        creatorId,
+        creatorUId,
         commentIds 
     } = req.body;
 
@@ -74,7 +75,7 @@ export function updateGoalById(req, res) {
         goalId,  
         { "title": title, "description": description, "goalType": goalType, 
         "status": status, "priorityValue": priorityValue, "startDate": sDate, "endDate": eDate, 
-        "creatorId": creatorId, "commentIds": commentIds}, 
+        "creatorUId": creatorUId, "commentIds": commentIds}, 
         {new: true},
         (err, goal) => {
         if(err) {
@@ -101,9 +102,10 @@ export function deleteGoalById(req, res) {
     });
 };
 
+
 export function readUserGoals(req, res) {
     const { userId } = req.params;
-    const userGoals = Goal.find({ creatorId: userId }, (err, goals) => {
+    const userGoals = Goal.find({ creatorUId: userId }, (err, goals) => {
         if(err) {
             res.status(500).send(err);
         } else if (goals) {
