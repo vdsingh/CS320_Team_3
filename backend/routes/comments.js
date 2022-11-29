@@ -1,4 +1,4 @@
-import Comment from '../Models/Comment.js'
+import Comment from '../Models/Comment.js' 
 
 export function createComment(req, res) {
     // Getting the values from the request
