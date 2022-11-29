@@ -45,6 +45,22 @@ export async function findUserByManagerIDandCompanyID(req, res){
         res.status(200).send({ message: "Successfully retrieved users", user: users });
     } 
     else {
-        res.status(404).send("No such user exists");
+        res.status(404).send({ message: "No such user exists", user: []});
     }
+}
+
+export async function findUserbyUserIdAndCompanyId(req, res) {
+    const {userId, companyId} = req.params;
+    await User.findOne({ userId: userId, companyId: companyId }).then((err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else if (user) {
+            res.status(200).send({ message: "Successfully retrieved users", user: user });
+        }
+        else {
+            res.status(404).send({ message: "No such user exists" });
+        }
+    });
+    
 }
