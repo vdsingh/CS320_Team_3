@@ -5,7 +5,7 @@ export function createComment(req, res) {
     const { 
         body,
         timeStamp,
-        creatorId,
+        creatorUId,
         goalId 
     } = req.body
     
@@ -13,7 +13,7 @@ export function createComment(req, res) {
     const newComment = new Comment({
         body: body,
         timeStamp: new Date(timeStamp),
-        creatorId: creatorId,
+        creatorUId: creatorUId,
         goalId: goalId 
     });
 
@@ -61,7 +61,7 @@ export function updateCommentById(req, res) {
     const { 
         body,
         timeStamp,
-        creatorId,
+        creatorUId,
         goalId 
     } = req.body
 
@@ -70,7 +70,7 @@ export function updateCommentById(req, res) {
 
     Comment.findByIdAndUpdate(
         commentId,  
-        { "body": body, "timestamp": tStamp, "creatorId": creatorId, "goalId": goalId}, 
+        { "body": body, "timestamp": tStamp, "creatorUId": creatorUId, "goalId": goalId}, 
         {new: true},
         (err, comment) => {
         if(err) {

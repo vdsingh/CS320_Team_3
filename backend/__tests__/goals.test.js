@@ -88,7 +88,7 @@ describe("PUT /api/goals/byGoalId", () => {
             expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
         });
 
-        test("title should be updated", async () => {
+        test("description should be updated", async () => {
             const response = await request(app).get("/api/goals/byGoalId/634ee6f8ff4584ed5282decd").send({ });
             const description = JSON.parse(response.text).goal.description;
             expect(description).toBe("New Goal Description");
