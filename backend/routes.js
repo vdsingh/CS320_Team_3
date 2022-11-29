@@ -21,7 +21,6 @@ export default function routes(app) {
     app.get("/api/goals/byGoalId/:goalId", readGoalById);
     app.put("/api/goals/byGoalId/:goalId", updateGoalById);
     app.delete("/api/goals/byGoalId/:goalId", deleteGoalById);
-
     app.get("/api/goals/byUserId/:userId", readUserGoals);
 
     /**
@@ -31,7 +30,7 @@ export default function routes(app) {
     app.get("/api/comments/byGoalId/:goalId", readGoalComments);
     app.get("/api/comments/byCommentId/:commentId", readCommentById);
     app.put("/api/comments/byCommentId/:commentId", updateCommentById);
-    app.delete("/api/comments/:commentId", deleteCommentById);
+    app.delete("/api/comments/byCommentId/:commentId", deleteCommentById);
 
     /**
      * Log in, uses the imported signin function from the routes folder.
