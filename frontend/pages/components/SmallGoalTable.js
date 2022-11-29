@@ -3,7 +3,7 @@ import styles from '../../styles/GoalTable.module.css'
 import s from '../../styles/employee.module.css'
 import Router, { useRouter } from 'next/router'
 import {DataGrid} from '@material-ui/data-grid'
-import { getCookie } from 'cookies-next'
+import { getCookie, deleteCookie } from 'cookies-next'
 import CreateGoalPopup from './CreateGoalPopup';
 
 function getDateString(d){
@@ -38,6 +38,8 @@ export default function GoalForm(){
     catch (err) {
         console.log(err)
     }
+
+    if (getCookie('this_goal') != undefined) deleteCookie('this_goal')
 
     const [goalsData, setTableData] = useState([])
 

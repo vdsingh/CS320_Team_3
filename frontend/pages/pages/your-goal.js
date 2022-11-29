@@ -6,19 +6,29 @@ import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
 import EditGoalPopup from '../components/EditGoalPopup'
+import { getCookie, setCookie } from 'cookies-next';
 
 export default function goalPage(){
     const router = useRouter()
 
     const [testGoal, setTableData] = useState([])
+    const goalCookie = getCookie('this_goal')
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
-        .then(response => response.json())
-        .then(data => setTableData(data.goal))
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-        })
+        if (getCookie('this_goal') != undefined)
+        {
+            setTableData(JSON.parse(goalCookie).goal)
+        } else {
+            fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
+            .then(response => response.json())
+            .then(data => {
+                setTableData(data.goal)
+                setCookie('this_goal', JSON.stringify(data))
+            })
+            .catch(error => {
+                console.error("There was an error!", error)
+                alert(error)
+            })
+        }
     }, [])
 
     if (loginValidator()){
@@ -32,7 +42,7 @@ export default function goalPage(){
                 </div>
                 <div className={styles.title}>
                     Your Goal
-                    <EditGoalPopup/>
+                    <EditGoalPopup testGoal={testGoal}/>
                 </div>
                 {/* Grid of 3 Sections for Name, start_date, and due_date */}
                 <div className={styles.grid}>

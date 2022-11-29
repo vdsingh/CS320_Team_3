@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Router, { useRouter } from 'next/router'
 import { DataGrid } from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
-import { getCookie } from 'cookies-next'
+import { deleteCookie, getCookie } from 'cookies-next'
 
 
 function getDateString(d){
@@ -36,6 +36,8 @@ export default function GoalForm() {
         console.log(err)
     }
 
+    if (getCookie('this_goal') != undefined) deleteCookie('this_goal')
+    
     const [goalsData, setTableData] = useState([])
 
     useEffect(() => {
