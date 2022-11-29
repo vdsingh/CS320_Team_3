@@ -11,7 +11,7 @@ import { getCookie } from 'cookies-next';
 import SingleGoal from '../components/SingleGoal'
 export default function goalPage(){
     const router = useRouter()
-    const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
+    // const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
     const [testGoal, setTableData] = useState([])
     useEffect(() => {
         fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
@@ -25,7 +25,7 @@ export default function goalPage(){
 
     if (loginValidator()){
         return(
-            <Layout navbarType={navbar}>
+            <Layout navbarType={4}>
                 <div>
                     <Head>
                         <title>Employee Page</title>

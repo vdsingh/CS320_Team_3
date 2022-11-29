@@ -1,11 +1,27 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from "react";
 import Layout from '../components/Layout'
-import loginValidator from './login-validator'
+// import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router'
 
-<div className={styles.grid}>
+export default function ManagerName(){
+    const router = useRouter()
+    const [testGoal, setTableData] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
+        .then(response => response.json())
+        .then(data => setTableData(data.goal))
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+        })
+    }, [])
+
+    return (
+        <div>
+            <div className={styles.grid}>
                     <div className={styles.goal_grid}>
                         <h3 className={styles.grid_labels}>
                             Name: 
@@ -25,7 +41,6 @@ import { getCookie } from 'cookies-next';
                         </h3>
                     </div>
                 </div>
-                {/* Progress and Description */}
                 <div>    
                     <div className={styles.box}>
                         <h3 className={styles.box_labels}>
@@ -46,3 +61,6 @@ import { getCookie } from 'cookies-next';
                         </h3>
                     </div>
                 </div>
+            </div>
+    )
+}
