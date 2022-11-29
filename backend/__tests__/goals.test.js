@@ -7,7 +7,7 @@ const app = createServer();
 /* Connecting to the database before each test. */
 beforeEach(async () => {
     dotenv.config();
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_TEST_URI);
 });
 
 /* Closing database connection after each test. */
