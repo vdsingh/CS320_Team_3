@@ -44,7 +44,7 @@ describe("POST /api/goals", () => {
                 priorityValue: 1,
                 startDate: new Date(Date.now()),
                 endDate: new Date(Date.now() + 10),
-                creatorId: '6345f6b4443e221ae2822a88',
+                creatorUId: '6345f6b4443e221ae2822a88',
                 commentIds: [] 
             });
             expect(response.statusCode).toBe(200);
