@@ -69,13 +69,13 @@ beforeEach(async () => {
 /* Closing database connection after each test and deleting test user/goal */
 afterEach(async () => {
   // Delete test user
-  await User.remove({ firstName: "JestUser" });
+  await User.deleteMany({ firstName: "JestUser" });
   // Delete test goal
-  await Goal.remove({ title: "JestGoal" });
+  await Goal.deleteMany({ title: "JestGoal" });
   // Delete test comments
-  await Comment.remove({ description: "JestComment1" });
-  await Comment.remove({ description: "JestComment2" });
-  await Comment.remove({ description: "JestComment3" });
+  await Comment.deleteMany({ description: "JestComment1" });
+  await Comment.deleteMany({ description: "JestComment2" });
+  await Comment.deleteMany({ description: "JestComment3" });
   await mongoose.connection.close();
 });
 
@@ -91,7 +91,7 @@ describe("POST /comments", () => {
         goalUId: goal._id,
       });
       expect(response.statusCode).toBe(200);
-      await Comment.remove({ description: "JestComment" });
+      await Comment.deleteMany({ description: "JestComment" });
     });
     // Should respond with a JSON object that contains a success message and the comment object
     test("Should respond with a JSON object that contains a success message and the comment object", async () => {
@@ -108,7 +108,7 @@ describe("POST /comments", () => {
         creatorUId: user._id,
         goalUId: goal._id,
       });
-      await Comment.remove({ description: "JestComment" });
+      await Comment.deleteMany({ description: "JestComment" });
     });
     // Should add a comment to the database
     test("Should add a comment to the database", async () => {
@@ -122,7 +122,7 @@ describe("POST /comments", () => {
       const comment = await User.findOne({ description: "JestComment" }).exec();
       expect(comment).not.toBeError;
 
-      await Comment.remove({ description: "JestComment" });
+      await Comment.deleteMany({ description: "JestComment" });
     });
   });
 });
@@ -142,7 +142,6 @@ describe("GET /comments/byGoalId/:goalId", () => {
       const response = await request(app).get(
         "/api/comments/byGoalId/" + goal._id
       );
-      console.log("/api/comments/byGoalId/" + goal._id);
       expect(response.statusCode).toBe(200);
     });
     // If goals do exist then send the goals and a success status
