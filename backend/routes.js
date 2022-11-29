@@ -2,10 +2,11 @@
 import login from "./routes/login.js";
 import { findUserByManagerIDandCompanyID    , readUserById, updateUserById } from "./routes/users.js"
 import { createGoal, readGoalById, updateGoalById, deleteGoalById, readUserGoals } from "./routes/goals.js"
-import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById } from "./routes/comments.js";
+import { createComment, readGoalComments, readCommentById, updateCommentById, deleteCommentById} from "./routes/comments.js";
 
 
 export default function routes(app) {
+
     /**
      * CRUD for users
      */
@@ -29,7 +30,7 @@ export default function routes(app) {
     app.get("/api/comments/byGoalId/:goalId", readGoalComments);
     app.get("/api/comments/byCommentId/:commentId", readCommentById);
     app.put("/api/comments/byCommentId/:commentId", updateCommentById);
-    app.delete("/api/comments/byCommentId/:commentId", deleteCommentById);
+    app.delete("/api/comments/:commentId", deleteCommentById);
 
     /**
      * Log in, uses the imported signin function from the routes folder.
