@@ -3,18 +3,18 @@ import Comment from '../Models/Comment.js'
 export function createComment(req, res) {
     // Getting the values from the request
     const { 
-        body,
+        description,
         timeStamp,
-        creatorId,
-        goalId 
+        creatorUId,
+        goalUId 
     } = req.body
     
     // Initializing the Comment object with the data provided
     const newComment = new Comment({
-        body: body,
-        timeStamp: new Date(timeStamp),
-        creatorId: creatorId,
-        goalId: goalId 
+        description: description,
+        timeStamp: new Date(timeStamp).toString(),
+        creatorUId: creatorUId,
+        goalUId: goalUId 
     });
 
     // Saving the Comment object in the database.
@@ -29,8 +29,8 @@ export function createComment(req, res) {
 
 
 export function readGoalComments(req, res) {
-    const { goalId } = req.params;
-    const goalComments = Comment.find({ goalId: goalId }, (err, comments) => {
+    const { goalUId } = req.params;
+    const goalComments = Comment.find({ goalUId: goalUId }, (err, comments) => {
         if(err) {
             res.status(500).send(err);
         } else if (comments) {
@@ -61,8 +61,8 @@ export function updateCommentById(req, res) {
     const { 
         body,
         timeStamp,
-        creatorId,
-        goalId 
+        creatorUId,
+        goalUId 
     } = req.body
 
     // Create Date objects if a new date is specified.
@@ -70,7 +70,7 @@ export function updateCommentById(req, res) {
 
     Comment.findByIdAndUpdate(
         commentId,  
-        { "body": body, "timestamp": tStamp, "creatorId": creatorId, "goalId": goalId}, 
+        { "body": body, "timestamp": tStamp, "creatorUId": creatorUId, "goalUId": goalUId}, 
         {new: true},
         (err, comment) => {
         if(err) {

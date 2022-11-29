@@ -7,9 +7,9 @@ const comment_schema = new mongoose.Schema({
         required: true
     },
     timeStamp: {
-        type: Date,
+        type: String,
         immutable: true,
-        default: () => Date.now()
+        default: () => Date.now().toString()
     },
 
     // Relations:
