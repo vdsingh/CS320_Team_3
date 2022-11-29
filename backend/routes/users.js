@@ -45,6 +45,6 @@ export async function findUserByManagerIDandCompanyID(req, res){
         res.status(200).send({ message: "Successfully retrieved users", user: users });
     } 
     else {
-        res.status(404).send("No such user exists");
+        res.status(404).send('No');
     }
 }
