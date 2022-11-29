@@ -198,9 +198,9 @@ export default function MegaTable() {
     // }
 
     function getFullName(params) {
-        const empID = params.getValue(params.id, 'creatorId')
+        const empID = params.getValue(params.id, 'creatorUId')
         for (const emp of empArray) {
-            if (empID == emp['_Id']) {
+            if (empID == emp['_id']) {
                 return (emp['firstName'] + ' ' + emp['lastName']).toString();
             }
         }
