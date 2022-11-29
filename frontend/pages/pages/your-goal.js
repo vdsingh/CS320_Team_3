@@ -5,11 +5,13 @@ import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
 import { useRouter } from 'next/router'
+import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
+import { getCookie } from 'cookies-next';
 
 export default function goalPage(){
     const router = useRouter()
-
+    const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
     const [testGoal, setTableData] = useState([])
     useEffect(() => {
         fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
@@ -23,7 +25,7 @@ export default function goalPage(){
 
     if (loginValidator()){
         return(
-            <Layout navbarType={3}>
+            <Layout navbarType={navbar}>
                 <div>
                     <Head>
                         <title>Employee Page</title>
@@ -77,8 +79,9 @@ export default function goalPage(){
                     </div>
                 </div>
                 {/* Comments go below */}
+                <CommentForm/>
             </Layout>
-            
+
         )
     }
 }
