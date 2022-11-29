@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../styles/login.module.css'
 import Router from 'next/router'
-import { setCookie } from 'cookies-next'
+import { getCookie, setCookie } from 'cookies-next'
 
 const login = async (event) => {
     event.preventDefault()
@@ -35,7 +35,6 @@ const login = async (event) => {
         .then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
             const data = isJson && await response.json();
-            console.log(data);
             // check for error response
             if (!response.ok) {
                 // get error message from body or default to response status
@@ -43,11 +42,15 @@ const login = async (event) => {
                 return Promise.reject(error);
             }
             // If there is no error, proceed to the next page
-            // TODO: WHERE WILL THIS USER BE STORED?
             else {
-                // Router.push('/pages/employee-page');
-                Router.push('/pages/manager-page');
-                setCookie('login', JSON.stringify(data))
+                setCookie('login', JSON.stringify(data));
+                console.log(JSON.parse(getCookie('login')));
+                if (JSON.parse(getCookie('login')).user.isManager) {
+                    Router.push('/pages/manager-page');
+                }
+                else {
+                    Router.push('/pages/employee-page');
+                }
             }
         })
         .catch(error => {
