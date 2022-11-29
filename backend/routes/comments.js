@@ -29,11 +29,11 @@ export function createComment(req, res) {
 
 
 export function readGoalComments(req, res) {
-    const { goalUId } = req.params;
+    const goalUId = req.params.goalId;
     const goalComments = Comment.find({ goalUId: goalUId }, (err, comments) => {
         if(err) {
             res.status(500).send(err);
-        } else if (comments) {
+        } else if (comments.length != 0) {
             res.status(200).send({message: "Successfully retrieved comments.", comments: comments});
         } else {
             res.status(404).send("That comment does not exist.");
@@ -42,7 +42,7 @@ export function readGoalComments(req, res) {
 }
 
 export function readCommentById(req, res) {
-    const { commentId } = req.params;
+    const commentId = req.params.commentId;
 
     // Finding the Comment object in the DB by ID
     Comment.findById(commentId, (err, comment) => {
@@ -57,9 +57,9 @@ export function readCommentById(req, res) {
 };
 
 export function updateCommentById(req, res) {
-    const { commentId } = req.params;
+    const commentId = req.params.commentId;
     const { 
-        body,
+        description,
         timeStamp,
         creatorUId,
         goalUId 
@@ -70,7 +70,7 @@ export function updateCommentById(req, res) {
 
     Comment.findByIdAndUpdate(
         commentId,  
-        { "body": body, "timestamp": tStamp, "creatorUId": creatorUId, "goalUId": goalUId}, 
+        { "description": description, "timestamp": tStamp, "creatorUId": creatorUId, "goalUId": goalUId}, 
         {new: true},
         (err, comment) => {
         if(err) {
@@ -85,7 +85,7 @@ export function updateCommentById(req, res) {
 };
 
 export function deleteCommentById(req, res) {
-    const { commentId } = req.params;
+    const commentId = req.params.commentId;
     Comment.findByIdAndDelete(commentId, (err, comment) => {
         if(err) {
             res.status(500).send(err);
