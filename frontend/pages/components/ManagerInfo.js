@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from '../../styles/employee.module.css'
 import { useRouter } from 'next/router'
+import { getCookie } from 'cookies-next'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 const getManagerInfo = () =>{
@@ -23,13 +25,13 @@ const getManagerInfo = () =>{
 
 export default function EmployeeName(){
     const router = useRouter()
-    if (getManagerInfo.hasMan) {
+    if (getManagerInfo().hasMan) {
         return(
             <div>
                 <div className={styles.title} id={styles.manager_title}> Your Manager </div>
                     <div className={styles.manager_box}>
-                        <h1 className={styles.emp_name}>{man.fullname}</h1>
-                        <h2 className={styles.job_title}>{man.position_title}</h2>
+                        <h1 className={styles.emp_name}>{getManagerInfo().fullname}</h1>
+                        <h2 className={styles.job_title}>{getManagerInfo().position_title}</h2>
                     </div>
             </div>
         )
