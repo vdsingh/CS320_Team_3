@@ -233,6 +233,7 @@ describe("DELETE /comments/byCommentId/:commentId", () => {
       const comment = await Comment.findOne({
         description: "JestComment1",
       }).exec();
+      console.log(comment);
       const response = await request(app)
         .delete("/api/comments/byCommentId/" + comment._id);
       expect(response.statusCode).toBe(200);
