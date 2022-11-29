@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
 import { getCookie } from 'cookies-next';
-
+import SingleGoal from '../components/SingleGoal'
 export default function goalPage(){
     const router = useRouter()
     const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
@@ -37,47 +37,7 @@ export default function goalPage(){
                     <EditGoalPopup/>
                 </div>
                 {/* Grid of 3 Sections for Name, start_date, and due_date */}
-                <div className={styles.grid}>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            Name: 
-                            <div className={styles.box_text}> {testGoal.title}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            Start Date: 
-                            <div className={styles.box_text}> {testGoal.startDate}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            End Date: 
-                            <div className={styles.box_text}> {testGoal.endDate}</div>
-                        </h3>
-                    </div>
-                </div>
-                {/* Progress and Description */}
-                <div>    
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Progress: 
-                                <div className={styles.box_text}> {testGoal.status}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Goal Type: 
-                                <div className={styles.box_text}> {testGoal.goalType}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Description: 
-                            <div className={styles.box_text}> {testGoal.description}</div>
-                        </h3>
-                    </div>
-                </div>
+                <SingleGoal/>
                 {/* Comments go below */}
                 <CommentForm/>
             </Layout>
