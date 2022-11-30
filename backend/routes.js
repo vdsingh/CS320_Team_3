@@ -10,10 +10,10 @@ export default function routes(app) {
     /**
      * CRUD for users
      */
-    app.get("/api/users/:userId", readUserById);
+    app.get("/api/users/byUserId/:userId", readUserById);
     app.put("/api/users/:userId", updateUserById);
     app.get("/api/users/:managerId/:companyId", findUserByManagerIDandCompanyID);
-    app.get("/api/users/getUser/:userId/:companyId", findUserbyUserIdAndCompanyId);
+    app.get("/api/users/getUser/:employeeId/:companyId", findUserbyUserIdAndCompanyId);
     
     /**
      * CRUD for goals
