@@ -1,11 +1,8 @@
 import request from "supertest";
 import createServer from "../utils/server";
 import dotenv from "dotenv";
-
 import mongoose from "mongoose";
-import Goal from "../Models/Goal";
 import User from "../Models/User";
-import { JsonableValue } from "ts-jest";
 
 
 const app = createServer();
@@ -13,7 +10,7 @@ const app = createServer();
 beforeEach(async () => {
   dotenv.config();
   await mongoose.connect(process.env.MONGO_TEST_URI);
-  // Making test user
+  // Making test users
   const testUser = new User({
     firstName: "JestUser1",
     lastName: "JestUser1",
@@ -52,7 +49,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-    // Delete test user
+    // Delete test users
     await User.deleteMany({ firstName: "JestUser1" });
     await User.deleteMany({firstName: "JestUser2"});
     await User.deleteMany({firstName: "JestUser3"});
@@ -101,8 +98,9 @@ describe("GET /users/byUserId/:userId", () => {
       });
 
       test("Should respond with a 200 status code and return a list of users under that manager", async () => {
+        const user = await User.findOne({ firstName: "JestUser3" }).exec();
         const response = await request(app).get(
-          "/api/users/3/2"
+          "/api/users/" + user.employeeId + "/" + user.companyId
         );
         expect(response.statusCode).toBe(200);
         expect(response.body.user.length).toBe(2);
@@ -111,7 +109,7 @@ describe("GET /users/byUserId/:userId", () => {
   });
 
   describe("GET /api/users/getUser/:employeeId/:companyId", () => {
-    describe("Given a userId and companyId", () => {
+    describe("Given a employeeId and companyId", () => {
       test("Should respond with a 404 status code", async () => {
         const response = await request(app).get(
           "/api/users/getUser/1/0"
