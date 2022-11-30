@@ -4,28 +4,29 @@ import Layout from '../components/Layout'
 import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
-import { useRouter } from 'next/router'
 import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
 import { getCookie } from 'cookies-next';
 import SingleGoal from '../components/SingleGoal'
 export default function goalPage(){
-    const router = useRouter()
-    // const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
-    const [testGoal, setTableData] = useState([])
+    // Generate nav bar
+    const [managerNavbar, setNavbar] = useState(3)
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
-        .then(response => response.json())
-        .then(data => setTableData(data.goal))
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-        })
-    }, [])
-
+        const userCookie = getCookie('login')
+        var isManager = false
+        try {
+            if (userCookie == undefined) throw "Try signing in again"
+            isManager = JSON.parse(userCookie).user.isManager
+        }
+        catch (err) {
+            console.log(err)
+        }
+        if (isManager) setNavbar(4)
+    })
+ 
     if (loginValidator()){
         return(
-            <Layout navbarType={4}>
+            <Layout navbarType={managerNavbar}>
                 <div>
                     <Head>
                         <title>Employee Page</title>

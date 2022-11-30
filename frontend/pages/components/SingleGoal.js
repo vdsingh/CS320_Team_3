@@ -1,23 +1,41 @@
 import Head from 'next/head'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import Layout from '../components/Layout'
-// import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
-import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router'
 
-export default function ManagerName(){
+export default function SingleGoal(){
+    // Get query param from router
     const router = useRouter()
+    const {
+        isReady,
+        query: {
+          id,
+        }
+    } = router;
+
     const [testGoal, setTableData] = useState([])
+
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
-        .then(response => response.json())
-        .then(data => setTableData(data.goal))
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-        })
-    }, [])
+        if (!isReady) {
+            console.log('Router not ready')
+            return;
+        }
+
+        const getData = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/api/goals/byGoalId/"+id)
+                if (!response.ok) {
+                    throw new Error(response.status)
+                }
+                const data = await response.json();
+                setTableData(data.goal);
+            } catch(err) {
+                console.error('There was an error!', err)
+            }  
+        }
+        getData()
+    }, [isReady])
 
     return (
         <div>
