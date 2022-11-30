@@ -4,12 +4,6 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { getCookie } from 'cookies-next'
 
-
-var testMan1 = {
-    name: 'Hai Nguyen',
-    position_title: 'Principal Engineering Manager'
-}
-
 export default function EmployeeName(){
     const router = useRouter()
 
@@ -22,18 +16,17 @@ export default function EmployeeName(){
         console.log(err)
     }
 
-    const [manager, setManData] = useState([])
-    useEffect(() => {
-        fetch("http://localhost:3000/api/users/getUser/"+userCookie.user.managerId+"/"+userCookie.user.companyId)
-        .then(response => response.json())
-        .then(data => setManData(data))
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-        })
-    }, [])
-
     if (userCookie.user.managerId != undefined) {
+        const [manager, setManData] = useState([])
+        useEffect(() => {
+            fetch("http://localhost:3000/api/users/getUser/"+userCookie.user.managerId+"/"+userCookie.user.companyId)
+            .then(response => response.json())
+            .then(data => setManData(data.user))
+            .catch(error => {
+                console.error("There was an error!", error)
+                alert(error)
+            })
+        }, [])
         return(
             <div>
                 <div className={styles.title} id={styles.manager_title}> Your Manager </div>
