@@ -62,7 +62,6 @@ afterEach(async () => {
 
 describe("GET /users/byUserId/:userId", () => {
     describe("Given a userId", () => {
-      // If the user doesn't exist, should return an error
       test("Should respond with a 500 status code", async () => {
         const response = await request(app).get(
           "/api/users/byUserId/633e058b0ac635fe4d8333eq"
@@ -111,7 +110,7 @@ describe("GET /users/byUserId/:userId", () => {
     });
   });
 
-  describe("GET /api/users/getUser/:userId/:companyId", () => {
+  describe("GET /api/users/getUser/:employeeId/:companyId", () => {
     describe("Given a userId and companyId", () => {
       test("Should respond with a 404 status code", async () => {
         const response = await request(app).get(
@@ -122,7 +121,6 @@ describe("GET /users/byUserId/:userId", () => {
 
       test("Should respond with a 200 status code and return the manager for that user", async () => {
         const user = await User.findOne({ firstName: "JestUser1" }).exec();
-        console.log(user)
         const response = await request(app).get(
           "/api/users/getUser/" + user.managerId + "/" + user.companyId
         );
@@ -131,6 +129,33 @@ describe("GET /users/byUserId/:userId", () => {
             email: "jestuser3",
             password: "JestUser3"
           });
+      });
+    });
+  });
+
+
+  describe("PUT /api/users/:userId", () => {
+    describe("Given a userId and a body, will update the user", () => {
+      test("Should respond with status 404", async () => {
+        const response = await request(app)
+          .put("/api/users/633e058b0ac635fe4d8333eq")
+          .send({});
+        expect(response.statusCode).toBe(500);
+      });
+
+      test("Should respond with status 200 and return edited user", async () => {
+        const user = await User.findOne({ firstName: "JestUser2" }).exec();
+        const response = await request(app)
+          .put("/api/users/" + user._id)
+          .send({
+            password: "jestuser2",
+          });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.user).toMatchObject({
+          firstName: "JestUser2",
+          lastName: "JestUser2",
+          password: "jestuser2"
+        });
       });
     });
   });
