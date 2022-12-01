@@ -104,6 +104,7 @@ export function deleteGoalById(req, res) {
 
 
 export function readUserGoals(req, res) {
+    const x = 0;
     const { userId } = req.params;
     const userGoals = Goal.find({ creatorUId: userId }, (err, goals) => {
         if(err) {
