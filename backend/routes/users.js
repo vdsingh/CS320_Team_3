@@ -50,6 +50,7 @@ export async function findUserByManagerIDandCompanyID(req, res){
 
 export async function findUserbyUserIdAndCompanyId(req, res) {
     const {employeeId, companyId} = req.params;
+    const x = 0;
     await User.findOne({ employeeId: employeeId, companyId: companyId }).then((user) => {
         if (user) {
             res.status(200).send({ message: "Successfully retrieved users", user: user });
