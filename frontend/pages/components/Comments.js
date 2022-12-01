@@ -67,7 +67,7 @@ var d1 = new Date('2022-11-14')
 var testComment1 = {
     Creator: 'John',
     Date: getDateString(d1),
-    Comment: "Comment test 1",
+    Comment: "Good goal to have.",
     creatorId: 1,
     goalId: 1,
     _id: 0
@@ -75,7 +75,7 @@ var testComment1 = {
 var testComment2 = {
     Creator: 'Gordon',
     Date: getDateString(d1),
-    Comment: "Comment test 2",
+    Comment: "Keep up the good work!",
     creatorId: 1,
     goalId: 1,
     _id: 1
