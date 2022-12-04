@@ -2,10 +2,15 @@ import request from 'supertest';
 import createServer from '../utils/server';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
+
+// Models
 import Goal from '../Models/Goal';
+import User from '../Models/User';
+
 
 const app = createServer();
 var testGoalId = "";
+var testUserId = "";
 const fakeId = mongoose.Types.ObjectId();
 
 /* Connecting to the database before each test. */
@@ -34,7 +39,7 @@ describe("POST /api/goals", () => {
                 priorityValue: 1,
                 startDate: new Date(Date.now()),
                 endDate: new Date(Date.now() + 10),
-                creatorUId: '6345f6b4443e221ae2822a88',
+                creatorUId: testUserId,
                 commentIds: [] 
             });
             expect(response.statusCode).toBe(200);
@@ -69,6 +74,27 @@ describe("GET /api/goals/byGoalId", () => {
     });
 });
 
+describe("GET /api/goals/byUserId", () => {
+    describe("Given a correct user ID", () => {
+        test("should respond with a 200 status code, a json header, and a goals list of length 1", async () => {
+            const response = await request(app).get(`/api/goals/byUserId/${testUserId}`).send({});
+            expect(response.statusCode).toBe(200);
+            expect(response.headers['content-type']).toEqual(expect.stringContaining("json"));
+
+            const goals = JSON.parse(response.text).goals;
+            expect(goals.length).toBe(1);
+            expect(goals[0]._id).toBe(testGoalId.toString());
+        });
+    });
+
+    describe("given an incorrectly formatted ID", () => {
+        test("should respond with a 500 status code", async () => {
+            const response = await request(app).get(`/api/goals/byUserId/abc}`).send({});
+            expect(response.statusCode).toBe(500);
+        });
+    });
+});
+
 describe("PUT /api/goals/byGoalId", () => {
     describe("Given a correct goal ID and a valid request body", () => {
         test("should respond with a 200 status code and json header", async () => {
@@ -94,6 +120,19 @@ describe("PUT /api/goals/byGoalId", () => {
 });
 
 async function addMockData() {
+
+    const testUser = new User({
+        firstName: "JestUser",
+        lastName: "JestUser",
+        employeeId: 0,
+        isManager: true,
+        companyId: 0,
+        email: "JestUser",
+        password: "JestUser",
+    });
+    testUserId = testUser._id;
+    await testUser.save();
+
     const testGoal = new Goal({
         title: "TEST GOAL 1",
         description: "TEST DESCRIPTION 1",
@@ -102,14 +141,15 @@ async function addMockData() {
         priorityValue: 1,
         startDate: new Date(Date.now()),
         endDate: new Date(Date.now() + 10),
-        creatorUId: '63448bbbf55d476a2ee14d7b',
+        creatorUId: testUser._id,
         commentIds: []
     });
 
-    testGoalId = testGoal.id;
+    testGoalId = testGoal._id;
     await testGoal.save();
 }
 
 async function removeMockData() {
     await Goal.deleteMany({ _id: testGoalId });
+    await User.deleteMany({ _id: testUserId });
 }
