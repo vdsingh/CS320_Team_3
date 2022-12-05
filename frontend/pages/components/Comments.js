@@ -47,38 +47,48 @@ const deleteComment = () =>{
     event.preventDefault()
     Router.reload(window.location.pathname)
 }
+
 var currTime = Date()
+
 const getCreatorFromCookies = () => {
     if (getCookie('login') != undefined) {
         if (process.browser) {
             var cookiesData = JSON.parse(getCookie('login'))
-            console.log(cookiesData.user.firstName)
-            console.log(cookiesData.user.lastName)
             var CreatorName = String(cookiesData.user.firstName) + " " + String(cookiesData.user.lastName)
             return CreatorName
         }
     }
-    else {
+}
+
+const getCreatorIdFromCookies= async() => {
+    if (getCookie('login') != undefined) {
+        if (process.browser) {
+            var cookiesData = JSON.parse(getCookie('login'))
+            var creatorId = String(cookiesData.user._id)
+            return creatorId
+        }
     }
 }
 
 //Test Comments
-var d1 = new Date('2022-11-14')
+var d1 = new Date('2022-12-02')
 var testComment1 = {
-    Creator: 'John',
+    Creator: 'Gerald Cunningham',
     Date: getDateString(d1),
-    Comment: "Good goal to have.",
+    Comment: "Comment test 1",
     creatorId: 1,
     goalId: 1,
-    _id: 0
+    rowId: 0,
+    _id: '636d494efb06334f95e54318'
 };
 var testComment2 = {
-    Creator: 'Gordon',
+    Creator: 'Gordon Cunningham',
     Date: getDateString(d1),
-    Comment: "Keep up the good work!",
+    Comment: "Comment test 2",
     creatorId: 1,
     goalId: 1,
-    _id: 1
+    rowId: 1,
+    _id: '636d494e01o2334f95e54318'
 };
 var emptyComment = {
     Creator: '',
@@ -97,7 +107,7 @@ export default function CommentForm() {
         if (typeof CommentArray[j] != 'undefined') {
             fiveComments.push(CommentArray[1])
         } else {
-            emptyComment._id = i
+            emptyComment.rowId = i
             fiveComments.push(emptyComment)
         }
         i += 1
@@ -111,8 +121,11 @@ export default function CommentForm() {
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
-    function openModal() {
-        setIsOpen(true);
+    const openModal = async(event) => {
+        const employeeID = await getCreatorIdFromCookies()
+        if (event.row._id == employeeID){
+            await setIsOpen(true);
+        }
     }
 
     function afterOpenModal() {
@@ -159,7 +172,7 @@ export default function CommentForm() {
                 <CreateCommentPopup />
                 <DataGrid
                     style={{ height: 300, width: '92%', margin: 'auto', borderRadius: '20px', backgroundColor: '#CEDFE2', }}
-                    getRowId={(row) => row._id}
+                    getRowId={(row) => row.rowId}
                     rows={CommentArray}
                     columns={columns}
                     disableColumnSelector={true}

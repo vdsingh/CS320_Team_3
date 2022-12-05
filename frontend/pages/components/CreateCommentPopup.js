@@ -32,8 +32,6 @@ const getCreatorFromCookies = () => {
     if (getCookie('login') != undefined) {
         if (process.browser) {
             var cookiesData = JSON.parse(getCookie('login'))
-            console.log(cookiesData.user.firstName)
-            console.log(cookiesData.user.lastName)
             var CreatorName = String(cookiesData.user.firstName) + " " + String(cookiesData.user.lastName)
             return CreatorName
         }
