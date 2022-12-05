@@ -4,28 +4,29 @@ import Layout from '../components/Layout'
 import loginValidator from './login-validator'
 import styles from '../../styles/goal.module.css'
 import styles2 from '../../styles/popup.module.css'
-import { useRouter } from 'next/router'
 import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
 import { getCookie } from 'cookies-next';
-
+import SingleGoal from '../components/SingleGoal'
 export default function goalPage(){
-    const router = useRouter()
-    const navbar = JSON.parse(getCookie('login')).user.isManager ? 4 : 3;
-    const [testGoal, setTableData] = useState([])
+    // Generate nav bar
+    const [managerNavbar, setNavbar] = useState(3)
     useEffect(() => {
-        fetch("http://localhost:3000/api/goals/byGoalId/"+router.query.id)
-        .then(response => response.json())
-        .then(data => setTableData(data.goal))
-        .catch(error => {
-            console.error("There was an error!", error)
-            alert(error)
-        })
-    }, [])
-
+        const userCookie = getCookie('login')
+        var isManager = false
+        try {
+            if (userCookie == undefined) throw "Try signing in again"
+            isManager = JSON.parse(userCookie).user.isManager
+        }
+        catch (err) {
+            console.log(err)
+        }
+        if (isManager) setNavbar(4)
+    })
+ 
     if (loginValidator()){
         return(
-            <Layout navbarType={navbar}>
+            <Layout navbarType={managerNavbar}>
                 <div>
                     <Head>
                         <title>Employee Page</title>
@@ -37,47 +38,7 @@ export default function goalPage(){
                     <EditGoalPopup/>
                 </div>
                 {/* Grid of 3 Sections for Name, start_date, and due_date */}
-                <div className={styles.grid}>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            Name: 
-                            <div className={styles.box_text}> {testGoal.title}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            Start Date: 
-                            <div className={styles.box_text}> {testGoal.startDate}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.goal_grid}>
-                        <h3 className={styles.grid_labels}>
-                            End Date: 
-                            <div className={styles.box_text}> {testGoal.endDate}</div>
-                        </h3>
-                    </div>
-                </div>
-                {/* Progress and Description */}
-                <div>    
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Progress: 
-                                <div className={styles.box_text}> {testGoal.status}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Goal Type: 
-                                <div className={styles.box_text}> {testGoal.goalType}</div>
-                        </h3>
-                    </div>
-                    <div className={styles.box}>
-                        <h3 className={styles.box_labels}>
-                            Description: 
-                            <div className={styles.box_text}> {testGoal.description}</div>
-                        </h3>
-                    </div>
-                </div>
+                <SingleGoal/>
                 {/* Comments go below */}
                 <CommentForm/>
             </Layout>
