@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { DataGrid } from '@material-ui/data-grid'
 import styles from '../../styles/GoalTable.module.css'
 import { getCookie } from 'cookies-next'
+import Router from 'next/router'
 
 //Fake Data//
 const JohnGoal1 = {
@@ -213,6 +214,7 @@ export default function MegaTable() {
                  getRowId={(row) => row._id}
                  rows={tableData}
                  columns={columns}
+                 onRowClick = {(row) => Router.push({pathname: '/pages/your-goal', query: {id: row.row._id}})}
                  disableColumnSelector
              />
          </div>
