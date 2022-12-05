@@ -24,7 +24,76 @@ if (typeof document !== 'undefined') {
 
 const submit = async (event) => {
     event.preventDefault()
-    Router.reload(window.location.pathname)
+    //const currentTime =  new Date()
+    const commentDescription = event.target.commentDescription.value
+
+    // Client-side check of password and email validity
+    if (commentDescription == '') {
+        alert('Please fill in the textbox')
+    }
+
+    else {
+        //var creatorIdForTest = "633e058b0ac635fe4d8300ee"
+        var creatorIdForTest = ""
+        const getCreatorIdFromCookies = async () => {
+            if (getCookie('login') != undefined) {
+                if (process.browser) {
+                    var cookiesData = JSON.parse(getCookie('login'))
+                    return cookiesData.user._id
+                }
+            }
+            else {
+                return creatorIdForTest
+            }
+        }
+
+        var goalIdForTest = ""
+        const getGoalIdFromCookies = async () => {
+            if (getCookie('login') != undefined) {
+                if (process.browser) {
+                    var cookiesData = JSON.parse(getCookie('login'))
+                    return cookiesData.comment._id
+                }
+            }
+            else {
+                return goalIdForTest
+            }
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                description: commentDescription,
+                timeStamp: Date(),
+                creatorId: await getCreatorIdFromCookies(),
+                goalId: await  getGoalIdFromCookies(),
+            })
+        }
+        // API request to the login API
+        fetch('http://localhost:3000/api/comments', requestOptions)
+            .then(async response => {
+                const isJson = response.headers.get('content-type')?.includes('application/json');
+                const data = isJson && await response.json();
+                console.log(data);
+                // check for error response
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+                // If there is no error, proceed to the next page
+                else {
+                    alert(data.message);
+                    console.log(data)
+                    Router.reload(window.location.pathname)
+                }
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+                alert(error);
+            });
+    }
 }
 
 var currTime = Date()
@@ -74,8 +143,8 @@ function CreateCommentPopup() {
             <button onClick={closeModal} className={styles.CloseButton}>Close</button>
             <div className={styles.heading}>Create your comment</div>
             <form onSubmit={submit}>
-                <div className={styles.text}>Comment title:</div>
-                <input id='commentBody' type='text' placeholder='Enter your comment' className={styles.input} required></input>
+                <div className={styles.text}>Comment:</div>
+                <input id='commentDescription' type='text' placeholder='Enter your comment' className={styles.input} required></input>
                 <span>
                     <a className={styles.text}>Time:</a>
                     <input id='startDate' type='text' value={currTime} className={styles.input} readOnly></input>

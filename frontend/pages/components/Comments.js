@@ -143,8 +143,8 @@ export default function CommentForm() {
                         <button onClick={closeModal} className={styles2.CloseButton}>Close</button>
                         <div className={styles2.heading}>Edit Comment</div>
                         <form onSubmit={submit}>
-                            <div className={styles2.text}>Comment title:</div>
-                            <input id='commentBody' type='text' defaultValue='comment' className={styles2.input} required></input>
+                            <div className={styles2.text}>Comment:</div>
+                            <input id='commentDescription' type='text' defaultValue='comment' className={styles2.input} required></input>
                             <span>
                                 <a className={styles2.text}>Time:</a>
                                 <input id='startDate' type='text' value={currTime} className={styles2.input} readOnly></input>
