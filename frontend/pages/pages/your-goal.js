@@ -52,7 +52,7 @@ export default function goalPage(){
                 const data = await response.json();
                 // change date format to yyyy-mm-dd
                 data.goal.startDate = new Date(data.goal.startDate).toISOString().slice(0, 10)
-                data.goal.endDate = new Date(data.goal.startDate).toISOString().slice(0, 10)
+                data.goal.endDate = new Date(data.goal.endDate).toISOString().slice(0, 10)
                 setTableData(data.goal);
             } catch(err) {
                 console.error('There was an error!', err)
