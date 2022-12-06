@@ -25,6 +25,25 @@ if (typeof document !== 'undefined') {
 function EditGoalPopup({thisGoal}) {
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    const startDate = () => { 
+        var sDate = new Date(thisGoal.startDate)
+        return sDate.toLocaleDateString('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+    }
+
+    const endDate = () => {
+        var eDate = new Date(thisGoal.endDate)
+        return eDate.toLocaleDateString('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+    }
+    console.log(startDate())
+    console.log(endDate())
 
     function openModal() {
         setIsOpen(true);
@@ -110,14 +129,14 @@ function EditGoalPopup({thisGoal}) {
                 <div className={styles.heading}>Edit your goal</div>
                 <form onSubmit={submit}>
                     <div className={styles.text}>Name of Goal:</div>
-                    <input id='goalName' type='text' defaultValue= {thisGoal.title} className={styles.input} required></input>
+                    <input id='goalName' type='text' value= {thisGoal.title} className={styles.input} readOnly required></input>
                     <span>
                         <div>
                             <a className={styles.text}>Start Date:</a>
                             <a className={styles.text2}>Due Date:</a>
                         </div>
-                        <input id='startDate' type='date' defaultValue={thisGoal.startDate} className={styles.inputDate} required></input>
-                        <input id='dueDate' type='date' defaultValue={thisGoal.endDate} className={styles.inputDate} required ></input>
+                        <input id='startDate' type='date' value={startDate()} className={styles.inputDate} readOnly required></input>
+                        <input id='dueDate' type='date' value={endDate()} className={styles.inputDate} readOnly required ></input>
                     </span>
                     <div className={styles.text}>Goal Description:</div>
                     <input id='goalDescription' type='text' defaultValue={thisGoal.description} className={styles.input} required></input>
@@ -126,7 +145,7 @@ function EditGoalPopup({thisGoal}) {
                             <a className={styles.text}>Type of Goal:</a>
                             <a className={styles.text3}>Status:</a>
                         </div>
-                        <select name="goalTypes" id="goalType" className={styles.inputDate} defaultValue={thisGoal.goalType} required>
+                        <select name="goalTypes" id="goalType" className={styles.inputDate} value={thisGoal.goalType} disabled required>
                             <option value="Performance">Performance</option>
                             <option value="Developmental">Developmental</option>
                             <option value="Personal">Personal</option>
