@@ -42,9 +42,7 @@ function EditGoalPopup({thisGoal}) {
             day: '2-digit',
         })
     }
-    console.log(startDate())
-    console.log(endDate())
-
+    
     function openModal() {
         setIsOpen(true);
     }
