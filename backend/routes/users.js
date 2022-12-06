@@ -38,13 +38,14 @@ export function updateUserById(req, res){
      });
 }
 
-export async function findUserByManagerIDandCompanyID(req, res){
+export function findUserByManagerIDandCompanyID(req, res){
     const {managerId, companyId} = req.params;
-    const users = await User.find({"managerId": managerId, "companyId": companyId});
-    if (users.length != 0) {
-        res.status(200).send({ message: "Successfully retrieved users", user: users });
-    } 
-    else {
-        res.status(404).send('No');
-    }
+    User.find({"managerId": managerId, "companyId": companyId}, (err, users) => {
+        if(err) {
+            res.status(500).send(err)
+        }
+        else {
+            res.status(200).send({message: "success", user: users});
+        }
+    })
 }
