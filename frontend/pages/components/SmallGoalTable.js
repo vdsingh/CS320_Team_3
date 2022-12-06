@@ -56,7 +56,6 @@ export default function GoalForm(){
             <div className={styles.title}>
                 Your Progress
                 <CreateGoalPopup></CreateGoalPopup>
-                <input className = {s.input} id = 'searchTerm' type = 'text' placeholder='Search for a Goal'></input>
             </div>
             <DataGrid
             style = {{height:400, width: '100%', margin: 'auto', borderRadius: '20px', backgroundColor: '#81b3b3', }}
