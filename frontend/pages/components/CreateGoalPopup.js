@@ -23,6 +23,15 @@ if (typeof document !== 'undefined') {
     Modal.setAppElement(document.getElementById('root'));
 }
 
+const getCreatorIdFromCookies = async () => {
+    if (getCookie('login') != undefined) {
+        if (process.browser) {
+            var cookiesData = JSON.parse(getCookie('login'))
+            return cookiesData.user._id
+        }
+    }
+}
+
 const submit = async (event) => {
     event.preventDefault()
     const goalName = event.target.goalName.value
@@ -42,20 +51,7 @@ const submit = async (event) => {
     }
 
     else {
-        //var creatorIdForTest = "633e058b0ac635fe4d8300ee"
-        var creatorIdForTest = ""
-        const getCreatorIdFromCookies = async () => {
-            if (getCookie('login') != undefined) {
-                if (process.browser) {
-                    var cookiesData = JSON.parse(getCookie('login'))
-                    return cookiesData.user._id
-                }
-            }
-            else {
-                return creatorIdForTest
-            }
-        }
-
+        const creatorId = String(await getCreatorIdFromCookies())
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -67,11 +63,11 @@ const submit = async (event) => {
                 priorityValue: 1,
                 startDate: startDate,
                 endDate: dueDate,
-                creatorId: await getCreatorIdFromCookies(),
+                creatorUId: creatorId,
                 commentIds: []
             })
         }
-        // API request to the login API
+        // API request to the login API       
         fetch('http://localhost:3000/api/goals', requestOptions)
             .then(async response => {
                 const isJson = response.headers.get('content-type')?.includes('application/json');
@@ -97,7 +93,7 @@ const submit = async (event) => {
     }
 }
 
-function CreateGoalPopup() {
+function CreateGoalPopup(){
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
