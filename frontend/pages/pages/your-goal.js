@@ -8,6 +8,8 @@ import CommentForm from '../components/Comments';
 import EditGoalPopup from '../components/EditGoalPopup'
 import { getCookie } from 'cookies-next';
 import SingleGoal from '../components/SingleGoal'
+import { useRouter } from 'next/router'
+
 export default function goalPage(){
     // Generate nav bar
     const [managerNavbar, setNavbar] = useState(3)
@@ -23,6 +25,41 @@ export default function goalPage(){
         }
         if (isManager) setNavbar(4)
     })
+
+    // Get query param from router
+    const router = useRouter()
+    const {
+        isReady,
+        query: {
+          id,
+        }
+    } = router;
+
+    const [thisGoal, setTableData] = useState([])
+
+    useEffect(() => {
+        if (!isReady) {
+            console.log('Router not ready')
+            return;
+        }
+
+        const getData = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/api/goals/byGoalId/"+id)
+                if (!response.ok) {
+                    throw new Error(response.status)
+                }
+                const data = await response.json();
+                // change date format to yyyy-mm-dd
+                data.goal.startDate = new Date(data.goal.startDate).toISOString().slice(0, 10)
+                data.goal.endDate = new Date(data.goal.endDate).toISOString().slice(0, 10)
+                setTableData(data.goal);
+            } catch(err) {
+                console.error('There was an error!', err)
+            }  
+        }
+        getData()
+    }, [isReady])
  
     if (loginValidator()){
         return(
@@ -35,10 +72,10 @@ export default function goalPage(){
                 </div>
                 <div className={styles.title}>
                     Your Goal
-                    <EditGoalPopup/>
+                    <EditGoalPopup thisGoal={thisGoal}/>
                 </div>
                 {/* Grid of 3 Sections for Name, start_date, and due_date */}
-                <SingleGoal/>
+                <SingleGoal thisGoal={thisGoal}/>
                 {/* Comments go below */}
                 <CommentForm/>
             </Layout>

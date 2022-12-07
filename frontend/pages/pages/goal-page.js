@@ -37,8 +37,7 @@ export default function goalPage(){
                 </div>
                 <div className={styles.title}>
                     Your Goals:
-                    <CreateGoalPopup></CreateGoalPopup>
-                    <input className = {styles.input} id = 'searchTerm' type = 'text' placeholder='Search for a Goal'></input>      
+                    <CreateGoalPopup></CreateGoalPopup>   
                 </div>
                 <FullGoalTable />
             </Layout>
