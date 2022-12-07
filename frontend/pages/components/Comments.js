@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/Comments.module.css'
 import Router from 'next/router'
 import { DataGrid } from '@material-ui/data-grid'
@@ -88,11 +88,29 @@ var emptyComment = {
     goalId: 1,
     _id: 99
 }
-var CommentArray = [testComment1, testComment2]
+
+
+// var CommentArray = [testComment1, testComment2]
+
 var fiveComments = []
 var i = 0;
 
 export default function CommentForm() {
+
+    const [CommentArray, setCommentArray] = useState([])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/comments/byGoalId/"+'6375425ff13a2776df8fc6c4')
+        .then(response => response.json())
+        .then(data => setCommentArray([...CommentArray, ...data.comments]))
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+        })
+    }, [])
+
+    console.log(CommentArray)
+
     for (let j = 0; i < CommentArray.length; j += 1) {
         if (typeof CommentArray[j] != 'undefined') {
             fiveComments.push(CommentArray[1])
@@ -103,9 +121,9 @@ export default function CommentForm() {
         i += 1
     }
     const columns = [
-        { field: 'Creator', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
-        { field: 'Date', headerName: 'Date', flex: .1, headerClassName: styles.header },
-        { field: 'Comment', headerName: 'Comment', flex: .6, headerClassName: styles.header },
+        { field: 'creatorUId', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
+        { field: 'timeStamp', headerName: 'Date', flex: .1, headerClassName: styles.header },
+        { field: 'description', headerName: 'Comment', flex: .6, headerClassName: styles.header },
     ]
 
     let subtitle;
@@ -121,6 +139,8 @@ export default function CommentForm() {
             subtitle.style.color = '#f00';
         }
     }
+
+    
 
     function closeModal() {
         setIsOpen(false);

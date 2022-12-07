@@ -47,17 +47,19 @@ const submit = async (event) => {
             }
         }
 
-        var goalIdForTest = ""
+        var goalIdForTest = "6375425ff13a2776df8fc6c4"
         const getGoalIdFromCookies = async () => {
-            if (getCookie('login') != undefined) {
-                if (process.browser) {
-                    var cookiesData = JSON.parse(getCookie('login'))
-                    return cookiesData.comment._id
-                }
-            }
-            else {
-                return goalIdForTest
-            }
+            // if (getCookie('login') != undefined) {
+            //     if (process.browser) {
+            //         var cookiesData = JSON.parse(getCookie('login'))
+            //         console.log(cookiesData)
+            //         return cookiesData.goal._id
+            //     }
+            // }
+            // else {
+            //     return goalIdForTest
+            // }
+            return goalIdForTest
         }
 
         const requestOptions = {
@@ -66,8 +68,8 @@ const submit = async (event) => {
             body: JSON.stringify({
                 description: commentDescription,
                 timeStamp: Date(),
-                creatorId: await getCreatorIdFromCookies(),
-                goalId: await  getGoalIdFromCookies(),
+                creatorUId: await getCreatorIdFromCookies(),
+                goalUId: await  getGoalIdFromCookies(),
             })
         }
         // API request to the login API
