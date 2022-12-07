@@ -38,16 +38,15 @@ export function updateUserById(req, res){
      });
 }
 
-export function findUserByManagerIDandCompanyID(req, res){
+export async function findUserByManagerIDandCompanyID(req, res){
     const {managerId, companyId} = req.params;
-    User.find({"managerId": managerId, "companyId": companyId}, (err, users) => {
-        if(err) {
-            res.status(500).send(err)
-        }
-        else {
-            res.status(200).send({message: "success", user: users});
-        }
-    })
+    const users = await User.find({"managerId": managerId, "companyId": companyId});
+    if (users.length != 0) {
+        res.status(200).send({ message: "Successfully retrieved users", user: users });
+    } 
+    else {
+        res.status(404).send({ message: "No such user exists", user: []});
+    }
 }
 
 export async function findUserbyUserIdAndCompanyId(req, res) {
