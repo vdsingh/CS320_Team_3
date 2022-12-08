@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import styles from '../../styles/popup.module.css'
 import Router from 'next/router'
 import { getCookie } from 'cookies-next'
+import { useRouter } from 'next/router'
+
+
+function CreateCommentPopup() {
+
+    const router = useRouter()
+        const {
+            isReady,
+            query: {
+            id,
+            }
+        } = router;
+        
+        useEffect(() => {
+
+        
+
+            if (!isReady) {
+                console.log('Router not ready')
+                return;
+            }
+        
+            console.log(id)
+    }, [isReady])
 const customStyles = {
     content: {
         top: '50%',
@@ -17,10 +41,14 @@ const customStyles = {
     },
 };
 
+
+
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 if (typeof document !== 'undefined') {
     Modal.setAppElement(document.getElementById('root'));
 }
+
+
 
 const submit = async (event) => {
     event.preventDefault()
@@ -47,21 +75,9 @@ const submit = async (event) => {
             }
         }
 
-        var goalIdForTest = "6375425ff13a2776df8fc6c4"
-        const getGoalIdFromCookies = async () => {
-            // if (getCookie('login') != undefined) {
-            //     if (process.browser) {
-            //         var cookiesData = JSON.parse(getCookie('login'))
-            //         console.log(cookiesData)
-            //         return cookiesData.goal._id
-            //     }
-            // }
-            // else {
-            //     return goalIdForTest
-            // }
-            return goalIdForTest
-        }
+        
 
+       
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -69,34 +85,46 @@ const submit = async (event) => {
                 description: commentDescription,
                 timeStamp: Date(),
                 creatorUId: await getCreatorIdFromCookies(),
-                goalUId: await  getGoalIdFromCookies(),
+                goalUId: id,
             })
         }
+
+ 
+        
         // API request to the login API
-        fetch('http://localhost:3000/api/comments', requestOptions)
-            .then(async response => {
-                const isJson = response.headers.get('content-type')?.includes('application/json');
-                const data = isJson && await response.json();
-                console.log(data);
-                // check for error response
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    return Promise.reject(error);
-                }
-                // If there is no error, proceed to the next page
-                else {
-                    alert(data.message);
-                    console.log(data)
-                    Router.reload(window.location.pathname)
-                }
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-                alert(error);
-            });
+        const getData = async () => {
+            fetch('http://localhost:3000/api/comments', requestOptions)
+                .then(async response => {
+                    const isJson = response.headers.get('content-type')?.includes('application/json');
+                    const data = isJson && await response.json();
+                    console.log(data);
+                    // check for error response
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        const error = (data && data.message) || response.status;
+                        return Promise.reject(error);
+                    }
+                    // If there is no error, proceed to the next page
+                    else {
+                        alert(data.message);
+                        console.log(data)
+                        Router.reload(window.location.pathname)
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                    alert(error);
+                    })}
+        getData()
+
+
+
+        // Get query param from router        
     }
 }
+
+
+
 
 var currTime = Date()
 const getCreatorFromCookies = () => {
@@ -111,7 +139,7 @@ const getCreatorFromCookies = () => {
     }
 }
 
-function CreateCommentPopup() {
+
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 

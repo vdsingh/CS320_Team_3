@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import styles2 from '../../styles/popup.module.css'
 import { getCookie } from 'cookies-next'
 import CreateCommentPopup from './CreateCommentPopup';
+import { useRouter } from 'next/router'
 
 function getDateString(d) {
     var month = (d.getMonth() + 1).toString()
@@ -71,33 +72,33 @@ const getCreatorIdFromCookies= async() => {
 }
 
 //Test Comments
-var d1 = new Date('2022-12-02')
-var testComment1 = {
-    Creator: 'Gerald Cunningham',
-    Date: getDateString(d1),
-    Comment: "Comment test 1",
-    creatorId: 1,
-    goalId: 1,
-    rowId: 0,
-    _id: '636d494efb06334f95e54318'
-};
-var testComment2 = {
-    Creator: 'Gordon Cunningham',
-    Date: getDateString(d1),
-    Comment: "Comment test 2",
-    creatorId: 1,
-    goalId: 1,
-    rowId: 1,
-    _id: '636d494e01o2334f95e54318'
-};
-var emptyComment = {
-    Creator: '',
-    Date: getDateString(d1),
-    Comment: "",
-    creatorId: 1,
-    goalId: 1,
-    _id: 99
-}
+// var d1 = new Date('2022-12-02')
+// var testComment1 = {
+//     Creator: 'Gerald Cunningham',
+//     Date: getDateString(d1),
+//     Comment: "Comment test 1",
+//     creatorId: 1,
+//     goalId: 1,
+//     rowId: 0,
+//     _id: '636d494efb06334f95e54318'
+// };
+// var testComment2 = {
+//     Creator: 'Gordon Cunningham',
+//     Date: getDateString(d1),
+//     Comment: "Comment test 2",
+//     creatorId: 1,
+//     goalId: 1,
+//     rowId: 1,
+//     _id: '636d494e01o2334f95e54318'
+// };
+// var emptyComment = {
+//     Creator: '',
+//     Date: getDateString(d1),
+//     Comment: "",
+//     creatorId: 1,
+//     goalId: 1,
+//     _id: 99
+// }
 
 
 // var CommentArray = [testComment1, testComment2]
@@ -107,19 +108,74 @@ var i = 0;
 
 export default function CommentForm() {
 
+    // Get query param from router
+    const router = useRouter()
+    const {
+        isReady,
+        query: {
+            id,
+        }
+    } = router;
+
     const [CommentArray, setCommentArray] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/comments/byGoalId/"+'6375425ff13a2776df8fc6c4')
+
+        
+
+        if (!isReady) {
+            console.log('Router not ready')
+            return;
+        }
+
+        console.log(id)
+
+
+    const getData = async () => {
+        fetch("http://localhost:3000/api/comments/byGoalId/"+id)
         .then(response => response.json())
         .then(data => setCommentArray([...CommentArray, ...data.comments]))
         .catch(error => {
             console.error("There was an error!", error)
             alert(error)
-        })
-    }, [])
+        })}
+        getData()
+    
+    
+    }, [isReady])
+
+    // const userName = ""
+
+    // const getCreatorName = async (creatorUId) => {
+    //     fetch("http://localhost:3000/api/users/byUserId/"+creatorUId)
+    //     .then(response => response.json())
+    //     .then(data => userName = (data.user["firstName"] + " " + data.user["lastName"]))
+    //     .catch(error => {
+    //         console.error("There was an error!", error)
+    //         alert(error)
+    //     })}
+    
+    function getCreatorName(creatorUId){
+        var userName = ""
+        fetch("http://localhost:3000/api/users/byUserId/"+creatorUId)
+            .then(response => response.json())
+            .then((data) => {
+                userName = data.user["firstName"] + " " + data.user["lastName"];
+                console.log("This is the userName: " + userName);
+              })
+        console.log("userName again: "+ userName)
+        return "Gerald Cunningham"
+    }
+
+    for (let i = 0; i < CommentArray.length; i += 1) {
+        if (typeof CommentArray[i] != 'undefined') {
+            CommentArray[i]["rowId"] = i
+            CommentArray[i]["Creator"] = getCreatorName(CommentArray[i]["creatorUId"])
+        }
+    }
 
     console.log(CommentArray)
+    
 
     for (let j = 0; i < CommentArray.length; j += 1) {
         if (typeof CommentArray[j] != 'undefined') {
@@ -131,7 +187,7 @@ export default function CommentForm() {
         i += 1
     }
     const columns = [
-        { field: 'creatorUId', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
+        { field: 'Creator', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
         { field: 'timeStamp', headerName: 'Date', flex: .1, headerClassName: styles.header },
         { field: 'description', headerName: 'Comment', flex: .6, headerClassName: styles.header },
     ]
