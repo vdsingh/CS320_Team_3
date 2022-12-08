@@ -71,38 +71,6 @@ const getCreatorIdFromCookies= async() => {
     }
 }
 
-//Test Comments
-// var d1 = new Date('2022-12-02')
-// var testComment1 = {
-//     Creator: 'Gerald Cunningham',
-//     Date: getDateString(d1),
-//     Comment: "Comment test 1",
-//     creatorId: 1,
-//     goalId: 1,
-//     rowId: 0,
-//     _id: '636d494efb06334f95e54318'
-// };
-// var testComment2 = {
-//     Creator: 'Gordon Cunningham',
-//     Date: getDateString(d1),
-//     Comment: "Comment test 2",
-//     creatorId: 1,
-//     goalId: 1,
-//     rowId: 1,
-//     _id: '636d494e01o2334f95e54318'
-// };
-// var emptyComment = {
-//     Creator: '',
-//     Date: getDateString(d1),
-//     Comment: "",
-//     creatorId: 1,
-//     goalId: 1,
-//     _id: 99
-// }
-
-
-// var CommentArray = [testComment1, testComment2]
-
 var fiveComments = []
 var i = 0;
 
@@ -143,17 +111,6 @@ export default function CommentForm() {
     
     
     }, [isReady])
-
-    // const userName = ""
-
-    // const getCreatorName = async (creatorUId) => {
-    //     fetch("http://localhost:3000/api/users/byUserId/"+creatorUId)
-    //     .then(response => response.json())
-    //     .then(data => userName = (data.user["firstName"] + " " + data.user["lastName"]))
-    //     .catch(error => {
-    //         console.error("There was an error!", error)
-    //         alert(error)
-    //     })}
     
     function getCreatorName(creatorUId){
         var userName = ""
