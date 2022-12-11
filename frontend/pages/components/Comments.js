@@ -151,10 +151,10 @@ export default function CommentForm() {
 
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
-
+    
     const openModal = async(event) => {
         const employeeID = await getCreatorIdFromCookies()
-        if (event.row._id == employeeID){
+        if (event.row.creatorUId == employeeID){
             await setIsOpen(true);
         }
     }
