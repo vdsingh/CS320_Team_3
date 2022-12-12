@@ -111,29 +111,15 @@ export default function CommentForm() {
     
     
     }, [isReady])
-    
-    function getCreatorName(creatorUId){
-        var userName = ""
-        fetch("http://localhost:3000/api/users/byUserId/"+creatorUId)
-            .then(response => response.json())
-            .then((data) => {
-                userName = data.user["firstName"] + " " + data.user["lastName"];
-                console.log("This is the userName: " + userName);
-              })
-        console.log("userName again: "+ userName)
-        return "Gerald Cunningham"
-    }
 
     for (let i = 0; i < CommentArray.length; i += 1) {
         if (typeof CommentArray[i] != 'undefined') {
             CommentArray[i]["rowId"] = i
-            CommentArray[i]["Creator"] = getCreatorName(CommentArray[i]["creatorUId"])
         }
     }
 
     console.log(CommentArray)
     
-
     for (let j = 0; i < CommentArray.length; j += 1) {
         if (typeof CommentArray[j] != 'undefined') {
             fiveComments.push(CommentArray[1])
@@ -144,7 +130,7 @@ export default function CommentForm() {
         i += 1
     }
     const columns = [
-        { field: 'Creator', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
+        { field: 'creatorName', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
         { field: 'timeStamp', headerName: 'Date', flex: .1, headerClassName: styles.header },
         { field: 'description', headerName: 'Comment', flex: .6, headerClassName: styles.header },
     ]
