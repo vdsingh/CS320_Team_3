@@ -26,7 +26,7 @@ export default function MegaTable() {
     const columns = [
         { field: 'fullName', headerName: 'Name', flex: 1, headerClassName: styles.headerLeft, valueGetter: getFullName, filterable: true, sortable: false },
         { field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.header, filterable: false, sortable: false },
-        { field: 'startDate', headerName: 'Start Date 2', flex: .5, headerClassName: styles.header, filterable: false, sortable: true },
+        { field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header, filterable: false, sortable: true },
         { field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header, filterable: false, sortable: true },
         { field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight, filterable: false, sortable: false },
     ]
