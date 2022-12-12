@@ -1,4 +1,6 @@
 import Comment from '../Models/Comment.js' 
+import User from '../Models/User.js'
+import { readUserById } from './users.js';
 
 export function createComment(req, res) {
     // Getting the values from the request
@@ -30,13 +32,29 @@ export function createComment(req, res) {
 
 export function readGoalComments(req, res) {
     const goalUId = req.params.goalId;
+    
     const goalComments = Comment.find({ goalUId: goalUId }, (err, comments) => {
         if(err) {
             res.status(500).send(err);
         } else if (comments.length != 0) {
-            res.status(200).send({message: "Successfully retrieved comments.", comments: comments});
+            for (let i = 0; i < comments.length; i++) {
+                const userID = comments[i].creatorUId;
+                User.findById(userID, (err, user) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else if (user) {
+                        comments[i].creatorName = user.firstName + " " + user.lastName;
+
+                        if(i == comments.length - 1) {
+                            res.status(200).send( {message: "Successfully retrieved comments.", comments: comments});
+                        }
+                    } else {
+                        res.status(404).send("The user does not exist.");
+                    }
+                })
+            }
         } else {
-            res.status(404).send({message: "That comment does not exist.", comments: []});
+            res.status(404).send("That comment does not exist.");
         }
     });
 }
