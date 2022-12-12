@@ -1,8 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+Run `npm install --legacy-peer-deps` in the terminal, check that you are in the frontend directory when you run this command.
 
-First, run the development server:
+Now you can run the development server:
 
 ```bash
 npm run dev
