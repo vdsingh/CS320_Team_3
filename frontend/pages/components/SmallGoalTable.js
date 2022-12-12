@@ -19,13 +19,19 @@ function getDateString(d){
     return (month + '/' + day + '/' + year)
 }
 
+const dateComparator = (v1, v2) => {
+    const date1 = new Date(v1)
+    const date2 = new Date(v2)
+    return date1 - date2
+}
+
 export default function GoalForm(){
     const router = useRouter()
 
     const columns = [
         {field: 'title', headerName: 'Goal Title', flex: 1, headerClassName: styles.headerLeft},
-        {field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header},
-        {field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header},
+        {field: 'startDate', headerName: 'Start Date', flex: .5, headerClassName: styles.header, sortComparator: dateComparator},
+        {field: 'endDate', headerName: 'Due By', flex: .5, headerClassName: styles.header, sortComparator: dateComparator},
         {field: 'status', headerName: 'Status', flex: .5, headerClassName: styles.headerRight}
     ]
 
