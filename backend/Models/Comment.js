@@ -12,6 +12,11 @@ const comment_schema = new mongoose.Schema({
     default: () => Date.now().toString(),
   },
 
+  creatorName: {
+    type: String,
+    default: ""
+  },
+
   // Relations:
   creatorUId: { type: mongoose.SchemaTypes.ObjectId, required: true },
   goalUId: { type: mongoose.SchemaTypes.ObjectId, required: true },

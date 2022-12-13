@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/Comments.module.css'
 import Router from 'next/router'
 import { DataGrid } from '@material-ui/data-grid'
@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import styles2 from '../../styles/popup.module.css'
 import { getCookie } from 'cookies-next'
 import CreateCommentPopup from './CreateCommentPopup';
+import { useRouter } from 'next/router'
 
 function getDateString(d) {
     var month = (d.getMonth() + 1).toString()
@@ -70,39 +71,55 @@ const getCreatorIdFromCookies= async() => {
     }
 }
 
-//Test Comments
-var d1 = new Date('2022-12-02')
-var testComment1 = {
-    Creator: 'Gerald Cunningham',
-    Date: getDateString(d1),
-    Comment: "Comment test 1",
-    creatorId: 1,
-    goalId: 1,
-    rowId: 0,
-    _id: '636d494efb06334f95e54318'
-};
-var testComment2 = {
-    Creator: 'Gordon Cunningham',
-    Date: getDateString(d1),
-    Comment: "Comment test 2",
-    creatorId: 1,
-    goalId: 1,
-    rowId: 1,
-    _id: '636d494e01o2334f95e54318'
-};
-var emptyComment = {
-    Creator: '',
-    Date: getDateString(d1),
-    Comment: "",
-    creatorId: 1,
-    goalId: 1,
-    _id: 99
-}
-var CommentArray = [testComment1, testComment2]
 var fiveComments = []
 var i = 0;
 
 export default function CommentForm() {
+
+    // Get query param from router
+    const router = useRouter()
+    const {
+        isReady,
+        query: {
+            id,
+        }
+    } = router;
+
+    const [CommentArray, setCommentArray] = useState([])
+
+    useEffect(() => {
+
+        
+
+        if (!isReady) {
+            console.log('Router not ready')
+            return;
+        }
+
+        console.log(id)
+
+
+    const getData = async () => {
+        fetch("http://localhost:3000/api/comments/byGoalId/"+id)
+        .then(response => response.json())
+        .then(data => setCommentArray([...CommentArray, ...data.comments]))
+        .catch(error => {
+            console.error("There was an error!", error)
+            alert(error)
+        })}
+        getData()
+    
+    
+    }, [isReady])
+
+    for (let i = 0; i < CommentArray.length; i += 1) {
+        if (typeof CommentArray[i] != 'undefined') {
+            CommentArray[i]["rowId"] = i
+        }
+    }
+
+    console.log(CommentArray)
+    
     for (let j = 0; i < CommentArray.length; j += 1) {
         if (typeof CommentArray[j] != 'undefined') {
             fiveComments.push(CommentArray[1])
@@ -113,17 +130,17 @@ export default function CommentForm() {
         i += 1
     }
     const columns = [
-        { field: 'Creator', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
-        { field: 'Date', headerName: 'Date', flex: .1, headerClassName: styles.header },
-        { field: 'Comment', headerName: 'Comment', flex: .6, headerClassName: styles.header },
+        { field: 'creatorName', headerName: 'Creator', flex: .12, headerClassName: styles.headerLeft },
+        { field: 'timeStamp', headerName: 'Date', flex: .1, headerClassName: styles.header },
+        { field: 'description', headerName: 'Comment', flex: .6, headerClassName: styles.header },
     ]
 
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
-
+    
     const openModal = async(event) => {
         const employeeID = await getCreatorIdFromCookies()
-        if (event.row._id == employeeID){
+        if (event.row.creatorUId == employeeID){
             await setIsOpen(true);
         }
     }
@@ -134,6 +151,8 @@ export default function CommentForm() {
             subtitle.style.color = '#f00';
         }
     }
+
+    
 
     function closeModal() {
         setIsOpen(false);
@@ -156,8 +175,8 @@ export default function CommentForm() {
                         <button onClick={closeModal} className={styles2.CloseButton}>Close</button>
                         <div className={styles2.heading}>Edit Comment</div>
                         <form onSubmit={submit}>
-                            <div className={styles2.text}>Comment title:</div>
-                            <input id='commentBody' type='text' defaultValue='comment' className={styles2.input} required></input>
+                            <div className={styles2.text}>Comment:</div>
+                            <input id='commentDescription' type='text' defaultValue='comment' className={styles2.input} required></input>
                             <span>
                                 <a className={styles2.text}>Time:</a>
                                 <input id='startDate' type='text' value={currTime} className={styles2.input} readOnly></input>

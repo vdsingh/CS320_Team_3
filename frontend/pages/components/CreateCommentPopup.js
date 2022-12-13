@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import styles from '../../styles/popup.module.css'
 import Router from 'next/router'
 import { getCookie } from 'cookies-next'
+import { useRouter } from 'next/router'
+
+
+function CreateCommentPopup() {
+
+    const router = useRouter()
+        const {
+            isReady,
+            query: {
+            id,
+            }
+        } = router;
+        
+        useEffect(() => {
+
+        
+
+            if (!isReady) {
+                console.log('Router not ready')
+                return;
+            }
+        
+            console.log(id)
+    }, [isReady])
 const customStyles = {
     content: {
         top: '50%',
@@ -17,15 +41,90 @@ const customStyles = {
     },
 };
 
+
+
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 if (typeof document !== 'undefined') {
     Modal.setAppElement(document.getElementById('root'));
 }
 
+
+
 const submit = async (event) => {
     event.preventDefault()
-    Router.reload(window.location.pathname)
+    //const currentTime =  new Date()
+    const commentDescription = event.target.commentDescription.value
+
+    // Client-side check of password and email validity
+    if (commentDescription == '') {
+        alert('Please fill in the textbox')
+    }
+
+    else {
+        //var creatorIdForTest = "633e058b0ac635fe4d8300ee"
+        var creatorIdForTest = ""
+        const getCreatorIdFromCookies = async () => {
+            if (getCookie('login') != undefined) {
+                if (process.browser) {
+                    var cookiesData = JSON.parse(getCookie('login'))
+                    return cookiesData.user._id
+                }
+            }
+            else {
+                return creatorIdForTest
+            }
+        }
+
+        
+
+       
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                description: commentDescription,
+                timeStamp: Date(),
+                creatorUId: await getCreatorIdFromCookies(),
+                goalUId: id,
+            })
+        }
+
+ 
+        
+        // API request to the login API
+        const getData = async () => {
+            fetch('http://localhost:3000/api/comments', requestOptions)
+                .then(async response => {
+                    const isJson = response.headers.get('content-type')?.includes('application/json');
+                    const data = isJson && await response.json();
+                    console.log(data);
+                    // check for error response
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        const error = (data && data.message) || response.status;
+                        return Promise.reject(error);
+                    }
+                    // If there is no error, proceed to the next page
+                    else {
+                        alert(data.message);
+                        console.log(data)
+                        Router.reload(window.location.pathname)
+                    }
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                    alert(error);
+                    })}
+        getData()
+
+
+
+        // Get query param from router        
+    }
 }
+
+
+
 
 var currTime = Date()
 const getCreatorFromCookies = () => {
@@ -40,7 +139,7 @@ const getCreatorFromCookies = () => {
     }
 }
 
-function CreateCommentPopup() {
+
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -72,8 +171,8 @@ function CreateCommentPopup() {
             <button onClick={closeModal} className={styles.CloseButton}>Close</button>
             <div className={styles.heading}>Create your comment</div>
             <form onSubmit={submit}>
-                <div className={styles.text}>Comment title:</div>
-                <input id='commentBody' type='text' placeholder='Enter your comment' className={styles.input} required></input>
+                <div className={styles.text}>Comment:</div>
+                <input id='commentDescription' type='text' placeholder='Enter your comment' className={styles.input} required></input>
                 <span>
                     <a className={styles.text}>Time:</a>
                     <input id='startDate' type='text' value={currTime} className={styles.input} readOnly></input>
