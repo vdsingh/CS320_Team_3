@@ -54,7 +54,7 @@ export function readGoalComments(req, res) {
                 })
             }
         } else {
-            res.status(404).send("That comment does not exist.");
+            res.status(404).send({message: "That comment does not exist.", comments: []});
         }
     });
 }
