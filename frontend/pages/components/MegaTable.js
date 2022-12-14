@@ -76,7 +76,7 @@ export default function MegaTable() {
                  getRowId={(row) => row._id}
                  rows={tableData}
                  columns={columns}
-                 onRowClick = {(row) => Router.push({pathname: '/pages/your-goal', query: {id: row.row._id}})}
+                 onRowClick = {(row) => Router.push({pathname: '/pages/employee-goal', query: {id: row.row._id}})}
                  disableColumnSelector
              />
          </div>
